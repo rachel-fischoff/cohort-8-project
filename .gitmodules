@@ -1,0 +1,3 @@
+[submodule "client"]
+	path = client
+	url = /Users/hannahcline/Desktop/code/cohort-project/server/client
