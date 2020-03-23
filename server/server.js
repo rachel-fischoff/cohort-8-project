@@ -20,11 +20,11 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 passport.serializeUser((user, done) => {
-    done(null, user.id)
+    done(null, user._id)
   })
 
 passport.deserializeUser((id, done) => {
-    done(null, user._id)
+    done(null, id)
 })
 
 passport.use(
@@ -60,7 +60,8 @@ const googleAuth = passport.authenticate('google',
 app.get('/auth/google', googleAuth)
 
 app.get('/auth/google/callback', googleAuth, (req, res) => {
-    res.send('Your logged in via Google!')
+    //res.send('Your logged in via Google!')
+    res.redirect("http://localhost:3000/");
 })
 
 app.get('/api/current_user', (req, res) => {
