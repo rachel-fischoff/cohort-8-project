@@ -7,6 +7,7 @@ import _ from "lodash";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import '../index.css';
+import Nav from './Nav';
 
 class Home extends Component {  
 

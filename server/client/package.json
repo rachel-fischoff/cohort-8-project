@@ -9,6 +9,7 @@
     "normalizr": "^3.3.0",
     "react": "^16.6.3",
     "react-bootstrap": "^1.0.0-beta.17",
+    "react-calendar": "^3.0.0",
     "react-dom": "^16.6.3",
     "react-infinite-scroller": "^1.2.2",
     "react-overdrive": "0.0.10",

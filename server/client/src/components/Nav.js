@@ -9,6 +9,7 @@ const Nav = ({ authenticated, email, signout }) => {
   const handleSignOutClick = () => {
     signout();
   };
+  
 
   const renderLinks = () => {
     if (authenticated) {
@@ -33,7 +34,6 @@ const Nav = ({ authenticated, email, signout }) => {
     }
   }
 
-
   return (
     <NavContainer>
       <div id="logo">
@@ -41,10 +41,11 @@ const Nav = ({ authenticated, email, signout }) => {
         <h1 className="h3">HomeBase</h1>
         </NavLink>
       </div>
-
+    
       <NavUl>
         {renderLinks()}
       </NavUl>
+      </div>
     </NavContainer>
   );
 };
@@ -59,6 +60,7 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, actions)(Nav);
 
 const NavContainer = styled.div`
+
   position: fixed;
   z-index: 999;
   background: #f6f2ef;
@@ -76,6 +78,8 @@ const NavContainer = styled.div`
   a {
     color: #283c46;
   }
+  width: 50%;
+  margin:auto;
 `;
 
 const NavUl = styled.ul`
