@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from '../actions';
 import _ from "lodash";
-import InfiniteScroll from 'react-infinite-scroller';
+import Nav from './Nav';
 
 class Home extends Component {  
   constructor () {
@@ -22,15 +22,12 @@ class Home extends Component {
   render() {
 
     return (
-      <InfiniteScroll
-        pageStart={0}
-        >
+ 
         <InitLinks>
             <div><h3>Home Page</h3></div>
             <Link to={`/Groups`}>Teams</Link>
             <Link to={`/Groups`}>Projects</Link>
         </InitLinks>
-      </InfiniteScroll>
     );
   }
 }
