@@ -1,0 +1,37 @@
+.projects-row {
+    margin-top: 75px;
+}
+
+.card {
+   border-radius: 25px;
+   height: 200px;
+   width: 325px;
+   align-content: center;
+}
+
+.h3 {
+  color: #283c46
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.separator::before, .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 0.20px solid #283c46;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.separator::before {
+    margin-right: 25px;
+}
+.separator::after {
+    margin-left: 25px;
+}
+
+.span {
+   display: in-line-block;
+}

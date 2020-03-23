@@ -3,6 +3,7 @@ import { NavLink, Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import styled from "styled-components";
 import * as actions from '../actions';
+import 'font-awesome/css/font-awesome.min.css';
 
 const Nav = ({ authenticated, email, signout }) => {
   const handleSignOutClick = () => {
@@ -22,6 +23,11 @@ const Nav = ({ authenticated, email, signout }) => {
         <React.Fragment>
           <li><Link to="/signup">Sign Up</Link></li>
           <li><Link to="/signin">Sign In</Link></li>
+          <form className="form-inline d-flex justify-content-center md-form form-sm mt-0">
+            <i className="fa fa-search"></i>
+            <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
+            aria-label="Search"></input>
+          </form>
         </React.Fragment>
       );
     }
@@ -31,14 +37,12 @@ const Nav = ({ authenticated, email, signout }) => {
   return (
     <NavContainer>
       <div id="logo">
-        <NavLink to="/">
-          Home
+        <NavLink to="/" >
+        <h1 className="display-4">HomeBase</h1>
         </NavLink>
       </div>
 
-  
       <NavUl>
-
         {renderLinks()}
       </NavUl>
     </NavContainer>
@@ -57,8 +61,8 @@ export default connect(mapStateToProps, actions)(Nav);
 const NavContainer = styled.div`
   position: fixed;
   z-index: 999;
-  background: hsl(0, 0%, 13%);
-  color: whitesmoke;
+  background: #f6f2ef;
+  color: #283c46
   margin: 0;
   width: 100%;
   height: auto;
@@ -70,7 +74,7 @@ const NavContainer = styled.div`
     height: auto;
   }
   a {
-    color: #fff;
+    color: #283c46;
   }
 `;
 
@@ -78,6 +82,7 @@ const NavUl = styled.ul`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  margin-top: 20px;
   list-style: none;
   li:first-child {
     float: left;
@@ -87,6 +92,7 @@ const NavUl = styled.ul`
     padding: 0.5em;
   }
   li a {
-    color: whitesmoke;
+    color: black;
   }
 `;
+
