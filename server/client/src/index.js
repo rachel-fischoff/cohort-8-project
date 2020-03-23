@@ -12,6 +12,7 @@ import rootReducer from "./reducers/index";
 import Home from './components/Home'
 import Signup from './components/auth/Signup';
 import Signin from './components/auth/Signin';
+import ReactCalendar from './components/calendar/calendar';
 
 const store = createStore(rootReducer, {}, applyMiddleware(thunk));
 
@@ -25,6 +26,7 @@ render(
             <Route exact path="/" component={Home} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/signin" component={Signin} />
+            <Route exact path="/calendar" component={ReactCalendar} />
           </Switch>
         </App>
       </Fragment>

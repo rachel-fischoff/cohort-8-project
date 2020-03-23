@@ -39,7 +39,7 @@ export default connect(mapStateToProps, actions)(Nav);
 
 const NavContainer = styled.div`
   width: 50%;
-  margin: auto;
+  margin:auto;
 `;
 
 const NavUl = styled.ul`
