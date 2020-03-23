@@ -20,6 +20,7 @@ const Nav = ({ authenticated, email, signout }) => {
     } else {
       return (
         <React.Fragment>
+          <li><Link to="/calendar">Calendar</Link></li>
           <li><Link to="/signup">Sign Up</Link></li>
           <li><Link to="/signin">Sign In</Link></li>
         </React.Fragment>
