@@ -4,10 +4,14 @@ import { render } from 'react-dom';
 
 
 
-function Groups() {
-    
-    return (
+class Groups extends Component {  
+
+    render() {
+  
+      return (
         <div>
+            <h1>test</h1>
+            <h1>NAV bar is covering top of the page</h1>
           <Link to="/calendar"><button>
             Calendar 
           </button>
@@ -15,7 +19,11 @@ function Groups() {
         </div>
       );
 }
+}
 
 
-
-export default Groups;
+function mapStateToProps () {
+    return {  }
+  };
+  
+  export default Groups;

@@ -17,7 +17,7 @@ class Home extends Component {
         <div className="home-page">
              <div className="projects-row">
                <div className="col-md-8-offset-3 text-center">
-                <Link to={`/Groups`} className="h3 separator">Teams</Link>
+                <Link to="/groups" className="h3 separator">Teams</Link>
                   <br></br>
                    <div className="card col-md-offset-3 text-center" styles="width: 18rem;">
                     <div className="card-body">
