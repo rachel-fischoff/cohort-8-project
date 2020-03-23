@@ -45,7 +45,6 @@ const Nav = ({ authenticated, email, signout }) => {
       <NavUl>
         {renderLinks()}
       </NavUl>
-      </div>
     </NavContainer>
   );
 };
