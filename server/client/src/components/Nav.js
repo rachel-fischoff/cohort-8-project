@@ -38,7 +38,7 @@ const Nav = ({ authenticated, email, signout }) => {
     <NavContainer>
       <div id="logo">
         <NavLink to="/" >
-        <h1 className="display-4">HomeBase</h1>
+        <h1 className="h3">HomeBase</h1>
         </NavLink>
       </div>
 
