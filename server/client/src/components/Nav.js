@@ -77,7 +77,7 @@ const NavContainer = styled.div`
   a {
     color: #283c46;
   }
-  width: 50%;
+  width: 100%;
   margin:auto;
 `;
 
