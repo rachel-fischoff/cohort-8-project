@@ -35,6 +35,22 @@ export const signin = (formProps, callback) => dispatch => {
   });
 };
 
+//google auth
+export const google = (formProps, callback) => dispatch => {
+  console.log('made it to google auth')
+  axios.post(
+    'http://localhost:5000/auth/google',
+    formProps
+  ).then(function (response) {
+    dispatch({ type: AUTH_USER, payload: response.data });
+    localStorage.setItem('token', response.data.token);
+    localStorage.setItem('email', response.data.email);
+    callback();
+  })
+  .catch(function (error) {
+    dispatch({ type: AUTH_ERROR, payload: 'Email in use' });
+  });
+};
 //====================================================
 //signout
 export const signout = () => {

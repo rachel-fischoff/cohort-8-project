@@ -14,10 +14,10 @@ class LandingPage extends Component {
 
     renderPage = () => {
         console.log('props auth from landing page: ', this.props.auth)
-        switch (this.props.auth) {
-          case null:
-            return;
-          case false:
+        // switch (this.props.auth) {
+        //   case null:
+        //     return;
+          // case true:
             return (
               <React.Fragment>
                 <div className="home-page">
@@ -33,12 +33,12 @@ class LandingPage extends Component {
                 </div>
               </React.Fragment>
             )
-          default:
-            return (
-                //redirect to Home Page
-                <Redirect to="/home" component={Home}/>
-            );
-        }
+          // default:
+          //   return (
+          //       //redirect to Home Page
+          //       <Redirect to="/auth" component={Home}/>
+          //   );
+        // }
     }
 
     render() {
