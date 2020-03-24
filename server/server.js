@@ -2,12 +2,13 @@ const express = require('express')
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const mongoose = require('mongoose')
+const faker = require('faker')
 const cookieSession = require('cookie-session')
 const User = require('./models/user')
 
 const app = express()
 
-mongoose.connect('mongodb://localhost/DB_NAME')
+mongoose.connect('mongodb://localhost/homebase')
 
 app.use(
   cookieSession({
@@ -55,6 +56,70 @@ passport.use(
   
 const googleAuth = passport.authenticate('google',
   { scope: ['profile', 'email']
+})
+
+app.get('/generate-fake-data', (req, res) => {
+    //Generate fake users
+    for (let i = 0; i < 90; i++) {
+        let user = new User()
+
+        user.google_id = faker.random.alphaNumeric()
+        user.email = faker.internet.email()
+        user.profile_name = faker.internet.userName()
+        user.date_created = faker.date.past()
+        user.profile_pic_url = faker.internet.avatar()
+
+        user.save((err) => {
+            if (err) throw err
+          })
+
+    }
+
+    //Generate fake comments
+    for (let i = 0; i < 1000; i++) {
+        let comment = new Comment()
+
+        comment.title = faker.lorem.words()
+        comment.description = faker.lorem.sentences()
+        comment.date_created = faker.date.past()
+
+        const tags = []
+
+        for (var j = 0; j < 3; j++) {
+            const tag = faker.lorem.word
+            tags.push(tag)
+        }
+
+        comment.tags = tags
+
+        User.aggregate(
+            [ { $sample: { size: 1 } } ]
+          ).exec((error, user) => {
+            comment.author = user[0]._id
+        })
+
+        const num_comments = Math.round((Math.random() * 10)/3)
+        const comment_comments = []
+
+        for (var k = 0; k < num_comments; k ++) {
+            const comment_comment = faker.lorem.sentence
+            comment_comments.push(comment_comment)
+        }
+
+        comment.comments = comment_comments
+
+        comment.save((err) => {
+            if (err) throw err
+        })
+    }    
+
+    //Generate fake tasks
+
+    //Generate fake todos
+
+    //Generate fake groups
+
+    res.end()
 })
 
 app.get('/auth/google', googleAuth)
