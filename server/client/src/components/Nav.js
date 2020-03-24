@@ -12,6 +12,7 @@ const Nav = ({ authenticated, email, signout }) => {
   
 
   const renderLinks = () => {
+   // if(authenticated){
       return (
         <React.Fragment>
           <li>{email}</li>
@@ -19,8 +20,8 @@ const Nav = ({ authenticated, email, signout }) => {
         </React.Fragment>
       );
 
-      }
-
+   //   }
+    }
   return (
     <NavContainer>
       <div id="logo">
