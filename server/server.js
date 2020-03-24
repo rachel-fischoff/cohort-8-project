@@ -77,7 +77,8 @@ app.get('/api/logout', (req, res) => {
 
 //route for getting a single to do 
 app.get('/projects/:todo', (req, res) =>{
-  Todo.findOne({_id: req.params.todoId})
+    
+  Todo.findOne({_id: req.params.todo})
     .exec((err, todo) => {
         if (err) {
             res.send(err)
