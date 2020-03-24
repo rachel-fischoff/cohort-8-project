@@ -14,7 +14,7 @@ class Groups extends Component {
   
       return (
           
-        <div>
+<div>
             <Backdrop />
           <h1>hi</h1>
           <h1>hi</h1>
@@ -25,7 +25,8 @@ class Groups extends Component {
             <p>This is MODAL</p>
             <p>This is MODAL</p>
             </Modal>
-            </div>
+    </div>
+        
       
       );
 }

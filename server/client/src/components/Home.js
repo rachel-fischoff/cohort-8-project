@@ -1,7 +1,7 @@
 import React, { Component } from "react";
+import { Redirect, Link } from "react-router-dom";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import * as actions from '../actions';
 import _ from "lodash";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,7 +12,7 @@ import Nav from './Nav';
 class Home extends Component {  
 
   render() {
-
+    if (this.props.authenticated){
     return (
         <div className="home-page">
              <div className="projects-row">
@@ -45,12 +45,17 @@ class Home extends Component {
             </div>
         </div>
     );
+  }else{
+    return <Redirect push to="/signin" />;
   }
 }
+}
 
-function mapStateToProps () {
-  return {  }
-};
+function mapStateToProps(state) {
+  return {
+    authenticated: state.auth.authenticated,
+  };
+}
 
 export default connect(
   mapStateToProps,
