@@ -4,7 +4,7 @@ const User = require('../models/user')
 const Todo = require('../models/todo')
 
 
-//route for getting a single todo 
+//route for getting a single todo list page 
 router.get('/groups/:groupId/:todo', (req, res) =>{
     
     Todo.findOne({_id: req.params.todo})
