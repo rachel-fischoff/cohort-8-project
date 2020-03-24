@@ -6,6 +6,9 @@ const faker = require('faker')
 const cookieSession = require('cookie-session')
 const User = require('./models/user')
 const Comment = require('./models/comment')
+const Task = require('./models/task')
+const Todo = require('./models/todo')
+const Group = require('./models/group')
 
 const app = express()
 
@@ -59,7 +62,7 @@ const googleAuth = passport.authenticate('google',
   { scope: ['profile', 'email']
 })
 
-app.get('/generate-fake-data', (req, res) => {
+app.get('/generate-fake-users', (req, res) => {
     //Generate fake users
     for (let i = 0; i < 90; i++) {
         let user = new User()
@@ -76,52 +79,169 @@ app.get('/generate-fake-data', (req, res) => {
 
     }
 
+    res.end()
+})
+
+app.get('/generate-fake-comments', (req, res) => {
     //Generate fake comments
-    // for (let i = 0; i < 1000; i++) {
-    //     let comment = new Comment()
+    for (let i = 0; i < 1000; i++) {
+        let comment = new Comment()
 
-    //     comment.title = faker.lorem.words()
-    //     comment.description = faker.lorem.sentences()
-    //     comment.date_created = faker.date.past()
+        comment.title = faker.lorem.words()
+        comment.description = faker.lorem.sentences()
+        comment.date_created = faker.date.past()
 
-    //     const tags = []
+        const tags = []
 
-    //     for (var j = 0; j < 3; j++) {
-    //         const tag = faker.lorem.word
-    //         tags.push(tag)
-    //     }
+        for (var j = 0; j < 3; j++) {
+            const tag = faker.lorem.word()
+            tags.push(tag)
+        }
 
-    //     comment.tags = tags
+        comment.tags = tags
 
-    //     User.aggregate(
-    //         [ { $sample: { size: 1 } } ]
-    //       ).exec((error, user) => {
-    //         comment.author = user[0]._id
-    //     })
+        const num_comments = Math.round((Math.random() * 10)/3)
+        const comment_comments = []
 
-    //     const num_comments = Math.round((Math.random() * 10)/3)
-    //     const comment_comments = []
+        for (var k = 0; k < num_comments; k ++) {
+            const comment_comment = faker.lorem.sentence()
+            comment_comments.push(comment_comment)
+        }
 
-    //     for (var k = 0; k < num_comments; k ++) {
-    //         const comment_comment = faker.lorem.sentence
-    //         comment_comments.push(comment_comment)
-    //     }
+        comment.comments = comment_comments
 
-    //     comment.comments = comment_comments
+        User.aggregate(
+            [ { $sample: { size: 1 } } ]
+          ).exec((error, user) => {
+            comment.author = user[0]
+            comment.save((err) => {
+                if (err) throw err
+            })
+        })
 
-    //     comment.save((err) => {
-    //         if (err) throw err
-    //     })
-    // }    
-
-    //Generate fake tasks
-
-    //Generate fake todos
-
-    //Generate fake groups
+    }
 
     res.end()
 })
+
+app.get('/generate-fake-tasks', (req, res) => {
+    //Generate fake tasks
+    for (let i = 0; i < 100; i++) {
+        let task = new Task()
+
+        task.title = faker.lorem.words()
+        task.date_created = faker.date.past()
+        task.due_date = faker.date.future()
+
+        if (i < 50) {
+            task.completed = true
+        } else {
+            task.completed = false
+        }
+
+        User.aggregate(
+            [ { $sample: { size: 1 } } ]
+          ).exec((error, user) => {
+            task.assigned_to = user[0]
+            task.save((err) => {
+                if (err) throw err
+            })
+        })
+    }
+
+    res.end()
+})
+
+app.get('/generate-fake-todos', (req, res) => {
+    //Generate fake todos
+    for (let i = 0; i < 20; i++) {
+        let todo = new Todo()
+
+        todo.name = faker.lorem.words()
+        todo.date_created = faker.date.past()
+        todo.description = faker.lorem.sentence()
+
+        const num_task = Math.round((Math.random() * 10))
+        todo.num_task = num_task
+        let num_completed = 0
+
+        const num_comments = Math.round((Math.random() * 10))
+
+        Task.aggregate(
+            [ { $sample: { size: num_task } } ]
+          ).exec((error, tasks) => {
+              for (var j = 0; j < num_task; j++) {
+                todo.tasks.push(tasks[j])
+              }
+              for (var k = 0; k < num_task; k++) {
+                  if (tasks[k].completed == true) {
+                      num_completed ++
+                  }
+              }
+              todo.num_completed = num_completed
+              Comment.aggregate(
+                [ { $sample: { size: num_comments } } ]
+              ).exec((error, comments) => {
+                  for (var l = 0; l < num_comments; l++) {
+                    todo.comments.push(comments[l])
+                  }
+                  todo.save((err) => {
+                    if (err) throw err
+                })
+            })
+        })
+    }
+
+    res.end()
+})
+
+app.get('/generate-fake-groups', (req, res) => {
+    //Generate fake groups
+    for (let i = 0; i < 10; i++) {
+        let group = new Group()
+
+        group.group_name = faker.company.companyName()
+
+        if (i < 5) {
+            group.group_type = "project"
+        } else {
+            group.group_type = "team"
+        }
+
+        const num_people = Math.round(Math.random() * 10)
+        const num_comments = Math.round(Math.random() * 15)
+        const num_todos = Math.round(Math.random() * 10/3)
+
+        User.aggregate(
+            [ { $sample: { size: num_people } } ]
+          ).exec((error, people) => {
+              for (var j = 0; j < num_people; j++) {
+                group.people.push(people[j])
+              }
+              Comment.aggregate(
+                [ { $sample: { size: num_comments } } ]
+              ).exec((error, comments) => {
+                  for (var l = 0; l < num_comments; l++) {
+                    group.comments.push(comments[l])
+                  }
+                  Todo.aggregate(
+                    [ { $sample: { size: num_todos } } ]
+                  ).exec((error, todos) => {
+                    for (var m = 0; m < num_todos; m++) {
+                        group.todos.push(todos[m])
+                      }
+                    group.save((err) => {
+                        if (err) throw err
+                    })  
+                  }) 
+            })
+        })
+
+    }
+
+    res.end()
+})
+
 
 app.get('/auth/google', googleAuth)
 

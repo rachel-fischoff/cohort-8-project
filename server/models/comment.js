@@ -6,7 +6,7 @@ const CommentSchema = new Schema({
   description: String,
   date_created: Date,
   tags: Array,
-  author: { type: Schema.Types.ObjectId, ref: 'Users' },
+  author: { type: Schema.Types.ObjectId, ref: 'User' },
   comments: Array
 });
 

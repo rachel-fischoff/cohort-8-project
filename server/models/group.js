@@ -8,7 +8,7 @@ const groupSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Person'
   }],
-  posts: [{
+  comments: [{
     type: Schema.Types.ObjectId,
     ref: 'Post'
   }],
