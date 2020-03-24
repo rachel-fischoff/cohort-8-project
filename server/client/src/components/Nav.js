@@ -15,16 +15,16 @@ const Nav = ({ authenticated, email, signout }) => {
   
 
   const renderLinks = () => {
-    if (authenticated) {
+   //if(authenticated){
       return (
         <React.Fragment>
           <li>{email}</li>
-          <li><a href="#" onClick={handleSignOutClick}>Sign Out</a></li>
-        </React.Fragment>
-      );
-    } else {
-      return (
-        <React.Fragment>
+          <li><a href="#" onClick={handleSignOutClick}><Link to="/signin">Sign Out</Link></a></li>
+      
+    //  );
+  //  } else {
+    //  return (
+      
           <li><Link to="/"><FontAwesomeIcon icon={faCampground} /> Home</Link></li>
           <li><Link to="/"><FontAwesomeIcon icon={faCommentAlt}/> Pings</Link></li>
           <li><Link to="/"><FontAwesomeIcon icon={faInbox}/> Hey!</Link></li>
@@ -33,9 +33,12 @@ const Nav = ({ authenticated, email, signout }) => {
           <li><Link to="/"><FontAwesomeIcon icon={faSearch}/> Find</Link></li>
         </React.Fragment>
       );
-    }
+ //   }
   }
 
+
+   //   }
+    }
   return (
     <NavContainer>
       <div id="logo">
@@ -96,4 +99,3 @@ const NavUl = styled.ul`
     color: #283c46;
   }
 `;
-
