@@ -39,7 +39,7 @@ export const signin = (formProps, callback) => dispatch => {
 export const google = (formProps, callback) => dispatch => {
   console.log('made it to google auth')
   axios.post(
-    'http://localhost:5000/auth/google',
+    'http://localhost:5000/auth/google/callback',
     formProps
   ).then(function (response) {
     dispatch({ type: AUTH_USER, payload: response.data });
