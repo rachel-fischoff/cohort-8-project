@@ -63,8 +63,14 @@ const googleAuth = passport.authenticate('google',
 
 app.get('/auth/google', googleAuth)
 
-app.get('/auth/google/callback', googleAuth, (req, res) => {
-   return res.send('Your logged in via Google!')
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/home');
+});
+
+app.get('/home', (req, res) => {
+   return res.send('this will be a homepage when we build it out')
 })
 
 app.get('/api/current_user', (req, res) => {
