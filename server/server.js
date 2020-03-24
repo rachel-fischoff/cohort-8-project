@@ -74,9 +74,9 @@ app.get('/api/logout', (req, res) => {
 })
 
 
-//route for getting a single to do (detail to do)
-app.get('/projects/todos/:todo', (req, res) =>{
-    
+//route for getting a single to do 
+app.get('/projects/:todo', (req, res) =>{
+
     res.send()
 })
 
