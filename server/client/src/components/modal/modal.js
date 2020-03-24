@@ -7,9 +7,9 @@ function modalWindow() {
   
     return (
       <>
-        <button variant="primary" onClick={() => setShow(true)}>
-        View To-Do's
-        </button>
+        <h5 variant="primary" onClick={() => setShow(true)}>
+         To-Do's
+        </h5>
   
         <Modal className="modal-background-color"
             backdrop="true"
