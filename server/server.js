@@ -64,16 +64,16 @@ const googleAuth = passport.authenticate('google',
 app.get('/auth/google', googleAuth)
 
 app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', { failureRedirect: '/auth/google' }),
   function(req, res) {
     res.redirect('/home');
 });
 
 app.get('/home', (req, res) => {
-   return res.send('this will be a homepage when we build it out')
+  return res.send(req.user)
 })
 
-app.get('/api/current_user', (req, res) => {
+app.get('/current_user', (req, res) => {
     //will send back the userId given by mongo DB
     //you can search current user by this id to get
     //their full profile!
@@ -84,7 +84,7 @@ app.get('/api/current_user', (req, res) => {
     return res.send(req.user)
 });
   
-app.get('/api/logout', (req, res) => {
+app.get('/logout', (req, res) => {
     req.logout()
     res.send(req.user)
 })
