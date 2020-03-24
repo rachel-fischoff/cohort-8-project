@@ -53,9 +53,9 @@ class Home extends Component {
 }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {
-    authenticated: state.auth.authenticated,
+
   };
 }
 
