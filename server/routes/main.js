@@ -44,7 +44,7 @@ router.post('projects/todos', (req, res) => {
     let dateCreated = req.body.date_created
 
     if (!todoName || !dateCreated) {
-        res.writeHead(401, {
+        res.writeHead(400, {
             "Content-Type": "plain/text"
         });
 
@@ -66,7 +66,7 @@ router.post('projects/todos', (req, res) => {
         .save()
         .then(result => {
             console.log(result)
-            res.status(201).json({
+            res.status(200).json({
                 message: "Todo Added Successfully",
                 createdTodo: {
                     name: result.name,
