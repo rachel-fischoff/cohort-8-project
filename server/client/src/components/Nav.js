@@ -67,7 +67,6 @@ const NavContainer = styled.div`
   margin: 0;
   width: 100%;
   height: auto;
-  padding: 1.5em;
   #logo {
     position: relative;
     float: left;
