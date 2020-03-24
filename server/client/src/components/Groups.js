@@ -37,7 +37,7 @@ class Groups extends Component {
             </button></Link>
         </div>
             <React.Fragment>
-            <ModalWindow><p>hello</p></ModalWindow>
+            <ModalWindow><p>hello!</p></ModalWindow>
     
         
         
