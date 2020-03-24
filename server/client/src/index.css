@@ -9,7 +9,6 @@
    height: 200px;
    width: 325px;
    align-content: center;
-   padding: 20px;
 }
 
 .h3 {
@@ -35,3 +34,6 @@
     margin-left: 25px;
 }
 
+.new-button {
+    margin-left: 100px;
+}

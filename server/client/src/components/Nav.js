@@ -12,28 +12,16 @@ const Nav = ({ authenticated, email, signout }) => {
   
 
   const renderLinks = () => {
-    if (authenticated) {
+   // if(authenticated){
       return (
         <React.Fragment>
           <li>{email}</li>
-          <li><a href="#" onClick={handleSignOutClick}>Sign Out</a></li>
+          <li><a href="#" onClick={handleSignOutClick}><Link to="/signin">Sign Out</Link></a></li>
         </React.Fragment>
       );
-    } else {
-      return (
-        <React.Fragment>
-          <li><Link to="/signup">Sign Up</Link></li>
-          <li><Link to="/signin">Sign In</Link></li>
-          <form className="form-inline d-flex justify-content-center md-form form-sm mt-0">
-            <i className="fa fa-search"></i>
-            <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
-            aria-label="Search"></input>
-          </form>
-        </React.Fragment>
-      );
-    }
-  }
 
+   //   }
+    }
   return (
     <NavContainer>
       <div id="logo">
@@ -97,4 +85,3 @@ const NavUl = styled.ul`
     color: black;
   }
 `;
-
