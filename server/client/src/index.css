@@ -1,6 +1,4 @@
-.projects-row {
-    margin-top: 75px;
-}
+
 
 .card {
    border-radius: 25px;
@@ -9,6 +7,7 @@
    height: 200px;
    width: 325px;
    align-content: center;
+   margin-bottom: 50px;
 }
 
 .h3 {

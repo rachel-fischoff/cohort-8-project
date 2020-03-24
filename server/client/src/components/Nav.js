@@ -3,7 +3,10 @@ import { NavLink, Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import styled from "styled-components";
 import * as actions from '../actions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCampground, faCommentAlt, faInbox, faChartPie, faSmile, faSearch } from "@fortawesome/free-solid-svg-icons";
 import 'font-awesome/css/font-awesome.min.css';
+
 
 const Nav = ({ authenticated, email, signout }) => {
   const handleSignOutClick = () => {
@@ -22,13 +25,12 @@ const Nav = ({ authenticated, email, signout }) => {
     } else {
       return (
         <React.Fragment>
-          <li><Link to="/signup">Sign Up</Link></li>
-          <li><Link to="/signin">Sign In</Link></li>
-          <form className="form-inline d-flex justify-content-center md-form form-sm mt-0">
-            <i className="fa fa-search"></i>
-            <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
-            aria-label="Search"></input>
-          </form>
+          <li><Link to="/"><FontAwesomeIcon icon={faCampground} /> Home</Link></li>
+          <li><Link to="/"><FontAwesomeIcon icon={faCommentAlt}/> Pings</Link></li>
+          <li><Link to="/"><FontAwesomeIcon icon={faInbox}/> Hey!</Link></li>
+          <li><Link to="/"><FontAwesomeIcon icon={faChartPie}/> Activity</Link></li>
+          <li><Link to="/"><FontAwesomeIcon icon={faSmile}/> My Stuff</Link></li>
+          <li><Link to="/"><FontAwesomeIcon icon={faSearch}/> Find</Link></li>
         </React.Fragment>
       );
     }
@@ -61,16 +63,14 @@ export default connect(mapStateToProps, actions)(Nav);
 const NavContainer = styled.div`
 
   position: fixed;
-  z-index: 999;
   background: #f6f2ef;
   color: #283c46
   margin: 0;
   width: 100%;
   height: auto;
   #logo {
-    position: relative;
     float: left;
-    width: 150px;
+    width: 50px;
     height: auto;
   }
   a {
@@ -83,18 +83,17 @@ const NavContainer = styled.div`
 const NavUl = styled.ul`
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  margin-top: 20px;
+  justify-content: center;
+  margin-top: 10px;
   list-style: none;
   li:first-child {
-    float: left;
+    float: right;
   }
   li {
-    margin-left: 0.8em;
-    padding: 0.5em;
+    padding: 10px;
   }
   li a {
-    color: black;
+    color: #283c46;
   }
 `;
 
