@@ -4,8 +4,8 @@ const User = require('../models/user')
 const Todo = require('../models/todo')
 
 
-//route for getting a single to do 
-router.get('/projects/:todo', (req, res) =>{
+//route for getting a single todo 
+router.get('/groups/:groupId/:todo', (req, res) =>{
     
     Todo.findOne({_id: req.params.todo})
       .exec((err, todo) => {
@@ -17,4 +17,4 @@ router.get('/projects/:todo', (req, res) =>{
       })
   })
 
-  modules.exports = router; 
+  module.exports = router; 
