@@ -9,7 +9,7 @@ const Comment = require('./models/comment')
 const Task = require('./models/task')
 const Todo = require('./models/todo')
 const Group = require('./models/group')
-const Todo = require('./models/todo')
+
 
 const app = express()
 
