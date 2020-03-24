@@ -75,16 +75,5 @@ app.get('/api/logout', (req, res) => {
 })
 
 
-//route for getting a single to do 
-app.get('/projects/:todo', (req, res) =>{
-  Todo.findOne({_id: req.params.todoId})
-    .exec((err, todo) => {
-        if (err) {
-            res.send(err)
-        } else {
-            res.send(todo)
-        }
-    })
-})
 
 app.listen(5000)
