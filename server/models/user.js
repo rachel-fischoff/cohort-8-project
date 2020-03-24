@@ -1,15 +1,12 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const userSchema = new Schema({
-  googleId: String,
-  user_name: String,
+const UserSchema = new Schema({
+  google_id: String,
   profile_name: String,
   profile_pic_url: String,
-  // groups: [{
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'Group'
-  // }]
+  email: String, 
+  date_created: String 
 })
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model('User', UserSchema)

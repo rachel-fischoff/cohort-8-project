@@ -9,6 +9,7 @@
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "faker": "^4.1.0",
     "jwt-simple": "^0.5.5",
     "mongoose": "^5.9.5",
     "mongoose-unique-array": "^0.2.0",
