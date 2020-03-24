@@ -3,9 +3,13 @@ import { withRouter } from "react-router-dom";
 import * as actions from '../actions';
 import { connect } from "react-redux";
 import styled from "styled-components";
-import queryString from "query-string";
 
 class App extends React.Component {  
+  componentDidMount() {
+    
+    this.props.fetchUser()
+    console.log('props from App:', this.props)
+  }
 
   render() {
     return (

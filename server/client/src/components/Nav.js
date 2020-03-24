@@ -5,19 +5,9 @@ import styled from "styled-components";
 import * as actions from '../actions';
 import 'font-awesome/css/font-awesome.min.css';
 
-const Nav = (props) => {
+const Nav = () => {
 
   const renderLinks = () => {
-    switch (props.auth) {
-      case null:
-        return;
-      case false:
-        return (
-          <React.Fragment>
-            <a href='/auth/google'>Login With Google</a>
-          </React.Fragment>
-        )
-      default:
       return (
         <React.Fragment>
           <li>{}</li>
@@ -30,7 +20,6 @@ const Nav = (props) => {
           </form>
         </React.Fragment>
       );
-    }
   }
 
   return (
@@ -48,11 +37,7 @@ const Nav = (props) => {
   );
 };
 
-function mapStateToProps({auth}) {
-  return { auth };
-}
-
-export default connect(mapStateToProps, actions)(Nav);
+export default Nav;
 
 const NavContainer = styled.div`
 
