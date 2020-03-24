@@ -8,7 +8,7 @@ const Todo = require('./models/todo')
 
 const app = express()
 
-mongoose.connect('mongodb://localhost/DB_NAME')
+mongoose.connect('mongodb://localhost/homebase')
 
 app.use(
   cookieSession({
@@ -21,11 +21,11 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 passport.serializeUser((user, done) => {
-    done(null, user.id)
+    done(null, user._id)
   })
 
 passport.deserializeUser((id, done) => {
-    done(null, user._id)
+    done(null, id)
 })
 
 passport.use(
@@ -42,9 +42,12 @@ passport.use(
             } else {
             // we don't have a user record with this ID, make a new record!
             new User({
-                googleId: profile.id,
-                name: profile.displayName,
-                email: profile.emails[0].value
+                google_id: profile.id,
+                profile_name: profile.displayName,
+                email: profile.emails[0].value,
+                profile_pic_url: profile.photos[0].value,
+                date_created: new Date(),
+                groups: []
             })
                 .save()
                 .then(user => done(null, user))
@@ -62,6 +65,8 @@ app.get('/auth/google', googleAuth)
 
 app.get('/auth/google/callback', googleAuth, (req, res) => {
     res.send('Your logged in via Google!')
+    console.log('user from server: ', req.user)
+    //res.redirect(`http://localhost:3000`);
 })
 
 app.get('/api/current_user', (req, res) => {

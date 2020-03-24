@@ -5,6 +5,12 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 
 class App extends React.Component {
+  componentDidMount() {
+    
+    this.props.fetchUser()
+    console.log('props from App:', this.props)
+  }
+  
   render() {
     return (
       <AppContainer>
