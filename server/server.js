@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const faker = require('faker')
 const cookieSession = require('cookie-session')
 const User = require('./models/user')
+const Comment = require('./models/comment')
 
 const app = express()
 
@@ -76,42 +77,42 @@ app.get('/generate-fake-data', (req, res) => {
     }
 
     //Generate fake comments
-    for (let i = 0; i < 1000; i++) {
-        let comment = new Comment()
+    // for (let i = 0; i < 1000; i++) {
+    //     let comment = new Comment()
 
-        comment.title = faker.lorem.words()
-        comment.description = faker.lorem.sentences()
-        comment.date_created = faker.date.past()
+    //     comment.title = faker.lorem.words()
+    //     comment.description = faker.lorem.sentences()
+    //     comment.date_created = faker.date.past()
 
-        const tags = []
+    //     const tags = []
 
-        for (var j = 0; j < 3; j++) {
-            const tag = faker.lorem.word
-            tags.push(tag)
-        }
+    //     for (var j = 0; j < 3; j++) {
+    //         const tag = faker.lorem.word
+    //         tags.push(tag)
+    //     }
 
-        comment.tags = tags
+    //     comment.tags = tags
 
-        User.aggregate(
-            [ { $sample: { size: 1 } } ]
-          ).exec((error, user) => {
-            comment.author = user[0]._id
-        })
+    //     User.aggregate(
+    //         [ { $sample: { size: 1 } } ]
+    //       ).exec((error, user) => {
+    //         comment.author = user[0]._id
+    //     })
 
-        const num_comments = Math.round((Math.random() * 10)/3)
-        const comment_comments = []
+    //     const num_comments = Math.round((Math.random() * 10)/3)
+    //     const comment_comments = []
 
-        for (var k = 0; k < num_comments; k ++) {
-            const comment_comment = faker.lorem.sentence
-            comment_comments.push(comment_comment)
-        }
+    //     for (var k = 0; k < num_comments; k ++) {
+    //         const comment_comment = faker.lorem.sentence
+    //         comment_comments.push(comment_comment)
+    //     }
 
-        comment.comments = comment_comments
+    //     comment.comments = comment_comments
 
-        comment.save((err) => {
-            if (err) throw err
-        })
-    }    
+    //     comment.save((err) => {
+    //         if (err) throw err
+    //     })
+    // }    
 
     //Generate fake tasks
 
@@ -138,4 +139,6 @@ app.get('/api/logout', (req, res) => {
     res.send(req.user)
 })
 
-app.listen(5000)
+app.listen(5000, () => {
+    console.log("Server listening on port 5000")
+})
