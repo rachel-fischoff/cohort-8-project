@@ -1,10 +1,18 @@
 .modal {
     width: 90%;
+    height: 85%;
     background: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     position: fixed;
-    top: 20vh;
+    top: 10vh;
     left: 5%;
-    z-index: 1000;
+
   }
- 
+  .modal-background-color{
+    background:white;
+    text-align: center;
+}
+.modal-background-title{
+    background:white;
+    text-align: center;
+}
