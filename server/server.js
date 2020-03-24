@@ -7,52 +7,56 @@ const User = require('./models/user')
 
 const app = express()
 
-mongoose.connect('mongodb://localhost/DB_NAME')
+mongoose.connect('mongodb://localhost/cohort-project-google-auth')
 
 app.use(
-  cookieSession({
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: ['helloworld']
-  })
+    cookieSession({
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      keys: ['helloworld']
+    })
 )
 
 app.use(passport.initialize())
 app.use(passport.session())
 
 passport.serializeUser((user, done) => {
-    done(null, user.id)
-  })
-
-passport.deserializeUser((id, done) => {
     done(null, user._id)
 })
 
+passport.deserializeUser((id, done) => {
+    done(null, id)
+})
+
 passport.use(
-    new GoogleStrategy({
-        clientID: '812786725020-6t9b7b4b2j6n6vvtjajc0333ku9bpp0u.apps.googleusercontent.com',
-        clientSecret: 'q50xXvFYNCb1e38ewnfeZYrV',
-        callbackURL: '/auth/google/callback'
-        },
-        (accessToken, refreshToken, profile, done) => {
+  new GoogleStrategy(
+    {
+      clientID: '1096879772481-ekikp4fo6uo40lbnmo9i6ut4673p6uug.apps.googleusercontent.com',
+      clientSecret: 'DwIABfYy4gwD6CYWT3gw49iI',
+      callbackURL: '/auth/google/callback'
+    },
+    (accessToken, refreshToken, profile, done) => {
+        // console.log(profile)
         User.findOne({ googleId: profile.id }).then(existingUser => {
-            if (existingUser) {
+          if (existingUser) {
             // we already have a record with the given profile ID
             done(null, existingUser)
-            } else {
+          } else {
             // we don't have a user record with this ID, make a new record!
             new User({
-                googleId: profile.id,
-                name: profile.displayName,
-                email: profile.emails[0].value
+              googleId: profile.id,
+              user_name: profile.displayName,
+              profile_name: profile.emails[0].value,
+              profile_pic_url: profile.photos[0].value
+            //   groups: groups
             })
-                .save()
-                .then(user => done(null, user))
-            }
+            .save()
+            .then(user => done(null, user))
+          }
         })
-        }
-    )
+    }
+  )
 )
-  
+
 const googleAuth = passport.authenticate('google',
   { scope: ['profile', 'email']
 })
@@ -60,12 +64,18 @@ const googleAuth = passport.authenticate('google',
 app.get('/auth/google', googleAuth)
 
 app.get('/auth/google/callback', googleAuth, (req, res) => {
-    res.send('Your logged in via Google!')
+   return res.send('Your logged in via Google!')
 })
 
 app.get('/api/current_user', (req, res) => {
-    console.log(req.user)
-    res.send(req.user)
+    //will send back the userId given by mongo DB
+    //you can search current user by this id to get
+    //their full profile!
+    if(req.user == undefined){
+        res.send('No user is currently signed in')
+    }
+
+    return res.send(req.user)
 });
   
 app.get('/api/logout', (req, res) => {
@@ -74,3 +84,4 @@ app.get('/api/logout', (req, res) => {
 })
 
 app.listen(5000)
+
