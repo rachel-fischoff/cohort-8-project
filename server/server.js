@@ -7,7 +7,7 @@ const User = require('./models/user')
 
 const app = express()
 
-mongoose.connect('mongodb://localhost/DB_NAME')
+mongoose.connect('mongodb://localhost/basecampDB')
 
 app.use(
   cookieSession({
@@ -37,14 +37,16 @@ passport.use(
         User.findOne({ googleId: profile.id }).then(existingUser => {
             if (existingUser) {
             // we already have a record with the given profile ID
-            done(null, existingUser)
+                done(null, existingUser)
             } else {
             // we don't have a user record with this ID, make a new record!
-            new User({
-                googleId: profile.id,
-                name: profile.displayName,
-                email: profile.emails[0].value
-            })
+                new User({
+                    googleId: profile.id,
+                    profile_name: profile.displayName,
+                    profile_email: profile.emails[0].value,
+                    profile_pic_url: profile.profileUrl,
+                    groups: []
+                })
                 .save()
                 .then(user => done(null, user))
             }
@@ -60,8 +62,12 @@ const googleAuth = passport.authenticate('google',
 app.get('/auth/google', googleAuth)
 
 app.get('/auth/google/callback', googleAuth, (req, res) => {
-    //res.send('Your logged in via Google!')
-    res.redirect("http://localhost:3000/");
+    res.send('Your logged in via Google!')
+    //res.redirect("http://localhost:3000/");
+    // Successful authentication, redirect home
+    //res.redirect('/')
+    console.log('user from server: ', req.user)
+    //res.redirect(`http://localhost:3000`);
 })
 
 app.get('/api/current_user', (req, res) => {

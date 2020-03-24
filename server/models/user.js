@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
-  user_name: String,
+  profile_email: String,
+  googleId: String,
   profile_name: String,
   profile_pic_url: String,
   groups: [{
