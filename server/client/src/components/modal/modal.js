@@ -10,6 +10,7 @@ const modal = props => (
         <h1>Placeholder text for MODAL</h1>
         <h1>Placeholder text for MODAL</h1>
         <h1>Placeholder text for MODAL</h1>
+        <h1>Placeholder text for MODAL</h1>
       </header>
       <section className="modal__content">placeholder text for modal section</section>
       <section className="modal__actions">
