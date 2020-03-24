@@ -4,6 +4,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy
 const mongoose = require('mongoose')
 const cookieSession = require('cookie-session')
 const User = require('./models/user')
+const Todo = require('./models/todo')
 
 const app = express()
 
@@ -71,6 +72,19 @@ app.get('/api/current_user', (req, res) => {
 app.get('/api/logout', (req, res) => {
     req.logout()
     res.send(req.user)
+})
+
+
+//route for getting a single to do 
+app.get('/projects/:todo', (req, res) =>{
+  Todo.findOne({_id: req.params.todoId})
+    .exec((err, todo) => {
+        if (err) {
+            res.send(err)
+        } else {
+            res.send(todo)
+        }
+    })
 })
 
 app.listen(5000)
