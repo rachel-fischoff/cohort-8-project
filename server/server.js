@@ -62,6 +62,15 @@ passport.use(
   )
 )
 
+//route middleware to ensure user is logged in
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated())
+      return next();
+  res.status(400).json({
+      'message': 'access denied'
+  });
+}
+
 const googleAuth = passport.authenticate('google',
   { scope: ['profile', 'email']
 })
