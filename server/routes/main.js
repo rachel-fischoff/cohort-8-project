@@ -39,11 +39,23 @@ router.get('projects/todos', (req, res) => {
 })
 
 router.post('projects/todos', (req, res) => {
+    // Edge case that prevents from adding a new Todo if Name or DateCreated isn't specified
+    let todoName = req.body.name;
+    let dateCreated = req.body.date_created
+
+    if (!todoName || !dateCreated) {
+        res.writeHead(401, {
+            "Content-Type": "plain/text"
+        });
+
+        res.end("Error: req.body.name OR req.body.date_created was undefined")
+    }
+    
     //variable for new todo being added to the db from request
     let newTodo = new Todo({
-        name: req.body.name,
+        name: todoName,
         description: req.body.description,
-        date_created: req.body.date_created,
+        date_created: dateCreated,
         num_tasks: req.body.num_tasks,
         num_completed: req.body.num_completed,
         tasks: req.body.tasks,
@@ -71,6 +83,12 @@ router.post('projects/todos', (req, res) => {
                 }
             })
         })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
 })
 
 // Delete todo based on id in the query params
