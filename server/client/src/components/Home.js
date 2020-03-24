@@ -15,7 +15,8 @@ class Home extends Component {
     //if (this.props.authenticated){
     return (
         <div className="home-page">
-             <div className="projects-row">
+           <div className="projects-row">
+             <button type="button" className="btn btn-success new-button">+ New</button>
                <div className="col-md-8-offset-3 text-center">
                 <Link to="/groups" className="h3 separator">Teams</Link>
                   <br></br>
@@ -30,7 +31,8 @@ class Home extends Component {
                 </div>
               </div>
               <div className="projects-row">
-               <div className="col-md-8-offset-3 text-center">
+               <button type="button" className="btn btn-success new-button">+ New</button>
+                <div className="col-md-8-offset-3 text-center">
                  <Link to={`/Groups`} className="h3 separator">Projects</Link>
                   <br></br>
                    <div className="card" styles="width: 18rem;">
