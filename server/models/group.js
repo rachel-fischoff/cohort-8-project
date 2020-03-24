@@ -1,16 +1,17 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const groupSchema = new Schema({
+const GroupSchema = new Schema({
   group_name: String,
   group_type: String,
+  date_created: Date,
   people: [{
     type: Schema.Types.ObjectId,
     ref: 'Person'
   }],
   comments: [{
     type: Schema.Types.ObjectId,
-    ref: 'Post'
+    ref: 'Comment'
   }],
   todos: [{
     type: Schema.Types.ObjectId,
@@ -18,4 +19,4 @@ const groupSchema = new Schema({
   }]
 })
 
-module.exports = mongoose.model('Group', groupSchema)
+module.exports = mongoose.model('Group', GroupSchema)

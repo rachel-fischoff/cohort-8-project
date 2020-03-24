@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const TodosSchema = new Schema({
-  name: String,
+const TodoSchema = new Schema({
+  name: String, 
+  description: String, 
   date_created: Date,
-  description: String,
-  num_task: Number,
+  num_tasks: Number,
   num_completed: Number,
-  tasks: [{ type: Schema.Types.ObjectId, ref: 'Tasks' }],
-  comments: [{ type: Schema.Types.ObjectId, ref: 'Comments' }]
+  tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }],
+  comments:[{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+
 });
 
-module.exports = mongoose.model('Todos', TodosSchema);
+module.exports = mongoose.model('Todo', TodoSchema);
