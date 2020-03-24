@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-import { connect } from 'react-redux';
 import styled from "styled-components";
 import * as actions from '../actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,20 +7,14 @@ import { faCampground, faCommentAlt, faInbox, faChartPie, faSmile, faSearch } fr
 import 'font-awesome/css/font-awesome.min.css';
 
 
-const Nav = ({ authenticated, email, signout }) => {
-  const handleSignOutClick = () => {
-    signout();
-  };
-  
+const Nav = () => {
 
   const renderLinks = () => {
 
-   //if(authenticated){
+
       return (
         <React.Fragment>
-          <li>{email}</li>
-          <li><a href="#" onClick={handleSignOutClick}><Link to="/signin">Sign Out</Link></a></li>
-      
+          <li><Link to="/api/logout">Sign Out</Link></li>
           <li><Link to="/"><FontAwesomeIcon icon={faCampground} /> Home</Link></li>
           <li><Link to="/"><FontAwesomeIcon icon={faCommentAlt}/> Pings</Link></li>
           <li><Link to="/"><FontAwesomeIcon icon={faInbox}/> Hey!</Link></li>
@@ -29,8 +22,11 @@ const Nav = ({ authenticated, email, signout }) => {
           <li><Link to="/"><FontAwesomeIcon icon={faSmile}/> My Stuff</Link></li>
           <li><Link to="/"><FontAwesomeIcon icon={faSearch}/> Find</Link></li>
         </React.Fragment>
-      ) 
+
+      );
   }
+
+
 
   return (
     <NavContainer>
@@ -47,14 +43,8 @@ const Nav = ({ authenticated, email, signout }) => {
   );
 };
 
-function mapStateToProps(state) {
-  return {
-    authenticated: state.auth.authenticated,
-    email: state.auth.email
-  };
-}
 
-export default connect(mapStateToProps, actions)(Nav);
+export default Nav;
 
 const NavContainer = styled.div`
 

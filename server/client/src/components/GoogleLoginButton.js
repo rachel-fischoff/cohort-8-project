@@ -53,9 +53,7 @@ const GoogleLoginButton = (props) => {
     const classes = useStyles({})
 
     const onSubmit = () => {
-      console.log("props", props)
-      console.log("this", this)
-      props.google()
+      props.login()
     };
 
     return (
