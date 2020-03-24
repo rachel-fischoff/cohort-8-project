@@ -2,7 +2,7 @@ import React from 'react';
 
 import './modal.css';
 
-const modal = props => (
+const Modal = props => (
     <div className="modal">
       <header className="modal__header">
           
@@ -25,4 +25,4 @@ const modal = props => (
     </div>
   );
   
-  export default modal;
+  export default Modal;
