@@ -1,0 +1,21 @@
+.card-inner {
+    border-radius: 5px;
+    text-align: center;
+    display: inline-block;
+    height: 275px;
+    width: 270px;
+    align-content: center;
+    padding: 20px;
+    border: 2px solid #E8E8E8;
+ }
+
+ card-title-groups {
+    font-weight: bold;
+ }
+
+ groups-page {
+    border: 10px solid #E8E8E8;
+    height: 800px;
+    width: auto;
+    margin-top: 50px
+ }

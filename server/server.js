@@ -48,11 +48,11 @@ passport.use(
           } else {
             // we don't have a user record with this ID, make a new record!
             new User({
-              googleId: profile.id,
-              user_name: profile.displayName,
-              profile_name: profile.emails[0].value,
-              profile_pic_url: profile.photos[0].value
-            //   groups: groups
+              google_id: profile.id,
+              profile_name: profile.displayName,
+              email: profile.emails[0].value,
+              profile_pic_url: profile.photos[0].value,
+              date_created: new Date()
             })
             .save()
             .then(user => done(null, user))
