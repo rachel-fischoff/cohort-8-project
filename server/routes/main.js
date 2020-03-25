@@ -20,23 +20,7 @@ router.get('/projects/:todo', (req, res) => {
         })
 })
 
-// This returns all the Todos in the DB
-router.get('projects/todos', (req, res) => {
 
-    Todo
-        .find()
-        .exec((err, todos) => {
-            Todo.countDocuments().exec((err, count) => {
-                if (err) return next(err)
-
-                res.send({
-                    todos: todos,
-                    todoCount: count
-                })
-            })
-        })
-
-})
 
 router.post('projects/todos', (req, res) => {
     // Edge case that prevents from adding a new Todo if Name or DateCreated isn't specified

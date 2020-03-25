@@ -21,59 +21,83 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 passport.serializeUser((user, done) => {
-    done(null, user.id)
-  })
+  done(null, user.id)
+})
 
 passport.deserializeUser((id, done) => {
-    done(null, user._id)
+  done(null, user._id)
 })
 
 passport.use(
-    new GoogleStrategy({
-        clientID: '812786725020-6t9b7b4b2j6n6vvtjajc0333ku9bpp0u.apps.googleusercontent.com',
-        clientSecret: 'q50xXvFYNCb1e38ewnfeZYrV',
-        callbackURL: '/auth/google/callback'
-        },
-        (accessToken, refreshToken, profile, done) => {
-        User.findOne({ googleId: profile.id }).then(existingUser => {
-            if (existingUser) {
-            // we already have a record with the given profile ID
-            done(null, existingUser)
-            } else {
-            // we don't have a user record with this ID, make a new record!
-            new User({
-                googleId: profile.id,
-                name: profile.displayName,
-                email: profile.emails[0].value
-            })
-                .save()
-                .then(user => done(null, user))
-            }
-        })
+  new GoogleStrategy({
+    clientID: '812786725020-6t9b7b4b2j6n6vvtjajc0333ku9bpp0u.apps.googleusercontent.com',
+    clientSecret: 'q50xXvFYNCb1e38ewnfeZYrV',
+    callbackURL: '/auth/google/callback'
+  },
+    (accessToken, refreshToken, profile, done) => {
+      User.findOne({ googleId: profile.id }).then(existingUser => {
+        if (existingUser) {
+          // we already have a record with the given profile ID
+          done(null, existingUser)
+        } else {
+          // we don't have a user record with this ID, make a new record!
+          new User({
+            googleId: profile.id,
+            name: profile.displayName,
+            email: profile.emails[0].value
+          })
+            .save()
+            .then(user => done(null, user))
         }
-    )
+      })
+    }
+  )
 )
-  
+
 const googleAuth = passport.authenticate('google',
-  { scope: ['profile', 'email']
-})
+  {
+    scope: ['profile', 'email']
+  })
 
 app.get('/auth/google', googleAuth)
 
 app.get('/auth/google/callback', googleAuth, (req, res) => {
-    res.send('Your logged in via Google!')
+  res.send('Your logged in via Google!')
 })
 
 app.get('/api/current_user', (req, res) => {
-    console.log(req.user)
-    res.send(req.user)
+  console.log(req.user)
+  res.send(req.user)
 });
-  
+
 app.get('/api/logout', (req, res) => {
-    req.logout()
-    res.send(req.user)
+  req.logout()
+  res.send(req.user)
 })
 
+
+// This returns all the Todos in the DB
+app.get('groups/:groupId/todos', isloggedIn, (req, res) => {
+
+  Todo
+    .findById(req.params.groupId)
+    .exec((err, todos) => {
+      Todo.countDocuments().exec((err, count) => {
+        if (err) return next(err)
+        if (todos) {
+          res.send({
+            todos: todos,
+            todoCount: count
+          })
+        } else {
+          res.status(404);
+          return res.end(`group with id ${req.params.groupId} not found`);
+        }
+
+      })
+    })
+
+})
 
 
 app.listen(5000)
