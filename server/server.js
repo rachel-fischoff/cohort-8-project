@@ -328,6 +328,64 @@ app.listen(5000, () => {
 
 
 
+//GET route for /groups/groupId
+app.get('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+    Group.findOne({ _id: req.params.groupId})
+        .populate(
+            {path:'people'})
+        .populate({path: 'comments', populate: {path: 'author'}})
+        .populate({path: 'todos', populate:  {path:'tasks', 
+        populate:{path:'assigned_to'}}, populate: {path:'comments', populate: {path:'author'}}})
+        .exec((err, group) => {
+          if (err) {
+              return next(err)
+          } if(group) {
+              res.send(group)
+          } else {
+            res.status(404);
+            return res.end(`group with id ${req.params.groupId} not found`);
+        }
+        });
+      })
+  
+
+app.put ('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+    Group.findByIdAndUpdate(req.params.groupId, {name: req.body.group_name, type: req.body.group_type }, function(err, group){
+        if (err) {
+            return next(err)
+        }if(group) {
+            group.save()
+            res.end()
+    } else {
+        res.status(404);
+        return res.end(`group with id ${req.params.groupId} not found`);
+    }
+    });
+})
+
+
+      //POST route for /groups/groupId
+app.post('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+    let newGroup = new Group()
+
+
+    newGroup.name = req.body.name
+    newGroup.type = req.body.type
+    newGroup.date_created = new Date ()
+    newGroup.todos = []
+    newGroup.comments = []
+    newGroup.people = []
+    
+
+    newGroup.save(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.send('Group Created successfully')
+    })
+})
+
+
 //route for getting a single todo list page 
 app.get('/groups/:groupId/todos/:todo', isLoggedIn, ensureAuthenticated, (req, res, next) =>{
     
@@ -437,7 +495,7 @@ app.post('/groups/:groupId/todos/:todo/comments', isLoggedIn, ensureAuthenticate
 //returns a single task  
 app.get('/groups/:groupId/todos/:todo/tasks/:task', isLoggedIn, ensureAuthenticated,  (req, res, next) => {
     
-    Todo
+    Task
     .findById(req.params.task)
     .populate({path: 'assinged_to'})
     .exec((err, task) => {
@@ -462,14 +520,15 @@ app.post('/groups/:groupId/todos/:todo/tasks/:task', isLoggedIn, ensureAuthentic
             let task = new Task()
             task.title = req.body.title
             task.date_created = new Date ()
-            task.assigned_to = req.user.profile_name
+            task.assigned_to = //TO DO HELPER FUNCTION User.find({})
+            req.user.profile_name
             task.save()
             todo.tasks.push(task)
             todo.save()
             res.end()
         } else {
             res.status(404);
-            return res.end(`todo with id ${req.params.todo} not found`);
+            return res.end(`task with id ${req.params.task} not found`);
         }
     })
 
