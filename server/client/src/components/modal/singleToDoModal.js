@@ -1,16 +1,35 @@
-  import React, { Component, Fragment, useState } from 'react';
+  import React, { useState } from 'react';
   import Modal from 'react-bootstrap/Modal'
   import './modal.css';
+  import { connect } from 'react-redux';
+import * as actions from '../../actions';
+import SingleTodo from '../SingleTodo'
   
   function SingleToDoModal() {
+      //state for modal
       const [show, setShow] = useState(false);
-    
+      
+      //when a sing todo list is clicked on it changes the state to see modal
+      //also event value to know which one was clicked
+      //did not write event.value info without data
+      const clickOnATodoList = function(e){
+          setShow(true)
+      }
+
+      //loop through todos
+      const renderSingleTodoLists = function(){
+        return(
+          <h5 variant="primary" value='ID' onClick={clickOnATodoList}>
+             <SingleTodo />
+          </h5>
+        )
+      }
+
+      //need to add map function when data is avaliable where render function is
       return (
         <>
-          <h5 variant="primary" onClick={() => setShow(true)}>
-           Single To-Do Header
-          </h5>
-    
+           {renderSingleTodoLists()}
+           {renderSingleTodoLists()}
           <Modal className="modal-background-color"
               backdrop="true"
               size="xl"
@@ -34,4 +53,11 @@
       );
     }
   
-    export default SingleToDoModal;
+    function mapStateToProps(state) {
+      return {state};
+    }
+  
+    export default connect(
+      mapStateToProps,
+      actions
+    )(SingleToDoModal);
