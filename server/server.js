@@ -535,3 +535,19 @@ app.post('/groups/:groupId/todos/:todo/tasks/:task', isLoggedIn, ensureAuthentic
 })
 
 
+app.get('/home', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+    const id = req.user
+
+    Group.find({people: {$all: [ObjectId(id)]}})
+    .populate('people')
+    .exec((err, groups) => {
+    if (err) return next(err)
+    if (err){
+        res.writeHead(404);	
+        return response.end("No user is signed in.");
+      } else {
+        res.send(groups)
+      }
+        
+    });
+})
