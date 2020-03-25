@@ -408,7 +408,7 @@ app.post('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) =
 
 
 //route for getting a single todo list page 
-app.get('/groups/:groupId/todos/:todo', isLoggedIn, ensureAuthenticated, (req, res, next) =>{
+app.get('/groups/:groupId/todos/:todo', (req, res, next) =>{
     
     Todo.findOne({ _id: req.params.todo})
     .populate(
@@ -447,7 +447,7 @@ app.put('/groups/:groupId/todos/:todo', isLoggedIn, ensureAuthenticated, (req, r
 
 
 //route creates a new todo in the database
-app.post('/groups/:groupId/todos/:todo', isLoggedIn, ensureAuthenticated,  (req, res, next) => {
+app.post('/groups/:groupId/todos/:todo',  (req, res, next) => {
     
     let newTodo = new Todo()
 
