@@ -4,7 +4,7 @@ import { FETCH_GROUPS, FETCH_TODOS, NOT_AUTH_USER, AUTH_USER } from './types';
 //====================================================
 //fetching a current user      
 export const fetchUser = () => dispatch => {
-  axios.get(`http://localhost:5000/current_user/`
+  axios.get(`http://localhost:5000/api/current_user/`
   ).then(function (response) {
     console.log("current user responded", response)
     dispatch({ type: AUTH_USER, payload: response.data });
@@ -35,17 +35,31 @@ export const fetchGroups = (userID) => dispatch => {
 };
 
 //====================================================
-//Fetching TODOs for Group Component
-//TODO need actual route and need to test!!
-export const fetchTodos = (userID, groupID) => dispatch => {
-  axios.get(`/${userID}/groups/${groupID}/todos`
+//route creates a new todo in the database
+export const createNewTodo = (body, groupID, todoID) => dispatch => {
+  axios.post(`http://localhost:5000/groups/${groupID}/todos/${todoID}`, body
   ).then(function (response) {
+    console.log('response in createNew Todo', response)
     dispatch({ type: FETCH_TODOS, payload: response.data });
   })
   .catch(function (error) {
     console.log(error);
   });
 };
+//====================================================
+//Fetching TODOs for Group Component
+//TODO need actual route and need to test!!
+export const fetchTodos = (groupID, todoID) => dispatch => {
+  axios.get(`http://localhost:5000/groups/${groupID}/todos/${todoID}`
+  ).then(function (response) {
+    console.log('response in get Todos', response)
+    dispatch({ type: FETCH_TODOS, payload: response.data });
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
 
 //====================================================
 //Adding Task on TODO Component

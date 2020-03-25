@@ -12,12 +12,9 @@ import ProjectPop from './popover/newProjectPop'
 
 class Home extends Component {  
   componentDidMount() {
-    var query = queryString.parse(this.props.location.search);
-    if (query.userId) {
-      window.localStorage.setItem("jwt", query.token);
       this.props.fetchUser()
    }
-}
+
   clickHandlerNewTeam = () => {
     console.log('click')
     PopoverPage()
