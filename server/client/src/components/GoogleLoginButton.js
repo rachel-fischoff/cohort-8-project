@@ -52,12 +52,8 @@ const useStyles = makeStyles(theme =>
 const GoogleLoginButton = (props) => {
     const classes = useStyles({})
 
-    const onSubmit = () => {
-      props.login()
-    };
-
     return (
-      <a href={'#'} onClick={onSubmit} className={classes.button}>
+      <a href={'http://localhost:5000/auth/google'} className={classes.button}>
         <div className={classes.wrapper}>
           <svg
             className={classes.icon}

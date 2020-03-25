@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as actions from '../actions';
@@ -8,9 +7,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import '../index.css';
 import GoogleLoginButton from './GoogleLoginButton';
-import Home from './Home';
 
 class LandingPage extends Component {  
+
+
 
     renderPage = () => {
         console.log('props auth from landing page: ', this.props.auth)

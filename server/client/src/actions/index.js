@@ -1,30 +1,20 @@
 import axios from "axios";
-import { FETCH_GROUPS, FETCH_TODOS, FETCH_USER } from './types';
+import { FETCH_GROUPS, FETCH_TODOS, NOT_AUTH_USER, AUTH_USER } from './types';
 
 //====================================================
 //fetching a current user      
 export const fetchUser = () => dispatch => {
-  axios.get(`https://localhost:5000/api/current_user`
-  //axios.get(`/api/${userID}`
+  axios.get(`http://localhost:5000/current_user/`
   ).then(function (response) {
-    dispatch({ type: FETCH_USER, payload: response.data });
+    console.log("current user responded", response)
+    dispatch({ type: AUTH_USER, payload: response.data });
   })
   .catch(function (error) {
     console.log(error);
+    dispatch({ type: NOT_AUTH_USER, payload: error });
   });
 };
 
-//fetching a current user      
-export const login = () => dispatch => {
-  axios.get(`https://localhost:5000/auth/google`
-  ).then(function (response) {
-    console.log('response', response)
-    dispatch({ type: FETCH_USER, payload: response.data });
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-};
 
 
 //====================================================

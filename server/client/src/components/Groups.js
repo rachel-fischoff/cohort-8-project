@@ -79,4 +79,3 @@ function mapStateToProps () {
   };
   
   export default Groups;
-
