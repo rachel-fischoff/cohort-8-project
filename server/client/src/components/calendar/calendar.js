@@ -12,17 +12,19 @@ const ReactCalendar = () => {
     }
 
     return (
-        <div>
-        <Calendar
-            showDoubleView
-            showNeighboringMonth={false}
-            onChange={onChange}
-            value={date}
-          
-        />
+        <div className="row">
+            <div className="col">
+            <Calendar
+                className="col"
+                showDoubleView
+                showNeighboringMonth={false}
+                onChange={onChange}
+                value={date}
+            
+            />
         {console.log(date)}
         <h3>Selected date : </h3><a>{date.toString()}</a>
-        
+        </div>
       </div>
         )
 }
