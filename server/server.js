@@ -330,7 +330,7 @@ app.get('/logout', (req, res) => {
 });
 
 //get current user's full profile
-app.get('/api/current_user', (req, res) => {
+app.get('/current_user', (req, res) => {
     const id = req.user
     User
     .findById(id).exec((error, user) => {
@@ -587,6 +587,7 @@ app.get('/groups/:groupId/todos', isLoggedIn, ensureAuthenticated, (req, res, ne
 
     
     })
+})
 
 //route for getting a groups tasks for one month
 app.get('/groups/:groupdId/schedule', ensureAuthenticated, (req, res) => {
