@@ -3,6 +3,7 @@
   import './modal.css';
   import { connect } from 'react-redux';
 import * as actions from '../../actions';
+import SingleTodo from '../SingleTodo'
   
   function SingleToDoModal() {
       //state for modal
@@ -19,7 +20,7 @@ import * as actions from '../../actions';
       const renderSingleTodoLists = function(){
         return(
           <h5 variant="primary" value='ID' onClick={clickOnATodoList}>
-            SingleToDo
+             <SingleTodo />
           </h5>
         )
       }

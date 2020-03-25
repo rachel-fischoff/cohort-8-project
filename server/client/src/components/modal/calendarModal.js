@@ -7,7 +7,8 @@ function CalendarModal() {
     const [show, setShow] = useState(false);
   
     return (
-      <>
+      <div className="row">
+          <div className="col">
         <h5 variant="primary" onClick={() => setShow(true)}>
          Calendar
         </h5>
@@ -32,7 +33,8 @@ function CalendarModal() {
             </p>
           </Modal.Body>
         </Modal>
-      </>
+        </div>
+      </div>
     );
   }
   

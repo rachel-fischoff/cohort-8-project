@@ -9,12 +9,17 @@ import 'font-awesome/css/font-awesome.min.css';
 
 const Nav = () => {
 
+  const handleLogoutClick = () => {
+    // Logout using Google passport api
+    // Set authenticated state to false in the HomePage
+    window.open('http://localhost:5000/logout', "_self");
+  };
+
   const renderLinks = () => {
 
       return (
         <React.Fragment>
-
-          <li><Link to="/">Sign Out</Link></li>
+          <li onClick={handleLogoutClick}>Sign Out</li>
           <li><Link to="/home"><FontAwesomeIcon icon={faCampground} /> Home</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faCommentAlt}/> Pings</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faInbox}/> Hey!</Link></li>
@@ -33,7 +38,9 @@ const Nav = () => {
       <div id="logo">
         <NavLink to="/home" >
         <h1 className="h3">HomeBase</h1>
+        
         </NavLink>
+        
       </div>
     
       <NavUl>

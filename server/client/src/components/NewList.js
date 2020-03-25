@@ -39,6 +39,7 @@ class NewList extends React.Component {
     render() {
         return (
             <div className='row'>
+                <div className="col">
                 <form>
                     <input
                         placeholder="Name This List..."
@@ -52,6 +53,7 @@ class NewList extends React.Component {
                         onChange={event => this.setState({description: event.target.value})}/>
                     <button type="button" onClick={this.handleSubmit}>Add This List</button>
                 </form>
+                </div>
             </div>
         )
     }
