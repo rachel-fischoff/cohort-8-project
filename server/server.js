@@ -322,12 +322,6 @@ app.get('/logout', (req, res) => {
     res.redirect('/')
 })
 
-app.listen(5000, () => {
-    console.log("Server listening on port 5000")
-})
-
-
-
 //GET route for /groups/groupId
 app.get('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
     Group.findOne({ _id: req.params.groupId})
@@ -534,4 +528,34 @@ app.post('/groups/:groupId/todos/:todo/tasks/:task', isLoggedIn, ensureAuthentic
 
 })
 
+//route for getting a groups tasks for one month
+app.get('/groups/:groupdId/schedule', ensureAuthenticated, (req, res) => {
+  const currentMonth = parseInt(req.body.currentMonth)
+  const currentYear = parseInt(req.body.currentYear)
+  const nextMonth = currentMonth + 1
 
+  Group
+    .findById(req.params.groupId)
+    .populate({path: 'todos', populate: {path: 'tasks'}})
+    .exec((err, groups) => {
+      if (err) {
+        res.send(err)
+      } else {
+        tasks = []
+        groups.todos.forEach((todo) => {
+          todo.tasks.forEach((task) => {
+            const month = task.due_date.getMonth()
+            const year = task.due_date.getFullYear()
+            if ((month == currentMonth || month == nextMonth) && year == currentYear) {
+              tasks.push(task)
+            }
+          })
+        })
+        res.send({tasks, currentMonth, currentYear, nextMonth})
+      }
+    })
+})
+
+app.listen(5000, () => {
+  console.log("Server listening on port 5000")
+})
