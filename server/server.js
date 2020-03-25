@@ -363,6 +363,7 @@ app.get('/groups/:groupId',  (req, res, next) => {
       }
       });
     })
+
   
 
 app.put ('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
