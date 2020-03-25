@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_GROUPS, FETCH_TODOS, FETCH_USER } from './types';
+import { FETCH_GROUPS, FETCH_TODOS, NOT_AUTH_USER, AUTH_USER } from './types';
 
 //====================================================
 //fetching a current user      
@@ -7,10 +7,11 @@ export const fetchUser = () => dispatch => {
   axios.get(`http://localhost:5000/current_user/`
   ).then(function (response) {
     console.log("current user responded", response)
-    dispatch({ type: FETCH_USER, payload: response.data });
+    dispatch({ type: AUTH_USER, payload: response.data });
   })
   .catch(function (error) {
     console.log(error);
+    dispatch({ type: NOT_AUTH_USER, payload: error });
   });
 };
 
