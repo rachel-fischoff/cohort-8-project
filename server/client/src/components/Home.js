@@ -7,6 +7,8 @@ import _ from "lodash";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import '../index.css';
+import PopoverPage from './popover/newTeamPop';
+import ProjectPop from './popover/newProjectPop'
 
 class Home extends Component {  
   componentDidMount() {
@@ -16,13 +18,21 @@ class Home extends Component {
       this.props.fetchUser()
    }
 }
+  clickHandlerNewTeam = () => {
+    console.log('click')
+    PopoverPage()
+  }
+
+  clickHandlerNewProject = () => {
+    console.log('clicked new project')
+  }
 
   render() {
 // if (this.props.authenticated){
     return (
         <div className="home-page">
            <div className="projects-row">
-             <button type="button" className="btn btn-success new-button">+ New</button>
+             <PopoverPage></PopoverPage>
                <div className="col-md-8-offset-3 text-center">
                 <Link to="/groups" className="h3 separator">Teams</Link>
                   <br></br>
@@ -37,7 +47,9 @@ class Home extends Component {
                 </div>
               </div>
               <div className="projects-row">
-               <button type="button" className="btn btn-success new-button">+ New</button>
+                <div className="col justify-content-left">
+               <ProjectPop></ProjectPop>
+               </div>
                 <div className="col-md-8-offset-3 text-center">
                  <Link to={`/Groups`} className="h3 separator">Projects</Link>
                   <br></br>
