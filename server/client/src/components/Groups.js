@@ -35,31 +35,31 @@ class Groups extends Component {
                <div className="card-groups col-md-10 mx-auto">
                <h1 className="card-title-groups text-center">Team/Project Name</h1>
                <div className="card-body">
-                <div class="row text-center">
-                  <div class="col-md-4">
-                    <div class="card-inner">
+                <div className="row text-center">
+                  <div className="col-md-4">
+                    <div className="card-inner">
                     <CalendarModal><p>Calendar</p></CalendarModal>
                     <hr />
-                    <div class="card-body">
-                    <p class="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
+                    <div className="card-body">
+                    <p className="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="card-inner">
+                <div className="col-md-4">
+                  <div className="card-inner">
                     <ToDoModal />
                       <hr />
-                    <div class="card-body">
-                    <p class="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
+                    <div className="card-body">
+                    <p className="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="card-inner">
+                <div className="col-md-4">
+                  <div className="card-inner">
                     <MessageBoardModal></MessageBoardModal>
                     <hr />
-                    <div class="card-body">
-                    <p class="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
+                    <div className="card-body">
+                    <p className="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
                   </div>
                 </div>
               </div>

@@ -363,26 +363,6 @@ app.get('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
       }
       });
     })
-
-//GET route for /groups/groupId
-app.get('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
-    Group.findOne({ _id: req.params.groupId})
-        .populate(
-            {path:'people'})
-        .populate({path: 'comments', populate: {path: 'author'}})
-        .populate({path: 'todos', populate:  {path:'tasks', 
-        populate:{path:'assigned_to'}}, populate: {path:'comments', populate: {path:'author'}}})
-        .exec((err, group) => {
-          if (err) {
-              return next(err)
-          } if(group) {
-              res.send(group)
-          } else {
-            res.status(404);
-            return res.end(`group with id ${req.params.groupId} not found`);
-        }
-        });
-      })
   
 
 app.put ('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
@@ -583,12 +563,29 @@ app.get('/groups/:groupId/todos', isLoggedIn, ensureAuthenticated, (req, res, ne
         } else {
           res.status(404);
           return res.end(`group with id ${req.params.groupId} not found`);
-        }
-
-    
-    })
+        }    
+  })
 })
 
+
+
+app.get('/home', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+    const id = req.user
+// a0289a025e882ac6c00c59b843206f84a7c3c412
+
+    Group.find({people: {$all: [ObjectId(id)]}})
+    .populate('people')
+    .exec((err, groups) => {
+    if (err) return next(err)
+    if (err){
+        res.writeHead(404);	
+        return response.end("No user is signed in.");
+      } else {
+        res.send(groups)
+      }  
+    });
+})
+  
 //route for getting a groups tasks for one month
 app.get('/groups/:groupdId/schedule', ensureAuthenticated, (req, res) => {
   const currentMonth = parseInt(req.body.currentMonth)
@@ -635,7 +632,6 @@ app.get('/groups', (req, res, next) => {
         res.send({searchedGroup: group})
       }
     })
-
 })
 
 
