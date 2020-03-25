@@ -314,9 +314,13 @@ app.listen(5000, () => {
 })
 
 //route for getting a single todo list page 
-app.get('/groups/:groupId/todos/:todo/tasks', isLoggedIn, (req, res, next) =>{
+app.get('/groups/:groupId/todos/:todo', isLoggedIn, (req, res, next) =>{
     
     Todo.findOne({ _id: req.params.todo})
+    .populate(
+        {path:'tasks', 
+        populate:{path:'assigned_to'}})
+    .populate({path: 'comments', populate: {path: 'author'}})
       .exec((err, todo) => {
           if (err) {
               return next(err)
@@ -332,13 +336,14 @@ app.get('/groups/:groupId/todos/:todo/tasks', isLoggedIn, (req, res, next) =>{
 
 
 //route to update the single todo by name and description 
-app.put('/groups/:groupId/todos/:todo/tasks', isLoggedIn, (req, res, next) => {
+app.put('/groups/:groupId/todos/:todo', isLoggedIn, (req, res, next) => {
     
     Todo.findByIdAndUpdate(req.params.todo, {name: req.body.name, description: req.body.description }, function(err, todo){
             if (err) {
                 return next(err)
             }if(todo) {
-           res.send(todo)
+                todo.save()
+                res.end()
         } else {
             res.status(404);
             return res.end(`todo with id ${req.params.todo} not found`);
@@ -348,7 +353,7 @@ app.put('/groups/:groupId/todos/:todo/tasks', isLoggedIn, (req, res, next) => {
 
 
 //route creates a new todo in the database
-app.post('/groups/:groupId/todos/:todo/tasks', isLoggedIn,  (req, res, next) => {
+app.post('/groups/:groupId/todos/:todo', isLoggedIn,  (req, res, next) => {
     
     let newTodo = new Todo()
 
@@ -375,6 +380,7 @@ app.get('/groups/:groupId/todos/:todo/comments', isLoggedIn,  (req, res, next) =
     
     Todo
     .findById(req.params.todo)
+    .populate({path: 'comments', populate: {path: 'author'}})
     .exec((err, todo) => {
         if (err) return next(err)
         if (todo) {
@@ -391,14 +397,15 @@ app.post('/groups/:groupId/todos/:todo/comments', isLoggedIn,  (req, res, next) 
     
     Todo
     .findById(req.params.todo)
+    .populate({path: 'comments', populate: {path: 'author'}})
     .exec((err, todo) => {
         if (err) return next(err)
         if (todo) {
             let comment = new Comment()
             comment.title = req.body.title
             comment.description = req.body.description
-            comment.date_created = req.params.date_created
-            comment.author = user._id //to change
+            comment.date_created = new Date ()
+            comment.author = req.body.author.profile_name
             comment.save()
             todo.comments.push(comment)
             todo.save()
@@ -411,10 +418,44 @@ app.post('/groups/:groupId/todos/:todo/comments', isLoggedIn,  (req, res, next) 
 
 })
 
-    // let newTask = new Task({
-    //     title: req.body.tasks.title,
-    //     date_created: req.body.tasks.date_created, 
-    //    //assingned to ?
-    //     due_date: req.body.tasks.due_date,
-    //     completed: req.body.tasks.completed
-    // })
+//returns a single task  
+app.get('/groups/:groupId/todos/:todo/tasks/:task', isLoggedIn,  (req, res, next) => {
+    
+    Todo
+    .findById(req.params.task)
+    .populate({path: 'assinged_to'})
+    .exec((err, task) => {
+        if (err) return next(err)
+        if (task) {
+            res.send(task) 
+         } else{
+                res.status(404);
+                return res.end(`task with id ${req.params.task} not found`);
+            } 
+        })
+    })
+
+//create a new task 
+app.post('/groups/:groupId/todos/:todo/tasks/:task', isLoggedIn,  (req, res, next) => {
+    Todo
+    .findById(req.params.todo)
+    .populate({path: 'tasks', populate: {path: 'assigned_to'}})
+    .exec((err, todo) => {
+        if (err) return next(err)
+        if (todo) {
+            let task = new Task()
+            task.title = req.body.title
+            task.date_created = new Date ()
+            task.assigned_to = req.body.assigned_to.profile_name
+            task.save()
+            todo.tasks.push(task)
+            todo.save()
+            res.end()
+        } else {
+            res.status(404);
+            return res.end(`todo with id ${req.params.todo} not found`);
+        }
+    })
+
+})
+
