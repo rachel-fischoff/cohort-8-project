@@ -22,7 +22,7 @@ function ToDoModal() {
         >
           <Modal.Header closeButton >
             <Modal.Title id="modal-title"  >
-              To-Do's header
+              To-Do's header ToDo Modal
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>

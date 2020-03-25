@@ -36,6 +36,7 @@ class Home extends Component {
                   </div>
                 </div>
               </div>
+              
               <div className="projects-row">
                <button type="button" className="btn btn-success new-button">+ New</button>
                 <div className="col-md-8-offset-3 text-center">
