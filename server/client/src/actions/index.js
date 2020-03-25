@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_GROUPS, FETCH_TODOS, NOT_AUTH_USER, AUTH_USER } from './types';
+import { FETCH_GROUPS, FETCH_TODOS, NOT_AUTH_USER, AUTH_USER, FETCH_GROUP_DETAILS } from './types';
 
 //====================================================
 //fetching a current user      
@@ -28,6 +28,20 @@ export const fetchGroups = (userID) => dispatch => {
   axios.get(`/${userID}/groups`
   ).then(function (response) {
     dispatch({ type: FETCH_GROUPS, payload: response.data });
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
+//====================================================
+//Fetching Schedule for Group Component
+//TODO need actual route and need to test!!
+export const fetchGroupDetails = (groupID) => dispatch => {
+  axios.get(`http://localhost:5000/groups/${groupID}`
+  ).then(function (response) {
+    console.log("response from fetchgroupdetails", response)
+    dispatch({ type: FETCH_GROUP_DETAILS, payload: response.data });
   })
   .catch(function (error) {
     console.log(error);

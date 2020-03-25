@@ -25,7 +25,7 @@ render(
           <Switch>
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/home" component={Home} />
-            <Route exact path="/groups" component={Groups} />
+            <Route exact path={`/groups/:groupId`} component={Groups} />
             <Route exact path="/calendar" component={ReactCalendar} />
           </Switch>
         </App>

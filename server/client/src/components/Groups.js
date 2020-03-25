@@ -5,17 +5,30 @@ import ToDoModal from './modal/toDoModalodal';
 import CalendarModal from '../components/modal/calendarModal';
 import MessageBoardModal from '../components/modal/messageBoardModal';
 import './groups.css';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 
 
 class Groups extends Component {  
-
-    state = {
+  constructor(props) {
+    super(props)
+    //for the modals
+    this. state = {
     viewingToDos: false,
     events: [],
     isLoading: false,
     selectedEvent: null
-  };
+  }
+
+  //binds function to this state
+  this.renderPerson = this.renderPerson.bind(this)
+};
+  //fetches data when loads
+  componentDidMount(){
+    console.log('should be group id #', this.props.match.params.groupId)
+    this.props.fetchGroupDetails(this.props.match.params.groupId)
+  }
 
   viewToDoList = () => {
     this.setState({ viewingToDos: true });
@@ -24,8 +37,13 @@ class Groups extends Component {
   modalConfirmHandler = () => {
     this.setState({ viewingToDos: false });
   }
+
+  renderPerson = (p) => {
+      return(
+        <img src = {p.profile_pic_url}></img>
+      )
+    }
     
-  
     render() {
   
         return (
@@ -33,7 +51,8 @@ class Groups extends Component {
             <div className="row">
               <br></br>
                <div className="card-groups col-md-10 mx-auto">
-               <h1 className="card-title-groups text-center">Team/Project Name</h1>
+               <h1 className="card-title-groups text-center">{this.props.groupName}</h1>
+               <div className="card-title-groups text-center">{this.props.people.map(this.renderPerson)}</div>
                <div className="card-body">
                 <div class="row text-center">
                   <div class="col-md-4">
@@ -74,8 +93,17 @@ class Groups extends Component {
 }
 
 
-function mapStateToProps () {
-    return {  }
-  };
+function mapStateToProps (state) {
+    return ({
+      people: state.group.people,
+      comments: state.group.comments,
+      todos: state.group.comments,
+      groupName: state.group.group_name,
+      groupId: state.group._id
+    })};
   
-  export default Groups;
+  export default connect(
+    mapStateToProps,
+    actions
+  )(Groups);
+ 

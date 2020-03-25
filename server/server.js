@@ -344,7 +344,7 @@ app.get('/api/current_user', (req, res) => {
 
 
 //GET route for /groups/groupId
-app.get('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
+app.get('/groups/:groupId',  (req, res, next) => {
   Group.findOne({ _id: req.params.groupId})
       .populate(
           {path:'people'})
@@ -364,7 +364,7 @@ app.get('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
     })
 
 //GET route for /groups/groupId
-app.get('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+app.get('/groups/:groupId', (req, res, next) => {
     Group.findOne({ _id: req.params.groupId})
         .populate(
             {path:'people'})
@@ -400,7 +400,7 @@ app.put ('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) =
 
 
 //POST route for /groups/groupId
-app.post('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+app.post('/groups/:groupId', (req, res, next) => {
     let newGroup = new Group()
 
 
