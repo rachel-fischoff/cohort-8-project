@@ -12,6 +12,7 @@ const Group = require('./models/group')
 const Todo = require('./models/todo')
 const bodyParser = require('body-parser')
 const ObjectId = require('mongoose').Types.ObjectId
+const querySring = require('querystring')
 
 const app = express()
 
@@ -362,26 +363,6 @@ app.get('/groups/:groupId',  (req, res, next) => {
       }
       });
     })
-
-//GET route for /groups/groupId
-app.get('/groups/:groupId', (req, res, next) => {
-    Group.findOne({ _id: req.params.groupId})
-        .populate(
-            {path:'people'})
-        .populate({path: 'comments', populate: {path: 'author'}})
-        .populate({path: 'todos', populate:  {path:'tasks', 
-        populate:{path:'assigned_to'}}, populate: {path:'comments', populate: {path:'author'}}})
-        .exec((err, group) => {
-          if (err) {
-              return next(err)
-          } if(group) {
-              res.send(group)
-          } else {
-            res.status(404);
-            return res.end(`group with id ${req.params.groupId} not found`);
-        }
-        });
-      })
   
 
 app.put ('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
@@ -569,6 +550,39 @@ app.post('/groups/:groupId/todos/:todo/tasks/:task', isLoggedIn, ensureAuthentic
 
 })
 
+// This returns all the Todos in the DB
+app.get('/groups/:groupId/todos', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+
+  Group
+    .findById(req.params.groupId)
+    .populate({path: 'todos', populate: {path: 'tasks', populate: {path: 'assigned_to'}}})
+    .exec((err, Group) => {
+      if (err) return next(err)
+        if (Group) {
+          res.send({Group})
+        } else {
+          res.status(404);
+          return res.end(`group with id ${req.params.groupId} not found`);
+        }    
+  })
+})
+
+app.get('/home', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+    const id = req.user
+
+    Group.find({people: {$all: [ObjectId(id)]}})
+    .populate('people')
+    .exec((err, groups) => {
+    if (err) return next(err)
+    if (err){
+        res.writeHead(404);	
+        return response.end("No user is signed in.");
+      } else {
+        res.send(groups)
+      }  
+    });
+})
+  
 //route for getting a groups tasks for one month
 app.get('/groups/:groupdId/schedule', ensureAuthenticated, (req, res) => {
   const currentMonth = parseInt(req.body.currentMonth)
@@ -596,6 +610,27 @@ app.get('/groups/:groupdId/schedule', ensureAuthenticated, (req, res) => {
       }
     })
 })
+
+//Search Group Route
+app.get('/groups', (req, res, next) => {
+  //spliting the url to grab the keyword we need to compare in our data
+  const parsedURL = req.url.split("?");
+  // Setting a variable equal to the keyword that is in the 1st index so we can compare
+  const queryParams = querySring.parse(parsedURL[1]);
+
+  Group
+    .find({group_name: queryParams})
+    .populate({path: 'group_type'})
+    .exec((err, group) => {
+      if (err) {
+        res.send(err)
+      } else {
+        res.status(200);
+        res.send({searchedGroup: group})
+      }
+    })
+})
+
 
 app.listen(5000, () => {
   console.log("Server listening on port 5000")
