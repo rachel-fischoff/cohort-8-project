@@ -295,34 +295,38 @@ app.get('/generate-fake-groups', (req, res) => {
 
 app.get('/auth/google', googleAuth)
 
-app.get('/auth/google/callback', googleAuth, (req, res) => {
-  //res.send('Your logged in via Google!')
-  console.log('user from server: ', req.user)
-  res.send(req.user)
-})
-
-app.get('/current_user', (req, res) => {
-    //will send back the userId given by mongo DB
-    //you can search current user by this id to get
-    //their full profile!
-    if(req.user === undefined){
-        res.send('No user is currently signed in')
-    }
-    console.log('user id from get server current_user: ', req.user._id);
-
-    res.send(req.user)
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/' }),
+  function(req, res) {
+    res.redirect('/home');
 });
 
 
+//get current user's full profile
+app.get('/api/current_user', (req, res) => {
+    const id = req.user
+    User
+    .findById(id).exec((error, user) => {
+      if (error){
+        res.writeHead(404);	
+        return response.end("No user is signed in.");
+      } else{
+        return res.send(user)
+      }
+    })
+});
   
 app.get('/logout', (req, res) => {
-    req.logout()
-    res.send(req.user)
+    req.logout();
+    req.session = null
+    res.redirect('/')
 })
 
 app.listen(5000, () => {
     console.log("Server listening on port 5000")
 })
+
+
 
 //route for getting a single todo list page 
 app.get('/groups/:groupId/todos/:todo', isLoggedIn, ensureAuthenticated, (req, res, next) =>{
@@ -429,6 +433,7 @@ app.post('/groups/:groupId/todos/:todo/comments', isLoggedIn, ensureAuthenticate
 
 })
 
+
 //returns a single task  
 app.get('/groups/:groupId/todos/:todo/tasks/:task', isLoggedIn, ensureAuthenticated,  (req, res, next) => {
     
@@ -469,4 +474,5 @@ app.post('/groups/:groupId/todos/:todo/tasks/:task', isLoggedIn, ensureAuthentic
     })
 
 })
+
 
