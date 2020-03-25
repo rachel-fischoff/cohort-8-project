@@ -13,6 +13,7 @@ import ProjectPop from './popover/newProjectPop'
 class Home extends Component {  
   componentDidMount() {
       this.props.fetchUser()
+      this.props.home()
    }
 
   clickHandlerNewTeam = () => {
@@ -73,7 +74,7 @@ class Home extends Component {
 function mapStateToProps(state) {
   console.log('state', state)
   return {
-    authenticated: state.auth
+    state
   };
 }
 

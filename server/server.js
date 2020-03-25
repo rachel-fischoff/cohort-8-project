@@ -380,7 +380,7 @@ app.put ('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) =
 })
 
 
-//POST route for /groups/groupId
+//POST route for /groups
 app.post('/groups/:groupId', (req, res, next) => {
     let newGroup = new Group()
 
@@ -567,7 +567,7 @@ app.get('/groups/:groupId/todos', isLoggedIn, ensureAuthenticated, (req, res, ne
   })
 })
 
-app.get('/home', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+app.get('/home',  (req, res, next) => {
     const id = req.user
 
     Group.find({people: {$all: [ObjectId(id)]}})

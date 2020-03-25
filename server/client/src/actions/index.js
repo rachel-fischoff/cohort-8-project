@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_GROUPS, FETCH_TODOS, NOT_AUTH_USER, AUTH_USER, FETCH_GROUP_DETAILS } from './types';
+import { FETCH_HOME, FETCH_TODOS, NOT_AUTH_USER, AUTH_USER, FETCH_GROUP_DETAILS } from './types';
 
 //====================================================
 //fetching a current user      
@@ -23,11 +23,12 @@ export const fetchUser = () => dispatch => {
 
 //=======================================================
 //Fetching groups for home page
-//TODO need actual route and need to test!!
-export const fetchGroups = (userID) => dispatch => {
-  axios.get(`/${userID}/groups`
+//WORKING
+export const home = () => dispatch => {
+  axios.get(`http://localhost:5000/home`
   ).then(function (response) {
-    dispatch({ type: FETCH_GROUPS, payload: response.data });
+    console.log('response from home', response)
+    dispatch({ type: FETCH_HOME, payload: response.data });
   })
   .catch(function (error) {
     console.log(error);
@@ -36,7 +37,7 @@ export const fetchGroups = (userID) => dispatch => {
 
 //====================================================
 //Fetching Schedule for Group Component
-//TODO need actual route and need to test!!
+//WORKING
 export const fetchGroupDetails = (groupID) => dispatch => {
   axios.get(`http://localhost:5000/groups/${groupID}`
   ).then(function (response) {
@@ -50,6 +51,7 @@ export const fetchGroupDetails = (groupID) => dispatch => {
 
 //====================================================
 //route creates a new todo in the database
+//WORKING
 export const createNewTodo = (body, groupID, todoID) => dispatch => {
   axios.post(`http://localhost:5000/groups/${groupID}/todos/${todoID}`, body
   ).then(function (response) {
