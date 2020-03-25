@@ -1,5 +1,4 @@
   import React, { Component, Fragment, useState } from 'react';
-  import * as actions from '../../actions'
   import Modal from 'react-bootstrap/Modal'
   import SingleTodoList from '../SingleToDoList'
   import './modal.css';

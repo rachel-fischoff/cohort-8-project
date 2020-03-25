@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
 import * as actions from '../actions'
+import 'bootstrap/dist/css/bootstrap.min.css';
 // import { Link } from 'react-router-dom'
 // import CommentsContainer from '../comments/comments_container'
 
@@ -15,8 +16,7 @@ class SingleTodoList extends React.Component {
   componentDidMount(){
     this.setState({loading: true})
     this.props.fetchUser()
-    console.log(this.props)
-    this.props.fetchTodos()
+    console.log(this.state)
   }
 
   render(){
@@ -24,9 +24,11 @@ class SingleTodoList extends React.Component {
       return (<div> Loading... </div>)
     } else {
       return (
-        <div className='col'>
-          hello
-        </div>
+        <div className="row">
+          <div className="todo-title">
+            <h2>Name Todos</h2>
+          </div>
+         </div>
       )
     }
   }
