@@ -345,24 +345,24 @@ app.get('/api/current_user', (req, res) => {
 
 
 //GET route for /groups/groupId
-app.get('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
-  Group.findOne({ _id: req.params.groupId})
-      .populate(
-          {path:'people'})
-      .populate({path: 'comments', populate: {path: 'author'}})
-      .populate({path: 'todos', populate: {path:'comments'}, populate: {path:'tasks', 
-      populate: {path:'assigned_to'}}})
-      .exec((err, group) => {
-        if (err) {
-            return next(err)
-        } if(group) {
-            res.send(group)
-        } else {
-          res.status(404);
-          return res.end(`group with id ${req.params.groupId} not found`);
-      }
-      });
-    })
+// app.get('/groups/:groupId', (req, res, next) => {
+//   Group.findOne({ _id: req.params.groupId})
+//       .populate(
+//           {path:'people'})
+//       .populate({path: 'comments', populate: {path: 'author'}})
+//       .populate({path: 'todos', populate: {path:'comments'}, populate: {path:'tasks', 
+//       populate: {path:'assigned_to'}}})
+//       .exec((err, group) => {
+//         if (err) {
+//             return next(err)
+//         } if(group) {
+//             res.send(group)
+//         } else {
+//           res.status(404);
+//           return res.end(`group with id ${req.params.groupId} not found`);
+//       }
+//       });
+//     })
   
 
 app.put ('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
