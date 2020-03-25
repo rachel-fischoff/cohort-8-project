@@ -569,21 +569,21 @@ app.get('/groups/:groupId/todos', isLoggedIn, ensureAuthenticated, (req, res, ne
 })
 
 
-app.get('/home',  (req, res, next) => {
-
+app.get('/home', (req, res, next) => {
+  const id = req.user
 // a0289a025e882ac6c00c59b843206f84a7c3c412
 
-    Group.find({people: {$all: [ObjectId(id)]}})
-    .populate('people')
-    .exec((err, groups) => {
-    if (err) return next(err)
-    if (err){
-        res.writeHead(404);	
-        return response.end("No user is signed in.");
-      } else {
-        res.send(groups)
-      }  
-    });
+  Group.find({people: {$all: [ObjectId(id)]}})
+  .populate('people')
+  .exec((err, groups) => {
+  if (err) return next(err)
+  if (err){
+      res.writeHead(404);	
+      return response.end("No user is signed in.");
+    } else {
+      res.send(groups)
+    }  
+  });
 })
   
 //route for getting a groups tasks for one month

@@ -4,12 +4,9 @@ import { FETCH_HOME, FETCH_TODOS, NOT_AUTH_USER, AUTH_USER, FETCH_GROUP_DETAILS 
 //====================================================
 //fetching a current user      
 export const fetchUser = () => dispatch => {
-<<<<<<< HEAD
-  axios.get(`http://localhost:5000/current_user`
-=======
 
   axios.get(`/current_user`
->>>>>>> dc6eef21013460f160e3485bc5dbf18fdedc1ca1
+
   ).then(function (response) {
     console.log("current user responded", response)
     dispatch({ type: AUTH_USER, payload: response.data });
