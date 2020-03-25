@@ -363,26 +363,6 @@ app.get('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
       }
       });
     })
-
-//GET route for /groups/groupId
-app.get('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
-    Group.findOne({ _id: req.params.groupId})
-        .populate(
-            {path:'people'})
-        .populate({path: 'comments', populate: {path: 'author'}})
-        .populate({path: 'todos', populate:  {path:'tasks', 
-        populate:{path:'assigned_to'}}, populate: {path:'comments', populate: {path:'author'}}})
-        .exec((err, group) => {
-          if (err) {
-              return next(err)
-          } if(group) {
-              res.send(group)
-          } else {
-            res.status(404);
-            return res.end(`group with id ${req.params.groupId} not found`);
-        }
-        });
-      })
   
 
 app.put ('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
@@ -583,10 +563,9 @@ app.get('/groups/:groupId/todos', isLoggedIn, ensureAuthenticated, (req, res, ne
         } else {
           res.status(404);
           return res.end(`group with id ${req.params.groupId} not found`);
-        }
-
-    
-    })
+        }    
+  })
+})
 
 //route for getting a groups tasks for one month
 app.get('/groups/:groupdId/schedule', ensureAuthenticated, (req, res) => {
@@ -634,7 +613,6 @@ app.get('/groups', (req, res, next) => {
         res.send({searchedGroup: group})
       }
     })
-
 })
 
 
