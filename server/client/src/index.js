@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { render } from "react-dom";
 import Nav from "./components/Nav";
 import App from './components/App';
-import Home from './components/Home';
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";

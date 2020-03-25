@@ -13,7 +13,7 @@ const Nav = () => {
 
       return (
         <React.Fragment>
-          <li>{email}</li>
+          <li>email</li>
           <li><Link to="/api/logout">Sign Out</Link></li>
           <li><Link to="/"><FontAwesomeIcon icon={faCampground} /> Home</Link></li>
           <li><Link to="/"><FontAwesomeIcon icon={faCommentAlt}/> Pings</Link></li>
