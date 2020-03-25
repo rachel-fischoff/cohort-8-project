@@ -612,7 +612,7 @@ app.get('/groups/:groupdId/schedule', ensureAuthenticated, (req, res) => {
 })
 
 //Search Group Route
-app.get('/search/groups', (req, res, next) => {
+app.get('/search/groups', ensureAuthenticated, (req, res, next) => {
   //spliting the url to grab the keyword we need to compare in our data
   const parsedURL = req.url.split("?");
   // Setting a variable equal to the keyword that is in the 1st index so we can compare
@@ -634,7 +634,7 @@ app.get('/search/groups', (req, res, next) => {
 })
 
 //Search Users Route
-app.get('/search/users', (req, res, next) => {
+app.get('/search/users', ensureAuthenticated, (req, res, next) => {
   //spliting the url to grab the keyword we need to compare in our data
   const parsedURL = req.url.split("?");
   // Setting a variable equal to the keyword that is in the 1st index so we can compare
