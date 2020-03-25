@@ -4,6 +4,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy
 const mongoose = require('mongoose')
 const faker = require('faker')
 const cookieSession = require('cookie-session')
+const cors = require("cors");
 const User = require('./models/user')
 const Comment = require('./models/comment')
 const Task = require('./models/task')
@@ -42,11 +43,23 @@ app.use(
     })
 )
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+//   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
+
+// set up cors to allow us to accept requests from our client
+app.use(
+  cors({
+    origin: "http://localhost:3000", // allow to server to accept request from different origin
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true // allow session cookie from browser to pass through
+  })
+);
+
 
 app.use(passport.initialize())
 app.use(passport.session())
@@ -62,13 +75,15 @@ passport.deserializeUser((id, done) => {
 passport.use(
   new GoogleStrategy(
     {
-      clientID: '1096879772481-ekikp4fo6uo40lbnmo9i6ut4673p6uug.apps.googleusercontent.com',
-      clientSecret: 'DwIABfYy4gwD6CYWT3gw49iI',
+      clientID: '678475023348-tlm6ikrgeublvh5o3gbihpf1o7ddoqsd.apps.googleusercontent.com',
+      clientSecret: 'jsyrZ37mfbOFn--PkSDJHlDo',
       callbackURL: '/auth/google/callback'
     },
     (accessToken, refreshToken, profile, done) => {
         // console.log(profile)
         User.findOne({ google_id: profile.id }).then(existingUser => {
+          console.log("access token: ", accessToken);
+          console.log("refresh token: ", refreshToken);
           if (existingUser) {
             // we already have a record with the given profile ID
             done(null, existingUser)
@@ -295,12 +310,23 @@ app.get('/generate-fake-groups', (req, res) => {
 
 app.get('/auth/google', googleAuth)
 
+
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/' }),
   function(req, res) {
     res.redirect('http://localhost:3000/home');
+     res.end()
 });
 
+
+
+
+app.get('/logout', (req, res) => {
+  req.logout();
+  req.session = null;
+  res.redirect('http://localhost:3000');
+  res.end()
+});
 
 //get current user's full profile
 app.get('/api/current_user', (req, res) => {
@@ -315,17 +341,64 @@ app.get('/api/current_user', (req, res) => {
       }
     })
 });
+
+
+//GET route for /groups/groupId
+app.get('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+    Group.findOne({ _id: req.params.groupId})
+        .populate(
+            {path:'people'})
+        .populate({path: 'comments', populate: {path: 'author'}})
+        .populate({path: 'todos', populate:  {path:'tasks', 
+        populate:{path:'assigned_to'}}, populate: {path:'comments', populate: {path:'author'}}})
+        .exec((err, group) => {
+          if (err) {
+              return next(err)
+          } if(group) {
+              res.send(group)
+          } else {
+            res.status(404);
+            return res.end(`group with id ${req.params.groupId} not found`);
+        }
+        });
+      })
   
-app.get('/logout', (req, res) => {
-    req.logout();
-    req.session = null
-    res.redirect('/')
+
+app.put ('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+    Group.findByIdAndUpdate(req.params.groupId, {name: req.body.group_name, type: req.body.group_type }, function(err, group){
+        if (err) {
+            return next(err)
+        }if(group) {
+            group.save()
+            res.end()
+    } else {
+        res.status(404);
+        return res.end(`group with id ${req.params.groupId} not found`);
+    }
+    });
 })
 
-app.listen(5000, () => {
-    console.log("Server listening on port 5000")
-})
 
+      //POST route for /groups/groupId
+app.post('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+    let newGroup = new Group()
+
+
+    newGroup.name = req.body.name
+    newGroup.type = req.body.type
+    newGroup.date_created = new Date ()
+    newGroup.todos = []
+    newGroup.comments = []
+    newGroup.people = []
+    
+
+    newGroup.save(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.send('Group Created successfully')
+    })
+})
 
 
 //route for getting a single todo list page 
@@ -437,7 +510,7 @@ app.post('/groups/:groupId/todos/:todo/comments', isLoggedIn, ensureAuthenticate
 //returns a single task  
 app.get('/groups/:groupId/todos/:todo/tasks/:task', isLoggedIn, ensureAuthenticated,  (req, res, next) => {
     
-    Todo
+    Task
     .findById(req.params.task)
     .populate({path: 'assinged_to'})
     .exec((err, task) => {
@@ -462,17 +535,48 @@ app.post('/groups/:groupId/todos/:todo/tasks/:task', isLoggedIn, ensureAuthentic
             let task = new Task()
             task.title = req.body.title
             task.date_created = new Date ()
-            task.assigned_to = req.user.profile_name
+            task.assigned_to = //TO DO HELPER FUNCTION User.find({})
+            req.user.profile_name
             task.save()
             todo.tasks.push(task)
             todo.save()
             res.end()
         } else {
             res.status(404);
-            return res.end(`todo with id ${req.params.todo} not found`);
+            return res.end(`task with id ${req.params.task} not found`);
         }
     })
 
 })
 
+//route for getting a groups tasks for one month
+app.get('/groups/:groupdId/schedule', ensureAuthenticated, (req, res) => {
+  const currentMonth = parseInt(req.body.currentMonth)
+  const currentYear = parseInt(req.body.currentYear)
+  const nextMonth = currentMonth + 1
 
+  Group
+    .findById(req.params.groupId)
+    .populate({path: 'todos', populate: {path: 'tasks'}})
+    .exec((err, groups) => {
+      if (err) {
+        res.send(err)
+      } else {
+        tasks = []
+        groups.todos.forEach((todo) => {
+          todo.tasks.forEach((task) => {
+            const month = task.due_date.getMonth()
+            const year = task.due_date.getFullYear()
+            if ((month == currentMonth || month == nextMonth) && year == currentYear) {
+              tasks.push(task)
+            }
+          })
+        })
+        res.send({tasks, currentMonth, currentYear, nextMonth})
+      }
+    })
+})
+
+app.listen(5000, () => {
+  console.log("Server listening on port 5000")
+})

@@ -43,6 +43,7 @@ class Home extends Component {
                   </div>
                 </div>
               </div>
+              
               <div className="projects-row">
                 <div className="col justify-content-left">
                <ProjectPop></ProjectPop>
