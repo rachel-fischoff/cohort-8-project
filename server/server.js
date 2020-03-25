@@ -22,10 +22,6 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 
-const mainRoutes = require('./routes/main')
-
-app.use(mainRoutes)
-
 if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets
   // like our main.js file, or main.css file!
