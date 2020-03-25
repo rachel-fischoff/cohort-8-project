@@ -334,7 +334,8 @@ app.get('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) =>
         .populate(
             {path:'people'})
         .populate({path: 'comments', populate: {path: 'author'}})
-        .populate({path: 'todos', populate: {path: 'tasks', populate:{path:'assigned_to'}}, populate: {path:'comments', populate: {path:'author'}}})
+        .populate({path: 'todos', populate:  {path:'tasks', 
+        populate:{path:'assigned_to'}}, populate: {path:'comments', populate: {path:'author'}}})
         .exec((err, group) => {
           if (err) {
               return next(err)
@@ -361,7 +362,7 @@ app.put ('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) =
     }
     });
 })
-})
+
 
       //POST route for /groups/groupId
 app.post('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
