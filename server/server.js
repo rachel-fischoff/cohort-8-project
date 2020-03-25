@@ -22,6 +22,12 @@ app.use(
     })
 )
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "YOUR-DOMAIN.TLD"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -42,7 +48,7 @@ passport.use(
     },
     (accessToken, refreshToken, profile, done) => {
         // console.log(profile)
-        User.findOne({ googleId: profile.id }).then(existingUser => {
+        User.findOne({ google_id: profile.id }).then(existingUser => {
           if (existingUser) {
             // we already have a record with the given profile ID
             done(null, existingUser)
@@ -256,28 +262,24 @@ app.get('/generate-fake-groups', (req, res) => {
     res.end()
 })
 
-
 app.get('/auth/google', googleAuth)
 
-app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/auth/google' }),
-  function(req, res) {
-    res.redirect('/home');
-});
-
-app.get('/home', (req, res) => {
-  return res.send(req.user)
+app.get('/auth/google/callback', googleAuth, (req, res) => {
+  //res.send('Your logged in via Google!')
+  console.log('user from server: ', req.user)
+  res.send(req.user)
 })
 
 app.get('/current_user', (req, res) => {
     //will send back the userId given by mongo DB
     //you can search current user by this id to get
     //their full profile!
-    if(req.user == undefined){
+    if(req.user === undefined){
         res.send('No user is currently signed in')
     }
+    console.log('user id from get server current_user: ', req.user._id);
 
-    return res.send(req.user)
+    res.send(req.user)
 });
   
 app.get('/logout', (req, res) => {

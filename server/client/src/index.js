@@ -10,8 +10,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "./reducers/index";
-import LandingPage from './components/LandingPage'
-import Signup from './components/auth/Signup';
+import LandingPage from './components/LandingPage';
 import Groups from './components/Groups';
 import ReactCalendar from './components/calendar/calendar';
 
@@ -24,8 +23,8 @@ render(
         <Nav />
         <App>
           <Switch>
+            <Route exact path="/" component={LandingPage} />
             <Route exact path="/home" component={Home} />
-            <Route exact path="/signup" component={Signup} />
             <Route exact path="/groups" component={Groups} />
             <Route exact path="/calendar" component={ReactCalendar} />
           </Switch>
