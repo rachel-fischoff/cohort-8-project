@@ -19,7 +19,7 @@ import * as actions from '../../actions';
       const renderSingleTodoLists = function(){
         return(
           <h5 variant="primary" value='ID' onClick={clickOnATodoList}>
-            SingleToDo
+             <SingleTodo />
           </h5>
         )
       }
