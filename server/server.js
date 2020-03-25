@@ -12,6 +12,7 @@ const Group = require('./models/group')
 const Todo = require('./models/todo')
 const bodyParser = require('body-parser')
 const ObjectId = require('mongoose').Types.ObjectId
+const querySring = require('querystring')
 
 const app = express()
 
@@ -614,6 +615,28 @@ app.get('/groups/:groupdId/schedule', ensureAuthenticated, (req, res) => {
       }
     })
 })
+
+//Search Group Route
+app.get('/groups', (req, res, next) => {
+  //spliting the url to grab the keyword we need to compare in our data
+  const parsedURL = req.url.split("?");
+  // Setting a variable equal to the keyword that is in the 1st index so we can compare
+  const queryParams = querySring.parse(parsedURL[1]);
+
+  Group
+    .find({group_name: queryParams})
+    .populate({path: 'group_type'})
+    .exec((err, group) => {
+      if (err) {
+        res.send(err)
+      } else {
+        res.status(200);
+        res.send({searchedGroup: group})
+      }
+    })
+
+})
+
 
 app.listen(5000, () => {
   console.log("Server listening on port 5000")
