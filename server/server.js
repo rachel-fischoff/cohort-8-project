@@ -44,7 +44,7 @@ passport.use(
     {
       clientID: '1096879772481-ekikp4fo6uo40lbnmo9i6ut4673p6uug.apps.googleusercontent.com',
       clientSecret: 'DwIABfYy4gwD6CYWT3gw49iI',
-      callbackURL: '/auth/google/callback'
+      callbackURL: 'http://localhost:5000/auth/google/callback'
     },
     (accessToken, refreshToken, profile, done) => {
         // console.log(profile)
@@ -264,11 +264,11 @@ app.get('/generate-fake-groups', (req, res) => {
 
 app.get('/auth/google', googleAuth)
 
-app.get('/auth/google/callback', googleAuth, (req, res) => {
-  //res.send('Your logged in via Google!')
-  console.log('user from server: ', req.user)
-  res.send(req.user)
-})
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/' }),
+  function(req, res) {
+    res.redirect('http://localhost:3000/home?token=' + req.user._id);
+});
 
 app.get('/current_user', (req, res) => {
     //will send back the userId given by mongo DB

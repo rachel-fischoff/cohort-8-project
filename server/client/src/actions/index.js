@@ -7,18 +7,7 @@ export const fetchUser = () => dispatch => {
   axios.get(`https://localhost:5000/api/current_user`
   //axios.get(`/api/${userID}`
   ).then(function (response) {
-    dispatch({ type: FETCH_USER, payload: response.data });
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-};
-
-//fetching a current user      
-export const login = () => dispatch => {
-  axios.get(`https://localhost:5000/auth/google`
-  ).then(function (response) {
-    console.log('response', response)
+    console.log("current user responded", response)
     dispatch({ type: FETCH_USER, payload: response.data });
   })
   .catch(function (error) {

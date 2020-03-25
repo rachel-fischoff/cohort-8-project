@@ -15,12 +15,12 @@ const Nav = () => {
       return (
         <React.Fragment>
           <li><Link to="/api/logout">Sign Out</Link></li>
-          <li><Link to="/"><FontAwesomeIcon icon={faCampground} /> Home</Link></li>
-          <li><Link to="/"><FontAwesomeIcon icon={faCommentAlt}/> Pings</Link></li>
-          <li><Link to="/"><FontAwesomeIcon icon={faInbox}/> Hey!</Link></li>
-          <li><Link to="/"><FontAwesomeIcon icon={faChartPie}/> Activity</Link></li>
-          <li><Link to="/"><FontAwesomeIcon icon={faSmile}/> My Stuff</Link></li>
-          <li><Link to="/"><FontAwesomeIcon icon={faSearch}/> Find</Link></li>
+          <li><Link to="/home"><FontAwesomeIcon icon={faCampground} /> Home</Link></li>
+          <li><Link to="/home"><FontAwesomeIcon icon={faCommentAlt}/> Pings</Link></li>
+          <li><Link to="/home"><FontAwesomeIcon icon={faInbox}/> Hey!</Link></li>
+          <li><Link to="/home"><FontAwesomeIcon icon={faChartPie}/> Activity</Link></li>
+          <li><Link to="/home"><FontAwesomeIcon icon={faSmile}/> My Stuff</Link></li>
+          <li><Link to="/home"><FontAwesomeIcon icon={faSearch}/> Find</Link></li>
         </React.Fragment>
 
       );
