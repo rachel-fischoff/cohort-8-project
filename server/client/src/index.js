@@ -11,7 +11,6 @@ import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "./reducers/index";
 import LandingPage from './components/LandingPage';
-import Home from './components/Home';
 import Groups from './components/Groups';
 import ReactCalendar from './components/calendar/calendar';
 

@@ -11,9 +11,9 @@ const Nav = () => {
 
   const renderLinks = () => {
 
+
       return (
         <React.Fragment>
-          <li>{email}</li>
           <li><Link to="/api/logout">Sign Out</Link></li>
           <li><Link to="/"><FontAwesomeIcon icon={faCampground} /> Home</Link></li>
           <li><Link to="/"><FontAwesomeIcon icon={faCommentAlt}/> Pings</Link></li>
@@ -22,6 +22,7 @@ const Nav = () => {
           <li><Link to="/"><FontAwesomeIcon icon={faSmile}/> My Stuff</Link></li>
           <li><Link to="/"><FontAwesomeIcon icon={faSearch}/> Find</Link></li>
         </React.Fragment>
+
       );
   }
 

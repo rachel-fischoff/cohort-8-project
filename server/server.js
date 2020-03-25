@@ -22,6 +22,12 @@ app.use(
     })
 )
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "YOUR-DOMAIN.TLD"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -261,7 +267,7 @@ app.get('/auth/google', googleAuth)
 app.get('/auth/google/callback', googleAuth, (req, res) => {
   //res.send('Your logged in via Google!')
   console.log('user from server: ', req.user)
-  res.redirect(`http://localhost:3000`);
+  res.send(req.user)
 })
 
 app.get('/current_user', (req, res) => {

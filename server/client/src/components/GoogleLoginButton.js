@@ -1,5 +1,7 @@
 import React from 'react'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -47,11 +49,15 @@ const useStyles = makeStyles(theme =>
   })
 )
 
-const GoogleLoginButton = () => {
+const GoogleLoginButton = (props) => {
     const classes = useStyles({})
 
+    const onSubmit = () => {
+      props.login()
+    };
+
     return (
-      <a href={`${process.env.BASE_API_URL}/auth/google`} className={classes.button}>
+      <a href={'#'} onClick={onSubmit} className={classes.button}>
         <div className={classes.wrapper}>
           <svg
             className={classes.icon}
@@ -81,4 +87,12 @@ const GoogleLoginButton = () => {
     )
   }
 
-export default GoogleLoginButton; 
+  function mapStateToProps(state) {
+    return { errorMessage: state.auth.errorMessage };
+  }
+
+  export default connect(
+    mapStateToProps,
+    actions
+  )(GoogleLoginButton);
+ 
