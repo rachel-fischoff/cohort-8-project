@@ -298,7 +298,7 @@ app.get('/auth/google', googleAuth)
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/' }),
   function(req, res) {
-    res.redirect('/home');
+    res.redirect('http://localhost:3000/home');
 });
 
 
