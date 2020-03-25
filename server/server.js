@@ -4,6 +4,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy
 const mongoose = require('mongoose')
 const faker = require('faker')
 const cookieSession = require('cookie-session')
+const cors = require("cors");
 const User = require('./models/user')
 const Comment = require('./models/comment')
 const Task = require('./models/task')
@@ -42,11 +43,23 @@ app.use(
     })
 )
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+//   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
+
+// set up cors to allow us to accept requests from our client
+app.use(
+  cors({
+    origin: "http://localhost:3000", // allow to server to accept request from different origin
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true // allow session cookie from browser to pass through
+  })
+);
+
 
 app.use(passport.initialize())
 app.use(passport.session())
@@ -62,13 +75,15 @@ passport.deserializeUser((id, done) => {
 passport.use(
   new GoogleStrategy(
     {
-      clientID: '1096879772481-ekikp4fo6uo40lbnmo9i6ut4673p6uug.apps.googleusercontent.com',
-      clientSecret: 'DwIABfYy4gwD6CYWT3gw49iI',
+      clientID: '678475023348-tlm6ikrgeublvh5o3gbihpf1o7ddoqsd.apps.googleusercontent.com',
+      clientSecret: 'jsyrZ37mfbOFn--PkSDJHlDo',
       callbackURL: '/auth/google/callback'
     },
     (accessToken, refreshToken, profile, done) => {
         // console.log(profile)
         User.findOne({ google_id: profile.id }).then(existingUser => {
+          console.log("access token: ", accessToken);
+          console.log("refresh token: ", refreshToken);
           if (existingUser) {
             // we already have a record with the given profile ID
             done(null, existingUser)
@@ -295,12 +310,23 @@ app.get('/generate-fake-groups', (req, res) => {
 
 app.get('/auth/google', googleAuth)
 
+
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/' }),
   function(req, res) {
     res.redirect('http://localhost:3000/home');
+     res.end()
 });
 
+
+
+
+app.get('/logout', (req, res) => {
+  req.logout();
+  req.session = null;
+  res.redirect('http://localhost:3000');
+  res.end()
+});
 
 //get current user's full profile
 app.get('/api/current_user', (req, res) => {
@@ -315,12 +341,7 @@ app.get('/api/current_user', (req, res) => {
       }
     })
 });
-  
-app.get('/logout', (req, res) => {
-    req.logout();
-    req.session = null
-    res.redirect('/')
-})
+
 
 app.listen(5000, () => {
     console.log("Server listening on port 5000")

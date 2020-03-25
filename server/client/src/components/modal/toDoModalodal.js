@@ -23,6 +23,7 @@ function ToDoModal() {
           aria-labelledby="example-custom-modal-styling-title" >
           <Modal.Header closeButton >
             <Modal.Title id="modal-title"  >
+
               To-Do's header
 
               <Accordion defaultActiveKey="0">
@@ -39,6 +40,7 @@ function ToDoModal() {
                 </Accordion.Collapse>
               </Card>
             </Accordion>
+
 
             </Modal.Title>
           </Modal.Header>
