@@ -11,27 +11,27 @@ const Nav = () => {
 
   const renderLinks = () => {
 
-
       return (
         <React.Fragment>
-          <li><Link to="/api/logout">Sign Out</Link></li>
+
+          <li><Link to="/">Sign Out</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faCampground} /> Home</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faCommentAlt}/> Pings</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faInbox}/> Hey!</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faChartPie}/> Activity</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faSmile}/> My Stuff</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faSearch}/> Find</Link></li>
+
         </React.Fragment>
 
       );
   }
 
 
-
   return (
     <NavContainer>
       <div id="logo">
-        <NavLink to="/" >
+        <NavLink to="/home" >
         <h1 className="h3">HomeBase</h1>
         </NavLink>
       </div>

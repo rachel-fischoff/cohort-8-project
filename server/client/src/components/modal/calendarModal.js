@@ -1,14 +1,15 @@
-import {React, useState}  from 'react';
+import React, { Component, Fragment, useState } from 'react';
 import Modal from 'react-bootstrap/Modal'
+import ReactCalendar from '../calendar/calendar'
 import './modal.css';
 
-function modalWindow() {
+function CalendarModal() {
     const [show, setShow] = useState(false);
   
     return (
       <>
         <h5 variant="primary" onClick={() => setShow(true)}>
-         To-Do's
+         Calendar
         </h5>
   
         <Modal className="modal-background-color"
@@ -21,13 +22,13 @@ function modalWindow() {
         >
           <Modal.Header closeButton >
             <Modal.Title id="modal-title"  >
-              To-Do's header
+              Calendar
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
+              <ReactCalendar />
             <p>
-              Im overriding default bootstrap size of the Modal window. Normally it will look more like a card. Check out components/modal/modal.css if you need to do any changes.
-              right now view height is on 85% and width on 90%
+              Calendar feature
             </p>
           </Modal.Body>
         </Modal>
@@ -37,4 +38,4 @@ function modalWindow() {
   
   
   
-  export default modalWindow;
+  export default CalendarModal;

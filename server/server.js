@@ -23,7 +23,8 @@ app.use(
 )
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "YOUR-DOMAIN.TLD"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", '*'); 
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
@@ -265,20 +266,21 @@ app.get('/generate-fake-groups', (req, res) => {
 app.get('/auth/google', googleAuth)
 
 app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/' }),
+  passport.authenticate('google', { failureRedirect: 'http://localhost:3000/' }),
   function(req, res) {
-    res.redirect('http://localhost:3000/home?token=' + req.user._id);
+    res.redirect('http://localhost:3000/home?userId=' + req.user._id);
 });
 
 app.get('/current_user', (req, res) => {
+  console.log(req)
     //will send back the userId given by mongo DB
     //you can search current user by this id to get
     //their full profile!
     if(req.user === undefined){
         res.send('No user is currently signed in')
     }
-    console.log('user id from get server current_user: ', req.user._id);
-
+    console.log('user id from get server current_user: ', req.user);
+    
     res.send(req.user)
 });
   

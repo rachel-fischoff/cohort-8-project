@@ -4,8 +4,7 @@ import { FETCH_GROUPS, FETCH_TODOS, FETCH_USER } from './types';
 //====================================================
 //fetching a current user      
 export const fetchUser = () => dispatch => {
-  axios.get(`https://localhost:5000/api/current_user`
-  //axios.get(`/api/${userID}`
+  axios.get(`http://localhost:5000/current_user/`
   ).then(function (response) {
     console.log("current user responded", response)
     dispatch({ type: FETCH_USER, payload: response.data });
@@ -14,6 +13,7 @@ export const fetchUser = () => dispatch => {
     console.log(error);
   });
 };
+
 
 
 //====================================================
