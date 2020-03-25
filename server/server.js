@@ -330,7 +330,7 @@ app.get('/logout', (req, res) => {
 });
 
 //get current user's full profile
-app.get('/api/current_user', (req, res) => {
+app.get('/current_user', (req, res) => {
     const id = req.user
     User
     .findById(id).exec((error, user) => {
@@ -567,8 +567,10 @@ app.get('/groups/:groupId/todos', isLoggedIn, ensureAuthenticated, (req, res, ne
   })
 })
 
+
 app.get('/home',  (req, res, next) => {
-    const id = req.user
+
+// a0289a025e882ac6c00c59b843206f84a7c3c412
 
     Group.find({people: {$all: [ObjectId(id)]}})
     .populate('people')
