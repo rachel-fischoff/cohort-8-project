@@ -11,18 +11,10 @@ const Nav = () => {
 
   const renderLinks = () => {
 
-
+//   <li><Link to="/api/logout">Sign Out</Link></li>
       return (
         <React.Fragment>
-<<<<<<< HEAD
-          <li>{email}</li>
-          <li><a href="#" onClick={handleSignOutClick}><Link to="/signin">Sign Out</Link></a></li>
-      
-  
-      
-=======
-          <li><Link to="/api/logout">Sign Out</Link></li>
->>>>>>> dafec4b6f4e847303fefbfe78ae9a5a99f570add
+         
           <li><Link to="/"><FontAwesomeIcon icon={faCampground} /> Home</Link></li>
           <li><Link to="/"><FontAwesomeIcon icon={faCommentAlt}/> Pings</Link></li>
           <li><Link to="/"><FontAwesomeIcon icon={faInbox}/> Hey!</Link></li>
@@ -35,12 +27,6 @@ const Nav = () => {
   }
 
 
-<<<<<<< HEAD
-   //   }
-    
-=======
-
->>>>>>> dafec4b6f4e847303fefbfe78ae9a5a99f570add
   return (
     <NavContainer>
       <div id="logo">
