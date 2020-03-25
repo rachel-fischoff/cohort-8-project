@@ -20,13 +20,20 @@ class SingleTodoList extends React.Component {
   }
 
   render(){
-    if(this.state.loading = true) {
+    if(this.state.loading = false) {
       return (<div> Loading... </div>)
     } else {
       return (
         <div className="row">
           <div className="todo-title">
+            <p>num_completed/num_tasks</p>
             <h2>Name Todos</h2>
+            <div class="custom-control custom-checkbox">
+              <div className="row" styles="margin-left: 20px">
+                <input type="checkbox" class="custom-control-input" id="defaultUnchecked"></input>
+                <label class="custom-control-label" for="defaultUnchecked">Task1</label>
+              </div>
+            </div>
           </div>
          </div>
       )
