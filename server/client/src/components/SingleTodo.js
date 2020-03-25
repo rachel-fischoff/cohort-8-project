@@ -25,15 +25,19 @@ class SingleTodo extends React.Component {
     } else {
       return (
         <div className="row">
-          <div className="todo-title">
+          <div className="col">
+          <div className="todo-title" >
             <p>num_completed/num_tasks</p>
             <h2>Name Todos</h2>
             <div class="custom-control custom-checkbox">
-              <div className="row" styles="margin-left: 20px">
+              <div className="row" >
+                <div className="col">
                 <input type="checkbox" class="custom-control-input" id="defaultUnchecked"></input>
-                <label class="custom-control-label" for="defaultUnchecked">Task1</label>
+                <label class="custom-control-label" for="defaultUnchecked">Task1 One new task</label>
+                </div>
               </div>
             </div>
+          </div>
           </div>
          </div>
       )
