@@ -7,13 +7,20 @@ const cookieSession = require('cookie-session')
 const User = require('./models/user')
 const Comment = require('./models/comment')
 const Task = require('./models/task')
-const Todo = require('./models/todo')
 const Group = require('./models/group')
 const Todo = require('./models/todo')
+const bodyParser = require('body-parser')
+const ObjectId = require('mongoose').Types.ObjectId
 
 const app = express()
 
 mongoose.connect('mongodb://localhost/homebase')
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
+
 
 app.use(
   cookieSession({
@@ -263,3 +270,95 @@ app.get('/api/logout', (req, res) => {
 app.listen(5000, () => {
     console.log("Server listening on port 5000")
 })
+
+//route for getting a single todo list page 
+app.get('/groups/:groupId/todos/:todo/tasks', isLoggedIn, (req, res, next) =>{
+    
+    Todo.findOne({ _id: req.params.todo})
+      .exec((err, todo) => {
+          if (err) {
+              return next(err)
+          } if(todo) {
+              res.send(todo)
+          } else {
+            res.status(404);
+            return res.end(`todo with id ${req.params.todo} not found`);
+        }
+        });
+      })
+  
+
+
+//route to update the single todo by name and description 
+app.put('/groups/:groupId/todos/:todo/tasks', isLoggedIn, (req, res, next) => {
+    
+    Todo.findByIdAndUpdate(req.params.todo, {name: req.body.name, description: req.body.description }, function(err, todo){
+            if (err) {
+                return next(err)
+            }if(todo) {
+           res.send(todo)
+        } else {
+            res.status(404);
+            return res.end(`todo with id ${req.params.todo} not found`);
+        }
+        });
+    })
+
+
+//route creates a new todo in the database
+app.post('/groups/:groupId/todos/:todo/tasks', isLoggedIn,  (req, res, next) => {
+    
+    let newTodo = new Todo()
+
+
+    newTodo.name = req.body.name
+    newTodo.description = req.body.description
+    newTodo.num_tasks= req.body.num_tasks
+    newTodo.num_completed = req.body.num_completed
+    newTodo.date_created = new Date ()
+    newTodo.tasks = []
+    newTodo.comments = []
+    
+
+    newTodo.save(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.send('Todo Created successfully')
+    })
+})
+
+//route creates a new comment for the todo
+app.post('/groups/:groupId/todos/:todo/tasks/comments', isLoggedIn,  (req, res, next) => {
+    
+    Todo
+    .findById(req.params.todo)
+    .exec((err, todo) => {
+        if (err) return next(err)
+        if (todo) {
+            let comment = new Comment()
+            comment.title = req.body.title
+            comment.description = req.body.description
+            comment.date_created = req.params.date_created
+            comment.author = user._id
+            comment.save()
+            todo.comments.push(comment)
+            todo.save()
+            res.end()
+        } else {
+            res.status(404);
+            return res.end(`todo with id ${req.params.todo} not found`);
+        }
+    })
+
+})
+
+
+
+    // let newTask = new Task({
+    //     title: req.body.tasks.title,
+    //     date_created: req.body.tasks.date_created, 
+    //    //assingned to ?
+    //     due_date: req.body.tasks.due_date,
+    //     completed: req.body.tasks.completed
+    // })
