@@ -475,4 +475,22 @@ app.post('/groups/:groupId/todos/:todo/tasks/:task', isLoggedIn, ensureAuthentic
 
 })
 
+// This returns all the Todos in the DB
+app.get('/groups/:groupId/todos', isLoggedIn, ensureAuthenticated, (req, res, next) => {
 
+  Group
+    .findById(req.params.groupId)
+    .populate({path: 'todos', populate: {path: 'tasks', populate: {path: 'assigned_to'}}})
+    .exec((err, Group) => {
+      if (err) return next(err)
+        if (Group) {
+          res.send({Group})
+        } else {
+          res.status(404);
+          return res.end(`group with id ${req.params.groupId} not found`);
+        }
+
+    
+    })
+
+})
