@@ -270,7 +270,7 @@ app.get('/auth/google/callback', googleAuth, (req, res) => {
   res.send(req.user)
 })
 
-app.get('/current_user', (req, res) => {
+app.get('/api/current_user', (req, res) => {
     //will send back the userId given by mongo DB
     //you can search current user by this id to get
     //their full profile!
@@ -278,7 +278,7 @@ app.get('/current_user', (req, res) => {
         res.send('No user is currently signed in')
     }
     console.log('user id from get server current_user: ', req.user._id);
-
+    
     res.send(req.user)
 });
   
