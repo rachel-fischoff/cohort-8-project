@@ -612,21 +612,45 @@ app.get('/groups/:groupdId/schedule', ensureAuthenticated, (req, res) => {
 })
 
 //Search Group Route
-app.get('/groups', (req, res, next) => {
+app.get('/search/groups', (req, res, next) => {
   //spliting the url to grab the keyword we need to compare in our data
   const parsedURL = req.url.split("?");
   // Setting a variable equal to the keyword that is in the 1st index so we can compare
   const queryParams = querySring.parse(parsedURL[1]);
 
+  const query = queryParams.query
+  const regExQuery = new RegExp(query, "i")
+
   Group
-    .find({group_name: queryParams})
-    .populate({path: 'group_type'})
-    .exec((err, group) => {
+    .find({group_name: regExQuery})
+    .exec((err, groups) => {
       if (err) {
         res.send(err)
       } else {
         res.status(200);
-        res.send({searchedGroup: group})
+        res.send({groups})
+      }
+    })
+})
+
+//Search Users Route
+app.get('/search/users', (req, res, next) => {
+  //spliting the url to grab the keyword we need to compare in our data
+  const parsedURL = req.url.split("?");
+  // Setting a variable equal to the keyword that is in the 1st index so we can compare
+  const queryParams = querySring.parse(parsedURL[1]);
+
+  const query = queryParams.query
+  const regExQuery = new RegExp(query, "i")
+
+  User
+    .find({profile_name: regExQuery})
+    .exec((err, users) => {
+      if (err) {
+        res.send(err)
+      } else {
+        res.status(200);
+        res.send({users})
       }
     })
 })
