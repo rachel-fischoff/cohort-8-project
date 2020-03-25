@@ -2,7 +2,9 @@ import React, { Component, Fragment, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, withRouter, Link } from "react-router-dom";
 import { render } from 'react-dom';
 import Backdrop from '../components/backdrop/backdrop';
-import ModalWindow from '../components/modal/modal';
+import ToDoModal from './modal/toDoModalodal';
+import CalendarModal from '../components/modal/calendarModal';
+import MessageBoardModal from '../components/modal/messageBoardModal';
 import './groups.css';
 
 
@@ -36,7 +38,7 @@ class Groups extends Component {
                 <div class="row text-center">
                   <div class="col-md-4">
                     <div class="card-inner">
-                    <Link to="/calendar"><h5 className="card-title">Calendar</h5></Link>
+                    <CalendarModal><p>Calendar</p></CalendarModal>
                     <hr />
                     <div class="card-body">
                     <p class="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
@@ -45,7 +47,7 @@ class Groups extends Component {
                 </div>
                 <div class="col-md-4">
                   <div class="card-inner">
-                    <ModalWindow></ModalWindow>
+                    <ToDoModal />
                       <hr />
                     <div class="card-body">
                     <p class="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
@@ -54,7 +56,7 @@ class Groups extends Component {
                 </div>
                 <div class="col-md-4">
                   <div class="card-inner">
-                    <Link to="/message-board"><h5 className="card-title">Message Board</h5></Link>
+                    <MessageBoardModal></MessageBoardModal>
                     <hr />
                     <div class="card-body">
                     <p class="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>

@@ -21,9 +21,7 @@ const Nav = ({ authenticated, email, signout }) => {
           <li>{email}</li>
           <li><a href="#" onClick={handleSignOutClick}><Link to="/signin">Sign Out</Link></a></li>
       
-    //  );
-  //  } else {
-    //  return (
+  
       
           <li><Link to="/"><FontAwesomeIcon icon={faCampground} /> Home</Link></li>
           <li><Link to="/"><FontAwesomeIcon icon={faCommentAlt}/> Pings</Link></li>
@@ -38,7 +36,7 @@ const Nav = ({ authenticated, email, signout }) => {
 
 
    //   }
-    }
+    
   return (
     <NavContainer>
       <div id="logo">
