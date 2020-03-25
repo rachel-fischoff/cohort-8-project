@@ -343,11 +343,25 @@ app.get('/api/current_user', (req, res) => {
 });
 
 
-app.listen(5000, () => {
-    console.log("Server listening on port 5000")
-})
-
-
+//GET route for /groups/groupId
+app.get('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
+  Group.findOne({ _id: req.params.groupId})
+      .populate(
+          {path:'people'})
+      .populate({path: 'comments', populate: {path: 'author'}})
+      .populate({path: 'todos', populate: {path:'comments'}, populate: {path:'tasks', 
+      populate: {path:'assigned_to'}}})
+      .exec((err, group) => {
+        if (err) {
+            return next(err)
+        } if(group) {
+            res.send(group)
+        } else {
+          res.status(404);
+          return res.end(`group with id ${req.params.groupId} not found`);
+      }
+      });
+    })
 
 //GET route for /groups/groupId
 app.get('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
@@ -385,7 +399,7 @@ app.put ('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) =
 })
 
 
-      //POST route for /groups/groupId
+//POST route for /groups/groupId
 app.post('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
     let newGroup = new Group()
 
@@ -555,4 +569,34 @@ app.post('/groups/:groupId/todos/:todo/tasks/:task', isLoggedIn, ensureAuthentic
 
 })
 
+//route for getting a groups tasks for one month
+app.get('/groups/:groupdId/schedule', ensureAuthenticated, (req, res) => {
+  const currentMonth = parseInt(req.body.currentMonth)
+  const currentYear = parseInt(req.body.currentYear)
+  const nextMonth = currentMonth + 1
 
+  Group
+    .findById(req.params.groupId)
+    .populate({path: 'todos', populate: {path: 'tasks'}})
+    .exec((err, groups) => {
+      if (err) {
+        res.send(err)
+      } else {
+        tasks = []
+        groups.todos.forEach((todo) => {
+          todo.tasks.forEach((task) => {
+            const month = task.due_date.getMonth()
+            const year = task.due_date.getFullYear()
+            if ((month == currentMonth || month == nextMonth) && year == currentYear) {
+              tasks.push(task)
+            }
+          })
+        })
+        res.send({tasks, currentMonth, currentYear, nextMonth})
+      }
+    })
+})
+
+app.listen(5000, () => {
+  console.log("Server listening on port 5000")
+})
