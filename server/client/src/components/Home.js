@@ -10,7 +10,7 @@ import '../index.css';
 class Home extends Component {  
 
   render() {
-  if (this.props.authenticated){
+  // if (this.props.authenticated){
     return (
         <div className="home-page">
            <div className="projects-row">
@@ -45,9 +45,9 @@ class Home extends Component {
             </div>
         </div>
     );
- }else{
-   return <Redirect push to="/" />;
- }
+//  }else{
+//    return <Redirect push to="/" />;
+//  }
 }
 }
 
