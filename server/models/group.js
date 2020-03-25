@@ -7,7 +7,7 @@ const GroupSchema = new Schema({
   date_created: Date,
   people: [{
     type: Schema.Types.ObjectId,
-    ref: 'Person'
+    ref: 'User'
   }],
   comments: [{
     type: Schema.Types.ObjectId,
