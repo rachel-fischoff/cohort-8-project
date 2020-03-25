@@ -10,12 +10,8 @@ import '../index.css';
 
 class Home extends Component {  
   componentDidMount() {
-    var query = queryString.parse(this.props.location.search);
-    if (query.userId) {
-      window.localStorage.setItem("jwt", query.token);
       this.props.fetchUser()
    }
-}
 
   render() {
 // if (this.props.authenticated){
