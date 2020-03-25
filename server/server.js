@@ -21,6 +21,9 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 
+const mainRoutes = require('./routes/main')
+
+app.use(mainRoutes)
 
 app.use(
   cookieSession({
@@ -329,7 +332,7 @@ app.post('/groups/:groupId/todos/:todo/tasks', isLoggedIn,  (req, res, next) => 
 })
 
 //returns the comments from each to do 
-app.get('/groups/:groupId/todos/:todo/tasks/comments', isLoggedIn,  (req, res, next) => {
+app.get('/groups/:groupId/todos/:todo/comments', isLoggedIn,  (req, res, next) => {
     
     Todo
     .findById(req.params.todo)
@@ -343,9 +346,9 @@ app.get('/groups/:groupId/todos/:todo/tasks/comments', isLoggedIn,  (req, res, n
             } 
         })
     })
-    
+
 //route creates a new comment for the todo
-app.post('/groups/:groupId/todos/:todo/tasks/comments', isLoggedIn,  (req, res, next) => {
+app.post('/groups/:groupId/todos/:todo/comments', isLoggedIn,  (req, res, next) => {
     
     Todo
     .findById(req.params.todo)
@@ -356,7 +359,7 @@ app.post('/groups/:groupId/todos/:todo/tasks/comments', isLoggedIn,  (req, res, 
             comment.title = req.body.title
             comment.description = req.body.description
             comment.date_created = req.params.date_created
-            comment.author = user._id
+            comment.author = user._id //to change
             comment.save()
             todo.comments.push(comment)
             todo.save()
