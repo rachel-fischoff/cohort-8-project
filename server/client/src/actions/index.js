@@ -1,51 +1,25 @@
 import axios from "axios";
-import { AUTH_USER, AUTH_ERROR, FETCH_GROUPS, FETCH_TODOS } from './types';
+import { FETCH_GROUPS, FETCH_TODOS, NOT_AUTH_USER, AUTH_USER } from './types';
 
 //====================================================
-//signup
-export const signup = (formProps, callback) => dispatch => {
-    axios.post(
-      'http://localhost:5000/auth/signup',
-      formProps
-    ).then(function (response) {
-      dispatch({ type: AUTH_USER, payload: response.data });
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('email', response.data.email);
-      callback();
-    })
-    .catch(function (error) {
-      dispatch({ type: AUTH_ERROR, payload: 'Email in use' });
-    });
-  };
-
-//====================================================
-//signin
-export const signin = (formProps, callback) => dispatch => {
-  axios.post(
-    'http://localhost:5000/auth/signin',
-    formProps
+//fetching a current user      
+export const fetchUser = () => dispatch => {
+  axios.get(`http://localhost:5000/current_user/`
   ).then(function (response) {
+    console.log("current user responded", response)
     dispatch({ type: AUTH_USER, payload: response.data });
-    localStorage.setItem('token', response.data.token);
-    localStorage.setItem('email', response.data.email);
-    callback();
   })
   .catch(function (error) {
-    dispatch({ type: AUTH_ERROR, payload: 'Email in use' });
+    console.log(error);
+    dispatch({ type: NOT_AUTH_USER, payload: error });
   });
 };
 
+
+
 //====================================================
 //signout
-export const signout = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('email');
-  
-  return {
-    type: AUTH_USER,
-    payload: ''
-  };
-};
+
 
 //=======================================================
 //Fetching groups for home page

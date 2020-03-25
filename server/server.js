@@ -16,6 +16,7 @@ const app = express()
 
 mongoose.connect('mongodb://localhost/homebase')
 
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
@@ -25,50 +26,82 @@ const mainRoutes = require('./routes/main')
 
 app.use(mainRoutes)
 
+if (process.env.NODE_ENV === 'production') {
+  // Express will serve up production assets
+  // like our main.js file, or main.css file!
+  app.use(express.static('client/build'));
+
+  // Express will serve up the index.html file
+  // if it doesn't recognize the route
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
 app.use(
-  cookieSession({
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: ['helloworld']
-  })
+    cookieSession({
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      keys: ['helloworld']
+    })
 )
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "YOUR-DOMAIN.TLD"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.use(passport.initialize())
 app.use(passport.session())
 
 passport.serializeUser((user, done) => {
-    done(null, user.id)
-  })
-
-passport.deserializeUser((id, done) => {
     done(null, user._id)
 })
 
+passport.deserializeUser((id, done) => {
+    done(null, id)
+})
+
 passport.use(
-    new GoogleStrategy({
-        clientID: '812786725020-6t9b7b4b2j6n6vvtjajc0333ku9bpp0u.apps.googleusercontent.com',
-        clientSecret: 'q50xXvFYNCb1e38ewnfeZYrV',
-        callbackURL: '/auth/google/callback'
-        },
-        (accessToken, refreshToken, profile, done) => {
-        User.findOne({ googleId: profile.id }).then(existingUser => {
-            if (existingUser) {
+  new GoogleStrategy(
+    {
+      clientID: '1096879772481-ekikp4fo6uo40lbnmo9i6ut4673p6uug.apps.googleusercontent.com',
+      clientSecret: 'DwIABfYy4gwD6CYWT3gw49iI',
+      callbackURL: '/auth/google/callback'
+    },
+    (accessToken, refreshToken, profile, done) => {
+        // console.log(profile)
+        User.findOne({ google_id: profile.id }).then(existingUser => {
+          if (existingUser) {
             // we already have a record with the given profile ID
             done(null, existingUser)
-            } else {
+          } else {
             // we don't have a user record with this ID, make a new record!
             new User({
-                googleId: profile.id,
-                name: profile.displayName,
-                email: profile.emails[0].value
+              google_id: profile.id,
+              profile_name: profile.displayName,
+              email: profile.emails[0].value,
+              profile_pic_url: profile.photos[0].value,
+              date_created: new Date()
             })
-                .save()
-                .then(user => done(null, user))
-            }
+            .save()
+            .then(user => done(null, user))
+          }
         })
-        }
-    )
+    }
+  )
 )
-  
+
+//route middleware to ensure user is logged in
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated())
+      return next();
+  res.status(400).json({
+      'message': 'access denied'
+  });
+}
+
 const googleAuth = passport.authenticate('google',
   { scope: ['profile', 'email']
 })
@@ -253,19 +286,29 @@ app.get('/generate-fake-groups', (req, res) => {
     res.end()
 })
 
-
 app.get('/auth/google', googleAuth)
 
 app.get('/auth/google/callback', googleAuth, (req, res) => {
-    res.send('Your logged in via Google!')
+  //res.send('Your logged in via Google!')
+  console.log('user from server: ', req.user)
+  res.send(req.user)
 })
 
-app.get('/api/current_user', (req, res) => {
-    console.log(req.user)
+app.get('/current_user', (req, res) => {
+    //will send back the userId given by mongo DB
+    //you can search current user by this id to get
+    //their full profile!
+    if(req.user === undefined){
+        res.send('No user is currently signed in')
+    }
+    console.log('user id from get server current_user: ', req.user._id);
+
     res.send(req.user)
 });
+
+
   
-app.get('/api/logout', (req, res) => {
+app.get('/logout', (req, res) => {
     req.logout()
     res.send(req.user)
 })

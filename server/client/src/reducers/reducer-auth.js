@@ -1,19 +1,14 @@
-import { AUTH_USER, AUTH_ERROR } from '../actions/types';
+import { AUTH_USER, NOT_AUTH_USER } from '../actions/types';
 
-const INITIAL_STATE = {
-  authenticated: localStorage.getItem('token') || '',
-  email: localStorage.getItem('email') || '',
-  errorMessage: ''
-};
+const INITIAL_STATE = {};
 
+//NEED TO DO
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case AUTH_USER:
-      return { ...state, authenticated: action.payload.token,
-          email: action.payload.email
-        };
-    case AUTH_ERROR:
-      return { ...state, errorMessage: action.payload };
+      return state
+    case NOT_AUTH_USER:
+      return state
     default:
       return state;
   }

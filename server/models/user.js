@@ -6,7 +6,7 @@ const UserSchema = new Schema({
   profile_name: String,
   profile_pic_url: String,
   email: String, 
-  date_created: String 
+  date_created: Date 
 })
 
 module.exports = mongoose.model('User', UserSchema)
