@@ -328,6 +328,22 @@ app.post('/groups/:groupId/todos/:todo/tasks', isLoggedIn,  (req, res, next) => 
     })
 })
 
+//returns the comments from each to do 
+app.get('/groups/:groupId/todos/:todo/tasks/comments', isLoggedIn,  (req, res, next) => {
+    
+    Todo
+    .findById(req.params.todo)
+    .exec((err, todo) => {
+        if (err) return next(err)
+        if (todo) {
+            res.send(todo.comments) 
+         } else{
+                res.status(404);
+                return res.end(`todo with id ${req.params.todo} not found`);
+            } 
+        })
+    })
+    
 //route creates a new comment for the todo
 app.post('/groups/:groupId/todos/:todo/tasks/comments', isLoggedIn,  (req, res, next) => {
     
@@ -352,8 +368,6 @@ app.post('/groups/:groupId/todos/:todo/tasks/comments', isLoggedIn,  (req, res, 
     })
 
 })
-
-
 
     // let newTask = new Task({
     //     title: req.body.tasks.title,
