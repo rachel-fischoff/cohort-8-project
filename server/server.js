@@ -275,6 +275,8 @@ app.get('/generate-fake-groups', (req, res) => {
             group.group_type = "team"
         }
 
+        group.group_description = faker.lorem.sentences()
+
         const num_people = Math.round(Math.random() * 10)
         const num_comments = Math.round(Math.random() * 15)
         const num_todos = Math.round(Math.random() * 10/3)
@@ -366,7 +368,7 @@ app.get('/current_user', (req, res) => {
   
 
 app.put ('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
-    Group.findByIdAndUpdate(req.params.groupId, {name: req.body.group_name, type: req.body.group_type }, function(err, group){
+    Group.findByIdAndUpdate(req.params.groupId, {group_name: req.body.groupName, group_type: req.body.groupType, group_description: req.body.groupDescription }, function(err, group){
         if (err) {
             return next(err)
         }if(group) {
@@ -385,8 +387,9 @@ app.post('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) =
     let newGroup = new Group()
 
 
-    newGroup.name = req.body.name
-    newGroup.type = req.body.type
+    newGroup.group_name = req.body.groupName
+    newGroup.group_type = req.body.groupType
+    newGroup.group_description = req.body.groupDescription
     newGroup.date_created = new Date ()
     newGroup.todos = []
     newGroup.comments = []
