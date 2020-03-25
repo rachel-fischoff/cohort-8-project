@@ -1,14 +1,18 @@
   import React, { Component, Fragment, useState } from 'react';
+  import * as actions from '../../actions'
   import Modal from 'react-bootstrap/Modal'
+  import SingleTodoList from '../SingleToDoList'
   import './modal.css';
   
+  
   function SingleToDoModal() {
+
       const [show, setShow] = useState(false);
     
       return (
         <>
           <h5 variant="primary" onClick={() => setShow(true)}>
-           Single To-Do Header
+          <SingleTodoList />
           </h5>
     
           <Modal className="modal-background-color"
@@ -25,9 +29,6 @@
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <p>
-                This is ONE single lonely To-DO
-              </p>
             </Modal.Body>
           </Modal>
         </>
