@@ -25,11 +25,11 @@ function ToDoModal() {
             <Modal.Title id="modal-title" className="col" >
               To-Do's header
 
-              <Accordion defaultActiveKey="0">
-              <Card>
+              <Accordion>
+              
                 <Card.Header>
-                  <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                    New List
+                  <Accordion.Toggle as={Button} className="btn-success" variant="link" eventKey="1">
+                    + New List
                   </Accordion.Toggle>
                 </Card.Header>
                 <Accordion.Collapse eventKey="1">
@@ -37,7 +37,7 @@ function ToDoModal() {
                     <NewList />
                   </Card.Body>
                 </Accordion.Collapse>
-              </Card>
+            
             </Accordion>
 
 
