@@ -105,27 +105,6 @@ passport.use(
   )
 )
 
-<<<<<<< HEAD
-// const ensureAuthenticated = (req, res, next) => {
-//     if (!req.user) {
-//       res.status(401).json({
-//         authenticated: false,
-//         message: "user has not been authenticated"
-//       });
-//     } else {
-//       next();
-//     }
-//   };
-
-// //route middleware to ensure user is logged in
-// function isLoggedIn(req, res, next) {
-//   if (req.isAuthenticated())
-//       return next();
-//   res.status(400).json({
-//       'message': 'access denied'
-//   });
-// }
-=======
 const ensureAuthenticated = (req, res, next) => {
     if (!req.user) {
       res.status(401).json({
@@ -136,7 +115,6 @@ const ensureAuthenticated = (req, res, next) => {
       next();
     }
   };
->>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
 
 const googleAuth = passport.authenticate('google',
   { scope: ['profile', 'email']
@@ -360,11 +338,7 @@ app.get('/current_user', ensureAuthenticated, (req, res) => {
 
 
 //GET route for /groups/groupId
-<<<<<<< HEAD
-app.get('/groups/:groupId', (req, res, next) => {
-=======
 app.get('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
->>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
   Group.findOne({ _id: req.params.groupId})
       .populate(
           {path:'people'})
@@ -448,11 +422,7 @@ app.get('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) =>
 
 
 //route to update the single todo by name and description 
-<<<<<<< HEAD
-app.put('/groups/:groupId/todos/:todo', (req, res, next) => {
-=======
 app.put('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) => {
->>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
     
     Todo.findByIdAndUpdate(req.params.todo, {name: req.body.name, description: req.body.description }, function(err, todo){
             if (err) {
@@ -492,11 +462,7 @@ app.post('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) =
 })
 
 //returns the comments from each to do 
-<<<<<<< HEAD
-app.get('/groups/:groupId/todos/:todo/comments', (req, res, next) => {
-=======
 app.get('/groups/:groupId/todos/:todo/comments', ensureAuthenticated, (req, res, next) => {
->>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
     
     Todo
     .findById(req.params.todo)
@@ -513,11 +479,7 @@ app.get('/groups/:groupId/todos/:todo/comments', ensureAuthenticated, (req, res,
     })
 
 //route creates a new comment for the todo
-<<<<<<< HEAD
-app.post('/groups/:groupId/todos/:todo/comments', (req, res, next) => {
-=======
 app.post('/groups/:groupId/todos/:todo/comments', ensureAuthenticated,  (req, res, next) => {
->>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
     
     Todo
     .findById(req.params.todo)
@@ -544,11 +506,7 @@ app.post('/groups/:groupId/todos/:todo/comments', ensureAuthenticated,  (req, re
 
 
 //returns a single task  
-<<<<<<< HEAD
-app.get('/groups/:groupId/todos/:todo/tasks/:task', (req, res, next) => {
-=======
 app.get('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated,  (req, res, next) => {
->>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
     
     Task
     .findById(req.params.task)
@@ -565,11 +523,7 @@ app.get('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated,  (req, 
     })
 
 //create a new task 
-<<<<<<< HEAD
-app.post('/groups/:groupId/todos/:todo/tasks/:task', (req, res, next) => {
-=======
 app.post('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated, (req, res, next) => {
->>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
     Todo
     .findById(req.params.todo)
     .populate({path: 'tasks', populate: {path: 'assigned_to'}})
@@ -594,11 +548,7 @@ app.post('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated, (req, 
 })
 
 // This returns all the Todos in the DB
-<<<<<<< HEAD
-app.get('/groups/:groupId/todos', (req, res, next) => {
-=======
 app.get('/groups/:groupId/todos', ensureAuthenticated, (req, res, next) => {
->>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
 
   Group
     .findById(req.params.groupId)
