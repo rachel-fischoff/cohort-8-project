@@ -6,9 +6,8 @@ import './modal.css';
 import NewList from '../NewList'
 import TodoList from '../TodoList/TodoList'
 
-function ToDoModal() {
+function ToDoModal({groupId}) {
     const [show, setShow] = useState(false);
-  
     return (
       <>
         <h5 variant="primary" onClick={() => setShow(true)}>
@@ -34,7 +33,7 @@ function ToDoModal() {
                 </Card.Header>
                 <Accordion.Collapse eventKey="1">
                   <Card.Body>
-                    <NewList />
+                    <NewList groupId={groupId}/>
                   </Card.Body>
                 </Accordion.Collapse>
             

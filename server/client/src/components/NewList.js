@@ -7,7 +7,6 @@ class NewList extends React.Component {
     constructor(props) {
         super(props)
 
-
         this.state = {
             name: '',
             description: '',
@@ -30,13 +29,15 @@ class NewList extends React.Component {
             alert('You must enter the List Name.')
         //else send fetch to actions to create new list, need to send GroupID, TodoID too!!!!!!
         } else {
-            this.props.createNewTodo(NewList, '5e7a56122dba0954b0df986f', '5e7a56032dba0954b0df9860')
+           
+            this.props.createNewTodo(NewList, this.props.groupId)
             this.setState({name: ''})
             this.setState({description: ''})
         }
     }
 
     render() {
+        console.log('newlist props', this.props)
         return (
             <div className='row'>
                 <div className="col">
