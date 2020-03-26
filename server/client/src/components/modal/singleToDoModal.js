@@ -3,7 +3,6 @@ import Modal from 'react-bootstrap/Modal'
 import './modal.css';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import SingleTodo from '../SingleTodo';
 import TodoForm from '../TodoForm';
   
   function SingleToDoModal() {
@@ -21,7 +20,6 @@ import TodoForm from '../TodoForm';
       const renderSingleTodoLists = function(){
         return(
           <h5 variant="primary" value='ID' onClick={clickOnATodoList}>
-             <SingleTodo />
           </h5>
         )
       }
@@ -29,8 +27,6 @@ import TodoForm from '../TodoForm';
       //need to add map function when data is avaliable where render function is
       return (
         <>
-           {renderSingleTodoLists()}
-           {renderSingleTodoLists()}
           <Modal className="modal-background-color"
               backdrop="true"
               size="xl"
