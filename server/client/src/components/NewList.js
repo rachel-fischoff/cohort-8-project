@@ -1,12 +1,12 @@
 import React from 'react'
 import * as actions from '../actions';
 import { connect } from 'react-redux';
+import { Button, Accordion, Card } from 'react-bootstrap';
 
 class NewList extends React.Component {
     //constructs a new state for the List 
     constructor(props) {
         super(props)
-
 
         this.state = {
             name: '',
@@ -30,13 +30,15 @@ class NewList extends React.Component {
             alert('You must enter the List Name.')
         //else send fetch to actions to create new list, need to send GroupID, TodoID too!!!!!!
         } else {
-            this.props.createNewTodo(NewList, '5e7a56122dba0954b0df986f', '5e7a56032dba0954b0df9860')
+           
+            this.props.createNewTodo(NewList, this.props.groupId)
             this.setState({name: ''})
             this.setState({description: ''})
         }
     }
 
     render() {
+        console.log('newlist props', this.props)
         return (
             <div className='row'>
                 <div className="col">
@@ -51,7 +53,9 @@ class NewList extends React.Component {
                         className='form-control'
                         placeholder="Add Extra Details..."
                         onChange={event => this.setState({description: event.target.value})}/>
-                    <button type="button" onClick={this.handleSubmit}>Add This List</button>
+                    <Accordion.Toggle as={Button} className="btn-success" onClick={this.handleSubmit} variant="link" eventKey="1">
+                    Add This List
+                    </Accordion.Toggle>
                 </form>
                 </div>
             </div>

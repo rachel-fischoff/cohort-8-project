@@ -5,10 +5,10 @@ import { Button, Accordion, Card } from 'react-bootstrap';
 import './modal.css';
 import NewList from '../NewList'
 import TodoList from '../TodoList/TodoList'
+import PieChartTodo from '../PieChartTodo'
 
-function ToDoModal() {
+function ToDoModal({groupId}) {
     const [show, setShow] = useState(false);
-  
     return (
       <>
         <h5 variant="primary" onClick={() => setShow(true)}>
@@ -22,27 +22,24 @@ function ToDoModal() {
           dialogClassName="modal-90w"
           aria-labelledby="example-custom-modal-styling-title" >
           <Modal.Header closeButton >
-            <Modal.Title id="modal-title" className="col" >
-              To-Do's header
-
-              <Accordion>
-              
-                <Card.Header>
-                  <Accordion.Toggle as={Button} className="btn-success" variant="link" eventKey="1">
-                    + New List
-                  </Accordion.Toggle>
-                </Card.Header>
-                <Accordion.Collapse eventKey="1">
-                  <Card.Body>
-                    <NewList />
-                  </Card.Body>
-                </Accordion.Collapse>
-            
-            </Accordion>
+            <Modal.Title id="todo-title" className="text-center">
+               <h2>To-Do's</h2>
+               <span><PieChartTodo /></span>
             </Modal.Title>
           </Modal.Header>
-          <TodoList />
-          <Modal.Body>
+            <Modal.Body>
+              <Accordion>
+                <Accordion.Toggle as={Button} className="btn-success accordian-btn" variant="link" eventKey="1">
+                    + New List
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="1">
+                  <Card.Body>
+                    <NewList groupId={groupId}/>
+                  </Card.Body>
+                  </Accordion.Collapse>
+                </Accordion>   
+                <br></br>
+              <TodoList />
           </Modal.Body>
         </Modal>
       </>

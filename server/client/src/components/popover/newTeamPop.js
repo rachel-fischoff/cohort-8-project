@@ -25,7 +25,6 @@ class PopoverPage extends React.Component {
   }
   //called when user hits submit
   handleSubmit(event) {
-    event.preventDefault()
     console.log(this.state, 'handle submit is working') 
     const newTeam= {}
     newTeam.group_name = this.state.name
@@ -39,13 +38,11 @@ class PopoverPage extends React.Component {
     console.log(this.props)
     console.log(newTeam)
     this.props.createNewGroup (newTeam)
-
   }
 
   handleCancel = (e) => {
     e.preventDefault();
     this.setState({name: ''})
-    console.log('clicked cancel', e)
      }
 
   render() {
@@ -68,8 +65,8 @@ class PopoverPage extends React.Component {
                     <input type="newName" id="newGroupN"
                     onChange={event => this.setState({name: event.target.value})}  />
                         <div>
-                        <button className="btn-success" type="onSubmit" onClick={this.handleSubmit} >Save</button> &nbsp;
-                        <button className="btn-danger" type="onSubmit" onClick={this.handleCancel}>Cancel</button>
+                        <button className="btn-success" type="button" onClick={this.handleSubmit} >Save</button> &nbsp;
+                        <button className="btn-danger" type="button" onClick={this.handleCancel}>Cancel</button>
                         </div>
                     </form>
                   </MDBPopoverBody>

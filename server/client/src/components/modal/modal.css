@@ -60,3 +60,16 @@ input[type="radio"] {
 .submit-button:active {
   transform: translateY(1px);
 }
+
+.accordian-btn {
+  float: left;
+}
+
+#todo-title {
+  margin-left:45%;
+  display: inline-block;
+}
+
+span {
+  float: left;
+}

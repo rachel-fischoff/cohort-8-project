@@ -23,7 +23,7 @@ class ProjectPop extends React.Component {
   }
   //called when user hits submit
   handleSubmit(event) {
-    event.preventDefault()
+
     console.log(this.state, 'handle submit is working') 
     const newProject= {}
     newProject.group_name = this.state.name
@@ -37,14 +37,12 @@ class ProjectPop extends React.Component {
     console.log(this.props)
     console.log(newProject)
     this.props.createNewGroup (newProject)
-
   }
 
 
     handleCancel = (e) => {
         e.preventDefault();
         this.setState({name: ''})
-        console.log('clicked cancel', e)
          }
 
 render() {
