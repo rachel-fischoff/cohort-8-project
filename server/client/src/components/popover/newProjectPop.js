@@ -1,26 +1,53 @@
 import React from "react";
+import * as actions from '../../actions/index';
+import { connect } from 'react-redux';
 import { MDBPopover, MDBPopoverBody, MDBPopoverHeader, MDBBtn, MDBContainer } from "mdbreact";
 import Badge from 'react-bootstrap/Badge'
 import './pop.css'
 
-const ProjectPop = () => {
-    
-    const createdGroupName = '';
-    
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('click')
-        
-        console.log('created group name: ', createdGroupName)
-    }
+class ProjectPop extends React.Component {
+  
+  //constructs a new state for the Team 
+  constructor(props) {
+      super(props)
 
-    const handleCancel = (e) => {
+  
+      this.state = {
+          name: '',
+          type:'',
+          description: '',
+      }
+      //binds the functions
+      this.handleSubmit = this.handleSubmit.bind(this)
+      this.handleCancel = this.handleCancel.bind(this)
+  }
+  //called when user hits submit
+  handleSubmit(event) {
+    event.preventDefault()
+    console.log(this.state, 'handle submit is working') 
+    const newProject= {}
+    newProject.group_name = this.state.name
+    newProject.group_type = 'project'
+    // newProject.group_description = this.state.description
+    newProject.date_created = new Date ()
+    newProject.todos = []
+    newProject.comments = []
+    newProject.people = []
+
+    console.log(this.props)
+    console.log(newProject)
+    this.props.createNewGroup (newProject)
+
+  }
+
+
+    handleCancel = (e) => {
         e.preventDefault();
+        this.setState({name: ''})
         console.log('clicked cancel', e)
-        
-       
-    }
+         }
 
+render() {
   return (
     <MDBContainer>
       <div  className="m-0">
@@ -36,11 +63,11 @@ const ProjectPop = () => {
           
             
             <MDBPopoverBody>
-              <form  onSubmit={handleSubmit}>
-              <input type="newName" id="newGroupN"  />
+              <form >
+              <input type="newName" id="newGroupN" onChange={event => this.setState({name: event.target.value})}  />
                   <div>
-                  <button className="btn-success" type="onSubmit" >Save</button> &nbsp;
-                  <button className="btn-danger" type="onSubmit" onClick={handleCancel}>Cancel</button>
+                  <button className="btn-success" type="onSubmit" onClick={this.handleSubmit}>Save</button> &nbsp;
+                  <button className="btn-danger" type="onSubmit" onClick={this.handleCancel}>Cancel</button>
                   </div>
               </form>
             </MDBPopoverBody>
@@ -52,5 +79,8 @@ const ProjectPop = () => {
     </MDBContainer>
   );
 }
-
-export default ProjectPop;
+}
+export default connect(
+  null,
+  actions
+)(ProjectPop);

@@ -38,6 +38,21 @@ export const home = () => dispatch => {
 };
 
 //====================================================
+//Adding a new Group 
+//TODO : test with data 
+export const createNewGroup = (body) => dispatch => {
+  axios.post(`/groups`, body
+  ).then(function (response) {
+    console.log('response in createNewGroup', response)
+    dispatch({ type: FETCH_GROUP_DETAILS, payload: response.data });
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
+
+//====================================================
 //Fetching Schedule for Group Component
 //WORKING
 export const fetchGroupDetails = (groupID) => dispatch => {

@@ -9,22 +9,44 @@ import './pop.css'
 
 class PopoverPage extends React.Component {
   
-  //constructs a new state for the List 
+  //constructs a new state for the Team 
   constructor(props) {
       super(props)
 
-      
+  
       this.state = {
           name: '',
+          type:'',
           description: '',
       }
       //binds the functions
       this.handleSubmit = this.handleSubmit.bind(this)
+      this.handleCancel = this.handleCancel.bind(this)
   }
   //called when user hits submit
-  handleSubmit() {
-    
+  handleSubmit(event) {
+    event.preventDefault()
+    console.log(this.state, 'handle submit is working') 
+    const newTeam= {}
+    newTeam.group_name = this.state.name
+    newTeam.group_type = 'team'
+    // newTeam.group_description = this.state.description
+    newTeam.date_created = new Date ()
+    newTeam.todos = []
+    newTeam.comments = []
+    newTeam.people = []
+
+    console.log(this.props)
+    console.log(newTeam)
+    this.props.createNewGroup (newTeam)
+
   }
+
+  handleCancel = (e) => {
+    e.preventDefault();
+    this.setState({name: ''})
+    console.log('clicked cancel', e)
+     }
 
   render() {
       return (
@@ -47,7 +69,7 @@ class PopoverPage extends React.Component {
                     onChange={event => this.setState({name: event.target.value})}  />
                         <div>
                         <button className="btn-success" type="onSubmit" onClick={this.handleSubmit} >Save</button> &nbsp;
-                        <button className="btn-danger" type="onSubmit" >Cancel</button>
+                        <button className="btn-danger" type="onSubmit" onClick={this.handleCancel}>Cancel</button>
                         </div>
                     </form>
                   </MDBPopoverBody>
