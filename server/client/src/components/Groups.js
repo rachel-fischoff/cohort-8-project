@@ -7,6 +7,7 @@ import MessageBoardModal from '../components/modal/messageBoardModal';
 import './groups.css';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import {Image, Row, Container} from 'react-bootstrap'
 
 
 
@@ -38,12 +39,13 @@ class Groups extends Component {
     this.setState({ viewingToDos: false });
   }
 
+
   renderPerson = (p) => {
       return(
-        <img src = {p.profile_pic_url}></img>
+        <Image src = {p.profile_pic_url} roundedCircle fluid width="50px" height='50px'/>
       )
     }
-    
+
     render() {
   
         return (
@@ -52,7 +54,11 @@ class Groups extends Component {
               <br></br>
                <div className="card-groups col-md-10 mx-auto">
                <h1 className="card-title-groups text-center">{this.props.groupName}</h1>
-               <div className="card-title-groups text-center">{this.props.people.map(this.renderPerson)}</div>
+               <Container>
+                <Row>
+                  {this.props.people.map(this.renderPerson)}
+                </Row>
+              </Container>
                <div className="card-body">
                 <div className="row text-center">
                   <div className="col-md-4">

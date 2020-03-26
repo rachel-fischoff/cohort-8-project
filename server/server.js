@@ -275,6 +275,8 @@ app.get('/generate-fake-groups', (req, res) => {
             group.group_type = "team"
         }
 
+        group.group_description = faker.lorem.sentences()
+
         const num_people = Math.round(Math.random() * 10)
         const num_comments = Math.round(Math.random() * 15)
         const num_todos = Math.round(Math.random() * 10/3)
@@ -367,7 +369,7 @@ app.get('/groups/:groupId',  (req, res, next) => {
   
 
 app.put ('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
-    Group.findByIdAndUpdate(req.params.groupId, {name: req.body.group_name, type: req.body.group_type }, function(err, group){
+    Group.findByIdAndUpdate(req.params.groupId, {group_name: req.body.groupName, group_type: req.body.groupType, group_description: req.body.groupDescription }, function(err, group){
         if (err) {
             return next(err)
         }if(group) {
@@ -386,8 +388,9 @@ app.post('/groups/:groupId', (req, res, next) => {
     let newGroup = new Group()
 
 
-    newGroup.name = req.body.name
-    newGroup.type = req.body.type
+    newGroup.group_name = req.body.groupName
+    newGroup.group_type = req.body.groupType
+    newGroup.group_description = req.body.groupDescription
     newGroup.date_created = new Date ()
     newGroup.todos = []
     newGroup.comments = []
@@ -615,21 +618,45 @@ app.get('/groups/:groupdId/schedule', (req, res) => {
 })
 
 //Search Group Route
-app.get('/groups', (req, res, next) => {
+app.get('/search/groups', ensureAuthenticated, (req, res, next) => {
   //spliting the url to grab the keyword we need to compare in our data
   const parsedURL = req.url.split("?");
   // Setting a variable equal to the keyword that is in the 1st index so we can compare
   const queryParams = querySring.parse(parsedURL[1]);
 
+  const query = queryParams.query
+  const regExQuery = new RegExp(query, "i")
+
   Group
-    .find({group_name: queryParams})
-    .populate({path: 'group_type'})
-    .exec((err, group) => {
+    .find({group_name: regExQuery})
+    .exec((err, groups) => {
       if (err) {
         res.send(err)
       } else {
         res.status(200);
-        res.send({searchedGroup: group})
+        res.send({groups})
+      }
+    })
+})
+
+//Search Users Route
+app.get('/search/users', ensureAuthenticated, (req, res, next) => {
+  //spliting the url to grab the keyword we need to compare in our data
+  const parsedURL = req.url.split("?");
+  // Setting a variable equal to the keyword that is in the 1st index so we can compare
+  const queryParams = querySring.parse(parsedURL[1]);
+
+  const query = queryParams.query
+  const regExQuery = new RegExp(query, "i")
+
+  User
+    .find({profile_name: regExQuery})
+    .exec((err, users) => {
+      if (err) {
+        res.send(err)
+      } else {
+        res.status(200);
+        res.send({users})
       }
     })
 })

@@ -4,17 +4,20 @@ import { connect } from "react-redux";
 import * as actions from '../actions';
 import queryString from "query-string";
 import _ from "lodash";
+import {Image, Row, Container} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import '../index.css';
 import PopoverPage from './popover/newTeamPop';
 import ProjectPop from './popover/newProjectPop'
 
-class Home extends Component {  
-  //fetches current user nad home page
-  componentDidMount() {
-      this.props.fetchUser()
-      this.props.home()
+
+class Home extends Component { 
+
+   async componentDidMount() {
+     await this.props.fetchUser()
+     this.props.home()
+
    }
    
    //Create a new team
@@ -28,22 +31,43 @@ class Home extends Component {
     console.log('clicked new project')
   }
 
+  //sorts teams and renders card
+  sortTeam = (p) => {
+    if (p.group_type === 'team'){
+      return (
+      this.renderGroup(p)
+      )
+  }
+}
+  //sorts Projects and renders card
+  sortProject = (p) => {
+    if (p.group_type === 'project'){
+      return (
+        this.renderGroup(p)
+      )
+    }
+  }
+  
+//loops through users
   renderPerson = (p) => {
     return(
-      <img src = {p.profile_pic_url}></img>
+      <Image src={p.profile_pic_url} roundedCircle fluid width="30px" height='30px'/>
     )
   }
 
   //renders individual card
-  //Still need to sort!!
-  renderTeam = (t) =>{
-    console.log("props", this.props.homePage)
+  renderGroup = (t) =>{
+    console.log('t', t)
     return(
     <div className="card col-md-offset-3 text-center" styles="width: 18rem;">
     <div className="card-body">
     <h5 className="card-title">{t.group_name}</h5>
     <h6 className="card-subtitle mb-2 text-muted">{t.group_type}</h6>
+    <Container>
+    <Row>
     {t.people.map(this.renderPerson)}
+    </Row>
+    </Container>
     <p className="card-text">{t.group_description}</p>
     <a href={`/groups/${t._id}`} className="card-link">Card link</a>
    </div>
@@ -59,9 +83,10 @@ class Home extends Component {
            <div className="projects-row">
              <PopoverPage></PopoverPage>
                <div className="col-md-8-offset-3 text-center">
+
                 <h1>Teams</h1>
                   <br></br>
-                  {this.props.homePage.map(this.renderTeam)}
+                  {this.props.homePage.map(this.sortTeam)}
                 </div>
               </div>
               
@@ -72,14 +97,7 @@ class Home extends Component {
                 <div className="col-md-8-offset-3 text-center">
                  <h1>Projects</h1>
                   <br></br>
-                   <div className="card" styles="width: 18rem;">
-                    <div className="card-body">
-                    <h5 className="card-title">Card title</h5>
-                    <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/groups" className="card-link">Card link</a>
-                   </div>
-                  </div>
+                  {this.props.homePage.map(this.sortProject)}
                 </div>
             </div>
         </div>
@@ -92,8 +110,10 @@ class Home extends Component {
 
 function mapStateToProps(state) {
   return ({
-    homePage: state.home
+    homePage: state.home,
+    user: state.user
   })
+
 }
 
 export default connect(
