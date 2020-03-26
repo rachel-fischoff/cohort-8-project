@@ -1,5 +1,6 @@
 import axios from "axios";
-import { FETCH_HOME, FETCH_TODOS, NOT_AUTH_USER, AUTH_USER, FETCH_USER, FETCH_GROUP_DETAILS } from './types';
+import { FETCH_HOME, FETCH_TODOS, FETCH_TASK, NOT_AUTH_USER, AUTH_USER, FETCH_USER, FETCH_GROUP_DETAILS } from './types';
+
 
 //====================================================
 //fetching a current user      
@@ -35,6 +36,21 @@ export const home = () => dispatch => {
     console.log(error);
   });
 };
+
+//====================================================
+//Adding a new Group 
+//TODO : test with data 
+export const createNewGroup = (body) => dispatch => {
+  axios.post(`/groups`, body
+  ).then(function (response) {
+    console.log('response in createNewGroup', response)
+    dispatch({ type: FETCH_GROUP_DETAILS, payload: response.data });
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
 
 //====================================================
 //Fetching Schedule for Group Component
@@ -79,13 +95,23 @@ export const fetchTodos = (groupID, todoID) => dispatch => {
 
 
 //====================================================
+export const fetchTask = ( groupID, todoID, taskID) => dispatch => {
+  axios.get(`http://localhost:5000/groups/${groupID}/todos/${todoID}/${taskID}`
+  ).then(function (response) {
+    console.log('response in get Task', response)
+    dispatch({ type: FETCH_TASK, payload: response.data });
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
 //Adding Task on TODO Component
 //TODO need actual route and need to test!!
 ///groups/:groupId/todos/:todo/tasks/:task
-export const createNewTasks = (userID, groupID, todoID, task) => dispatch => {
+export const createNewTodoTask = (body, userID, groupID, todoID ) => dispatch => {
   axios
-  .post(`/${userID}/groups/${groupID}/todos/${todoID}`, 
-    task
+  .post(`/${userID}/groups/${groupID}/todos/${todoID}`, body
     ).then(function (response) {
       dispatch({ type: FETCH_TODOS, payload: response.data });
     })

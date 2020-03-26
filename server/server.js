@@ -401,17 +401,19 @@ app.put ('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
 
 
 //POST route for /groups
-app.post('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
+app.post('/groups', ensureAuthenticated, (req, res, next) => {
+    id = req.user
+
     let newGroup = new Group()
 
 
-    newGroup.group_name = req.body.groupName
-    newGroup.group_type = req.body.groupType
-    newGroup.group_description = req.body.groupDescription
+    newGroup.group_name = req.body.group_name
+    newGroup.group_type = ''
+    newGroup.group_description = ''
     newGroup.date_created = new Date ()
     newGroup.todos = []
     newGroup.comments = []
-    newGroup.people = []
+    newGroup.people = [ObjectId(id)]
     
 
     newGroup.save(function (err) {
