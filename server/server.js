@@ -382,7 +382,7 @@ app.post('/groups', ensureAuthenticated, (req, res, next) => {
 
 
     newGroup.group_name = req.body.group_name
-    newGroup.group_type = ''
+    newGroup.group_type = req.body.group_type
     newGroup.group_description = ''
     newGroup.date_created = new Date ()
     newGroup.todos = []
