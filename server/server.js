@@ -332,7 +332,7 @@ app.get('/logout', (req, res) => {
 });
 
 //get current user's full profile
-app.get('/current_user', (req, res) => {
+app.get('/current_user', ensureAuthenticated, (req, res) => {
     const id = req.user
     User
     .findById(id).exec((error, user) => {
@@ -347,7 +347,7 @@ app.get('/current_user', (req, res) => {
 
 
 //GET route for /groups/groupId
-app.get('/groups/:groupId',  (req, res, next) => {
+app.get('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
   Group.findOne({ _id: req.params.groupId})
       .populate(
           {path:'people'})
@@ -368,7 +368,7 @@ app.get('/groups/:groupId',  (req, res, next) => {
 
   
 
-app.put ('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+app.put ('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
     Group.findByIdAndUpdate(req.params.groupId, {group_name: req.body.groupName, group_type: req.body.groupType, group_description: req.body.groupDescription }, function(err, group){
         if (err) {
             return next(err)
@@ -384,7 +384,7 @@ app.put ('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) =
 
 
 //POST route for /groups
-app.post('/groups/:groupId', (req, res, next) => {
+app.post('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
     let newGroup = new Group()
 
 
@@ -407,7 +407,7 @@ app.post('/groups/:groupId', (req, res, next) => {
 
 
 //route for getting a single todo list page 
-app.get('/groups/:groupId/todos/:todo', (req, res, next) =>{
+app.get('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) =>{
     
     Todo.findOne({ _id: req.params.todo})
     .populate(
@@ -429,7 +429,7 @@ app.get('/groups/:groupId/todos/:todo', (req, res, next) =>{
 
 
 //route to update the single todo by name and description 
-app.put('/groups/:groupId/todos/:todo', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+app.put('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) => {
     
     Todo.findByIdAndUpdate(req.params.todo, {name: req.body.name, description: req.body.description }, function(err, todo){
             if (err) {
@@ -446,7 +446,7 @@ app.put('/groups/:groupId/todos/:todo', isLoggedIn, ensureAuthenticated, (req, r
 
 
 //route creates a new todo in the database
-app.post('/groups/:groupId/todos/:todo',  (req, res, next) => {
+app.post('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) => {
     
     let newTodo = new Todo()
 
@@ -469,7 +469,7 @@ app.post('/groups/:groupId/todos/:todo',  (req, res, next) => {
 })
 
 //returns the comments from each to do 
-app.get('/groups/:groupId/todos/:todo/comments', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+app.get('/groups/:groupId/todos/:todo/comments', ensureAuthenticated, (req, res, next) => {
     
     Todo
     .findById(req.params.todo)
@@ -486,7 +486,7 @@ app.get('/groups/:groupId/todos/:todo/comments', isLoggedIn, ensureAuthenticated
     })
 
 //route creates a new comment for the todo
-app.post('/groups/:groupId/todos/:todo/comments', isLoggedIn, ensureAuthenticated,  (req, res, next) => {
+app.post('/groups/:groupId/todos/:todo/comments', ensureAuthenticated,  (req, res, next) => {
     
     Todo
     .findById(req.params.todo)
@@ -513,7 +513,7 @@ app.post('/groups/:groupId/todos/:todo/comments', isLoggedIn, ensureAuthenticate
 
 
 //returns a single task  
-app.get('/groups/:groupId/todos/:todo/tasks/:task', isLoggedIn, ensureAuthenticated,  (req, res, next) => {
+app.get('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated,  (req, res, next) => {
     
     Task
     .findById(req.params.task)
@@ -530,7 +530,7 @@ app.get('/groups/:groupId/todos/:todo/tasks/:task', isLoggedIn, ensureAuthentica
     })
 
 //create a new task 
-app.post('/groups/:groupId/todos/:todo/tasks/:task', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+app.post('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated, (req, res, next) => {
     Todo
     .findById(req.params.todo)
     .populate({path: 'tasks', populate: {path: 'assigned_to'}})
@@ -555,7 +555,7 @@ app.post('/groups/:groupId/todos/:todo/tasks/:task', isLoggedIn, ensureAuthentic
 })
 
 // This returns all the Todos in the DB
-app.get('/groups/:groupId/todos', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+app.get('/groups/:groupId/todos', ensureAuthenticated, (req, res, next) => {
 
   Group
     .findById(req.params.groupId)
@@ -572,9 +572,8 @@ app.get('/groups/:groupId/todos', isLoggedIn, ensureAuthenticated, (req, res, ne
 })
 
 
-app.get('/home', (req, res, next) => {
+app.get('/home', ensureAuthenticated, (req, res, next) => {
   const id = req.user
-// a0289a025e882ac6c00c59b843206f84a7c3c412
 
   Group.find({people: {$all: [ObjectId(id)]}})
   .populate('people')
@@ -590,7 +589,7 @@ app.get('/home', (req, res, next) => {
 })
   
 //route for getting a groups tasks for one month
-app.get('/groups/:groupdId/schedule', (req, res) => {
+app.get('/groups/:groupdId/schedule', ensureAuthenticated, (req, res) => {
   const currentMonth = parseInt(req.body.currentMonth)
   const currentYear = parseInt(req.body.currentYear)
   const nextMonth = currentMonth + 1
