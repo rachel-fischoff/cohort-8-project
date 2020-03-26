@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-  import Modal from 'react-bootstrap/Modal'
-  import './modal.css';
-  import { connect } from 'react-redux';
+import Modal from 'react-bootstrap/Modal'
+import './modal.css';
+import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import SingleTodo from '../SingleTodo'
+import SingleTodo from '../SingleTodo';
+import TodoForm from '../TodoForm';
   
   function SingleToDoModal() {
       //state for modal
@@ -45,7 +46,7 @@ import SingleTodo from '../SingleTodo'
             </Modal.Header>
             <Modal.Body>
               <p>
-                This is ONE single lonely To-DO
+              <TodoForm />
               </p>
             </Modal.Body>
           </Modal>
