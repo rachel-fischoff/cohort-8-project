@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_HOME, FETCH_TODOS, FETCH_TASK, NOT_AUTH_USER, AUTH_USER, FETCH_USER, FETCH_GROUP_DETAILS } from './types';
+import { FETCH_HOME, FETCH_TODOS, FETCH_TASK, NOT_AUTH_USER, FETCH_USER, FETCH_GROUP_DETAILS } from './types';
 
 
 //====================================================
