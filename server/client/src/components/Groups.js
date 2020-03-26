@@ -46,6 +46,20 @@ class Groups extends Component {
       )
     }
 
+  loopThoroughTodos(t){
+    console.log('t', t)
+    return(
+<p className="card-text">{t.title}</p>
+    )
+  }
+
+  renderScheduleDates(t){
+    //need to format dates and put in order!!
+    return(
+      <p className="card-text">{t.date_created}</p>
+    )
+  }
+
     render() {
   
         return (
@@ -66,7 +80,7 @@ class Groups extends Component {
                     <CalendarModal><p>Calendar</p></CalendarModal>
                     <hr />
                     <div className="card-body">
-                    <p className="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
+                    {this.props.todos.map(this.renderScheduleDates)}
                     </div>
                   </div>
                 </div>
@@ -75,7 +89,7 @@ class Groups extends Component {
                     <ToDoModal />
                       <hr />
                     <div className="card-body">
-                    <p className="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
+                    {this.props.todos.map(this.loopThoroughTodos)}
                     </div>
                   </div>
                 </div>
