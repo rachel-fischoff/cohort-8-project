@@ -56,11 +56,13 @@ export default Nav;
 const NavContainer = styled.div`
 
   position: fixed;
-  background: #f6f2ef;
+  background-color: #f6f2ef;
+  display: block;
   color: #283c46
   margin: 0;
   width: 100%;
   height: auto;
+  z-index: 6;
   #logo {
     float: left;
     width: 50px;
@@ -74,6 +76,7 @@ const NavContainer = styled.div`
 `;
 
 const NavUl = styled.ul`
+  background-color: rgba(246,242,239,0.9);
   display: flex;
   flex-direction: row;
   justify-content: center;
