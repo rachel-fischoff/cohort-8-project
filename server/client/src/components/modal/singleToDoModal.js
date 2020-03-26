@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import './modal.css';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import SingleTodo from '../SingleTodo';
+// import SingleTodo from '../SingleTodo';
 import TaskForm from '../TaskForm';
 
   

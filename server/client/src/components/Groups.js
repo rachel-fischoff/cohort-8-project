@@ -39,6 +39,17 @@ class Groups extends Component {
     this.setState({ viewingToDos: false });
   }
 
+  renderScheduleDates(t){
+    
+    //need to format dates and put in order!!
+    let sortedDates = t.date_created.split('T')[0]
+    console.log('sortedDates ', sortedDates)
+    
+    return(
+      <p className="card-text">{sortedDates}</p>
+    )
+  }
+
 
   renderPerson = (p) => {
       return(
@@ -53,14 +64,7 @@ class Groups extends Component {
     )
   }
 
-  renderScheduleDates(t){
-    //need to format dates and put in order!!
-    return(
-      <p className="card-text">{t.date_created}</p>
-    )
-  }
-
-    render() {
+      render() {
   
         return (
           <div className="groups-page">
@@ -73,14 +77,14 @@ class Groups extends Component {
                   {this.props.people.map(this.renderPerson)}
                 </Row>
               </Container>
-               <div className="card-body">
-                <div className="row text-center">
-                  <div className="col-md-4">
-                    <div className="card-inner">
-                    <CalendarModal><p>Calendar</p></CalendarModal>
+              <div className="card-body ">
+                <div className="row text-center ">
+                  <div className="col-md-4 ">
+                    <div className="card-inner h-100 ">
+                    <CalendarModal ><p>Calendar</p></CalendarModal>
                     <hr />
-                    <div className="card-body">
-                    {this.props.todos.map(this.renderScheduleDates)}
+                    <div className="card-body ">
+                    <p className="card-text ">{this.props.todos.map(this.renderScheduleDates)}</p>
                     </div>
                   </div>
                 </div>
