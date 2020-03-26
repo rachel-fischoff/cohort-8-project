@@ -1,6 +1,7 @@
 import React from 'react'
 import * as actions from '../actions';
 import { connect } from 'react-redux';
+import { Button, Accordion, Card } from 'react-bootstrap';
 
 class NewList extends React.Component {
     //constructs a new state for the List 
@@ -52,7 +53,9 @@ class NewList extends React.Component {
                         className='form-control'
                         placeholder="Add Extra Details..."
                         onChange={event => this.setState({description: event.target.value})}/>
-                    <button type="button" onClick={this.handleSubmit}>Add This List</button>
+                    <Accordion.Toggle as={Button} className="btn-success" onClick={this.handleSubmit} variant="link" eventKey="1">
+                    Add This List
+                    </Accordion.Toggle>
                 </form>
                 </div>
             </div>

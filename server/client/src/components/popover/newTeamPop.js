@@ -25,7 +25,6 @@ class PopoverPage extends React.Component {
   }
   //called when user hits submit
   handleSubmit(event) {
-    event.preventDefault()
     console.log(this.state, 'handle submit is working') 
     const newTeam= {}
     newTeam.group_name = this.state.name
@@ -39,18 +38,11 @@ class PopoverPage extends React.Component {
     console.log(this.props)
     console.log(newTeam)
     this.props.createNewGroup (newTeam)
-    this.refreshPage()
-  }
-
-  refreshPage =() => {
-    console.log('refreshed')
-    window.location.reload(true);
   }
 
   handleCancel = (e) => {
     e.preventDefault();
     this.setState({name: ''})
-    console.log('clicked cancel', e)
      }
 
   render() {

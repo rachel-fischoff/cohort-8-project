@@ -23,7 +23,7 @@ class ProjectPop extends React.Component {
   }
   //called when user hits submit
   handleSubmit(event) {
-    event.preventDefault()
+
     console.log(this.state, 'handle submit is working') 
     const newProject= {}
     newProject.group_name = this.state.name
@@ -37,14 +37,8 @@ class ProjectPop extends React.Component {
     console.log(this.props)
     console.log(newProject)
     this.props.createNewGroup (newProject)
-    this.refreshPage()
-
   }
 
-  refreshPage =() => {
-    console.log('refreshed')
-    window.location.reload(true);
-  }
 
     handleCancel = (e) => {
         e.preventDefault();
