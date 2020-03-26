@@ -83,12 +83,9 @@ const GoogleLoginButton = (props) => {
     )
   }
 
-  function mapStateToProps(state) {
-    return { errorMessage: state.auth.errorMessage };
-  }
 
   export default connect(
-    mapStateToProps,
+    null,
     actions
   )(GoogleLoginButton);
  
