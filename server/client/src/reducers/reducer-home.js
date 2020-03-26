@@ -7,7 +7,7 @@ export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case FETCH_HOME :
       //should return payload!!!!!! returning state to see data
-      return state
+      return action.payload
     default:
       return state;
   }

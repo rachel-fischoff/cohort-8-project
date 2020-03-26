@@ -572,7 +572,7 @@ app.get('/groups/:groupId/todos', isLoggedIn, ensureAuthenticated, (req, res, ne
 })
 
 
-app.get('/home', (req, res, next) => {
+app.get('/home', ensureAuthenticated, (req, res, next) => {
   const id = req.user
 // a0289a025e882ac6c00c59b843206f84a7c3c412
 
