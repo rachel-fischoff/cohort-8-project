@@ -5,6 +5,7 @@ import { Button, Accordion, Card } from 'react-bootstrap';
 import './modal.css';
 import NewList from '../NewList'
 import TodoList from '../TodoList/TodoList'
+import PieChartTodo from '../PieChartTodo'
 
 function ToDoModal() {
     const [show, setShow] = useState(false);
@@ -22,27 +23,24 @@ function ToDoModal() {
           dialogClassName="modal-90w"
           aria-labelledby="example-custom-modal-styling-title" >
           <Modal.Header closeButton >
-            <Modal.Title id="modal-title" className="col" >
-              To-Do's header
-
+            <Modal.Title id="todo-title" className="text-center">
+               To-Do's
+               <span><PieChartTodo /></span>
+            </Modal.Title>
+          </Modal.Header>
+            <Modal.Body>
               <Accordion>
-              
-                <Card.Header>
-                  <Accordion.Toggle as={Button} className="btn-success" variant="link" eventKey="1">
+                <Accordion.Toggle as={Button} className="btn-success accordian-btn" variant="link" eventKey="1">
                     + New List
-                  </Accordion.Toggle>
-                </Card.Header>
+                </Accordion.Toggle>
                 <Accordion.Collapse eventKey="1">
                   <Card.Body>
                     <NewList />
                   </Card.Body>
-                </Accordion.Collapse>
-            
-            </Accordion>
-            </Modal.Title>
-          </Modal.Header>
-          <TodoList />
-          <Modal.Body>
+                  </Accordion.Collapse>
+                </Accordion>   
+                <br></br>
+              <TodoList />
           </Modal.Body>
         </Modal>
       </>
