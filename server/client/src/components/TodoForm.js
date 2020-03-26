@@ -9,9 +9,9 @@ class TodoForm extends React.Component {
     this.state = {
       title: '',
       assigned_to: '',
-      completed: this.props.completed || false,
-      date_created: this.props.date_created || new Date(),
-      due_date: this.props.due_date || '',
+      completed: '',
+      date_created: '',
+      due_date: '',
     }
     
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -26,7 +26,16 @@ class TodoForm extends React.Component {
 
   handleSubmit(e){
     e.preventDefault()
-    //create new todo
+    //create new task
+    const newTask = {
+      name: this.state.name,
+      description: this.state.description,
+      title: this.state.name,
+      assigned_to: '',
+      completed: '',
+      date_created: '',
+      due_date: '',
+    };
     //this.toggleHide()
   }
 
@@ -40,10 +49,10 @@ class TodoForm extends React.Component {
     this.setState( {
         name: '',
         description: '', 
-        assigned_to: this.props.assigned_to || {},
-        completed: this.props.completed || false,
-        date_created: this.props.date_created || new Date(),
-        due_date: this.props.due_date || '',
+        assigned_to: '',
+        completed: '',
+        date_created:'',
+        due_date: '',
     } )
     this.toggleHide()
   }
