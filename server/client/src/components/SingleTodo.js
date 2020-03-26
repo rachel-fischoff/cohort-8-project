@@ -9,13 +9,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class SingleTodo extends React.Component {
   constructor(props) {
     super(props)
-    console.log(props)
+    console.log(this.props)
     this.state = { loading: false }
   }
 
-  componentDidMount(){
+  async componentDidMount() {
     this.setState({loading: true})
-    this.props.fetchUser()
+    await this.props.fetchUser()
     console.log(this.props)
   }
 

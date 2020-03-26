@@ -10,9 +10,10 @@ import '../index.css';
 import PopoverPage from './popover/newTeamPop';
 import ProjectPop from './popover/newProjectPop'
 
-class Home extends Component {  
-  componentDidMount() {
-      this.props.fetchUser()
+class Home extends Component { 
+
+   async componentDidMount() {
+     await this.props.fetchUser()
    }
 
   clickHandlerNewTeam = () => {
@@ -25,6 +26,7 @@ class Home extends Component {
   }
 
   render() {
+    console.log(this.state)
 // if (this.props.authenticated){
     return (
         <div className="home-page">
@@ -32,6 +34,7 @@ class Home extends Component {
              <PopoverPage></PopoverPage>
                <div className="col-md-8-offset-3 text-center">
                 <Link to="/groups" className="h3 separator">Teams</Link>
+                 this.renderTeams()
                   <br></br>
                    <div className="card col-md-offset-3 text-center" styles="width: 18rem;">
                     <div className="card-body">
@@ -51,6 +54,7 @@ class Home extends Component {
                 <div className="col-md-8-offset-3 text-center">
                  <Link to={`/Groups`} className="h3 separator">Projects</Link>
                   <br></br>
+                  this.renderProjects()
                    <div className="card" styles="width: 18rem;">
                     <div className="card-body">
                     <h5 className="card-title">Card title</h5>
@@ -72,7 +76,8 @@ class Home extends Component {
 function mapStateToProps(state) {
   console.log('state', state)
   return {
-    authenticated: state.auth
+    authenticated: state.auth,
+    user: state.user
   };
 }
 
