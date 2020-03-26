@@ -105,27 +105,6 @@ passport.use(
   )
 )
 
-<<<<<<< HEAD
-// const ensureAuthenticated = (req, res, next) => {
-//     if (!req.user) {
-//       res.status(401).json({
-//         authenticated: false,
-//         message: "user has not been authenticated"
-//       });
-//     } else {
-//       next();
-//     }
-//   };
-
-// //route middleware to ensure user is logged in
-// function isLoggedIn(req, res, next) {
-//   if (req.isAuthenticated())
-//       return next();
-//   res.status(400).json({
-//       'message': 'access denied'
-//   });
-// }
-=======
 const ensureAuthenticated = (req, res, next) => {
     if (!req.user) {
       res.status(401).json({
@@ -136,7 +115,6 @@ const ensureAuthenticated = (req, res, next) => {
       next();
     }
   };
->>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
 
 const googleAuth = passport.authenticate('google',
   { scope: ['profile', 'email']
@@ -360,11 +338,7 @@ app.get('/current_user', ensureAuthenticated, (req, res) => {
 
 
 //GET route for /groups/groupId
-<<<<<<< HEAD
-app.get('/groups/:groupId', (req, res, next) => {
-=======
 app.get('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
->>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
   Group.findOne({ _id: req.params.groupId})
       .populate(
           {path:'people'})
@@ -377,7 +351,7 @@ app.get('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
         } if(group) {
             res.send(group)
         } else {
-          res.status(404);
+          res.writeHead(404);
           return res.end(`group with id ${req.params.groupId} not found`);
       }
       });
@@ -393,7 +367,7 @@ app.put ('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
             group.save()
             res.end()
     } else {
-        res.status(404);
+        res.writeHead(404);
         return res.end(`group with id ${req.params.groupId} not found`);
     }
     });
@@ -416,9 +390,10 @@ app.post('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
 
     newGroup.save(function (err) {
         if (err) {
-            return next(err);
+            res.writeHead(404)
+            return next (err);
         }
-        res.send('Group Created successfully')
+        return res.send('Group Created successfully')
     })
 })
 
@@ -435,7 +410,7 @@ app.get('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) =>
           if (err) {
               return next(err)
           } if(todo) {
-              res.send(todo)
+              return res.send(todo)
           } else {
             res.status(404);
             return res.end(`todo with id ${req.params.todo} not found`);
@@ -446,11 +421,7 @@ app.get('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) =>
 
 
 //route to update the single todo by name and description 
-<<<<<<< HEAD
-app.put('/groups/:groupId/todos/:todo', (req, res, next) => {
-=======
 app.put('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) => {
->>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
     
     Todo.findByIdAndUpdate(req.params.todo, {name: req.body.name, description: req.body.description }, function(err, todo){
             if (err) {
@@ -483,18 +454,15 @@ app.post('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) =
 
     newTodo.save(function (err) {
         if (err) {
-            return next(err);
+          res.writeHead(404)
+          return next(err);
         }
         res.send('Todo Created successfully')
     })
 })
 
 //returns the comments from each to do 
-<<<<<<< HEAD
-app.get('/groups/:groupId/todos/:todo/comments', (req, res, next) => {
-=======
 app.get('/groups/:groupId/todos/:todo/comments', ensureAuthenticated, (req, res, next) => {
->>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
     
     Todo
     .findById(req.params.todo)
@@ -511,11 +479,7 @@ app.get('/groups/:groupId/todos/:todo/comments', ensureAuthenticated, (req, res,
     })
 
 //route creates a new comment for the todo
-<<<<<<< HEAD
-app.post('/groups/:groupId/todos/:todo/comments', (req, res, next) => {
-=======
 app.post('/groups/:groupId/todos/:todo/comments', ensureAuthenticated,  (req, res, next) => {
->>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
     
     Todo
     .findById(req.params.todo)
@@ -533,7 +497,7 @@ app.post('/groups/:groupId/todos/:todo/comments', ensureAuthenticated,  (req, re
             todo.save()
             res.end()
         } else {
-            res.status(404);
+            res.writeHead(404);
             return res.end(`todo with id ${req.params.todo} not found`);
         }
     })
@@ -542,11 +506,7 @@ app.post('/groups/:groupId/todos/:todo/comments', ensureAuthenticated,  (req, re
 
 
 //returns a single task  
-<<<<<<< HEAD
-app.get('/groups/:groupId/todos/:todo/tasks/:task', (req, res, next) => {
-=======
 app.get('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated,  (req, res, next) => {
->>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
     
     Task
     .findById(req.params.task)
@@ -556,18 +516,14 @@ app.get('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated,  (req, 
         if (task) {
             res.send(task) 
          } else{
-                res.status(404);
-                return res.end(`task with id ${req.params.task} not found`);
-            } 
+            res.writeHead(404);
+            return res.end(`task with id ${req.params.task} not found`);
+          } 
         })
     })
 
 //create a new task 
-<<<<<<< HEAD
-app.post('/groups/:groupId/todos/:todo/tasks/:task', (req, res, next) => {
-=======
 app.post('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated, (req, res, next) => {
->>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
     Todo
     .findById(req.params.todo)
     .populate({path: 'tasks', populate: {path: 'assigned_to'}})
@@ -584,7 +540,7 @@ app.post('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated, (req, 
             todo.save()
             res.end()
         } else {
-            res.status(404);
+            res.writeHead(404);
             return res.end(`task with id ${req.params.task} not found`);
         }
     })
@@ -592,11 +548,7 @@ app.post('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated, (req, 
 })
 
 // This returns all the Todos in the DB
-<<<<<<< HEAD
-app.get('/groups/:groupId/todos', (req, res, next) => {
-=======
 app.get('/groups/:groupId/todos', ensureAuthenticated, (req, res, next) => {
->>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
 
   Group
     .findById(req.params.groupId)
@@ -606,7 +558,7 @@ app.get('/groups/:groupId/todos', ensureAuthenticated, (req, res, next) => {
         if (Group) {
           res.send({Group})
         } else {
-          res.status(404);
+          res.writeHead(404);
           return res.end(`group with id ${req.params.groupId} not found`);
         }    
   })
@@ -619,12 +571,12 @@ app.get('/home', ensureAuthenticated, (req, res, next) => {
   Group.find({people: {$all: [ObjectId(id)]}})
   .populate('people')
   .exec((err, groups) => {
-  if (err) return next(err)
+  // if (err) return next(err)
   if (err){
       res.writeHead(404);	
       return response.end("No user is signed in.");
     } else {
-      res.send(groups)
+      return res.send(groups)
     }  
   });
 })
@@ -640,7 +592,8 @@ app.get('/groups/:groupdId/schedule', ensureAuthenticated, (req, res) => {
     .populate({path: 'todos', populate: {path: 'tasks'}})
     .exec((err, groups) => {
       if (err) {
-        res.send(err)
+        res.writeHead(404)
+        return res.send(err)
       } else {
         tasks = []
         groups.todos.forEach((todo) => {
@@ -652,7 +605,7 @@ app.get('/groups/:groupdId/schedule', ensureAuthenticated, (req, res) => {
             }
           })
         })
-        res.send({tasks, currentMonth, currentYear, nextMonth})
+       return res.send({tasks, currentMonth, currentYear, nextMonth})
       }
     })
 })
@@ -671,10 +624,11 @@ app.get('/search/groups', ensureAuthenticated, (req, res, next) => {
     .find({group_name: regExQuery})
     .exec((err, groups) => {
       if (err) {
-        res.send(err)
+        res.writeHead(404)
+        return res.send(`group with id ${req.regExQuery} not found`)
       } else {
         res.status(200);
-        res.send({groups})
+        return res.send({groups})
       }
     })
 })
@@ -693,10 +647,11 @@ app.get('/search/users', ensureAuthenticated, (req, res, next) => {
     .find({profile_name: regExQuery})
     .exec((err, users) => {
       if (err) {
-        res.send(err)
+        res.writeHead(404)
+        return res.send('requested user not found')
       } else {
         res.status(200);
-        res.send({users})
+        return res.send({users})
       }
     })
 })
