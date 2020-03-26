@@ -40,7 +40,9 @@ function ToDoModal({groupId}) {
             </Accordion>
             </Modal.Title>
           </Modal.Header>
+
           <TodoList />
+          
           <Modal.Body>
           </Modal.Body>
         </Modal>
