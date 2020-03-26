@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_HOME, FETCH_TODOS, NOT_AUTH_USER, AUTH_USER,FETCH_USER, FETCH_GROUP_DETAILS } from './types';
+import { FETCH_HOME, FETCH_TODOS, NOT_AUTH_USER, AUTH_USER, FETCH_USER, FETCH_GROUP_DETAILS } from './types';
 
 //====================================================
 //fetching a current user      
@@ -27,7 +27,7 @@ export const fetchUser = () => dispatch => {
 //Fetching groups for home page
 //WORKING
 export const home = () => dispatch => {
-  axios.get(`http://localhost:5000/home`
+  axios.get(`/home`
   ).then(function (response) {
     console.log('response from home', response)
     dispatch({ type: FETCH_HOME, payload: response.data });
@@ -41,7 +41,7 @@ export const home = () => dispatch => {
 //Fetching Schedule for Group Component
 //WORKING
 export const fetchGroupDetails = (groupID) => dispatch => {
-  axios.get(`http://localhost:5000/groups/${groupID}`
+  axios.get(`/groups/${groupID}`
   ).then(function (response) {
     console.log("response from fetchgroupdetails", response)
     dispatch({ type: FETCH_GROUP_DETAILS, payload: response.data });
@@ -55,7 +55,7 @@ export const fetchGroupDetails = (groupID) => dispatch => {
 //route creates a new todo in the database
 //WORKING
 export const createNewTodo = (body, groupID, todoID) => dispatch => {
-  axios.post(`http://localhost:5000/groups/${groupID}/todos/${todoID}`, body
+  axios.post(`/groups/${groupID}/todos/${todoID}`, body
   ).then(function (response) {
     console.log('response in createNew Todo', response)
     dispatch({ type: FETCH_TODOS, payload: response.data });
@@ -68,7 +68,7 @@ export const createNewTodo = (body, groupID, todoID) => dispatch => {
 //Fetching TODOs for Group Component
 //TODO need actual route and need to test!!
 export const fetchTodos = (groupID, todoID) => dispatch => {
-  axios.get(`http://localhost:5000/groups/${groupID}/todos/${todoID}`
+  axios.get(`/groups/${groupID}/todos/${todoID}`
   ).then(function (response) {
     console.log('response in get Todos', response)
     dispatch({ type: FETCH_TODOS, payload: response.data });
