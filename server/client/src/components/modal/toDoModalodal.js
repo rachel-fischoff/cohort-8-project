@@ -45,7 +45,7 @@ function ToDoModal() {
           </Modal.Header>
 
           <Modal.Body>
-            <SingleToDoModal></SingleToDoModal>
+            <SingleToDoModal ></SingleToDoModal>
             <p>
               To-Do  list
             </p>
