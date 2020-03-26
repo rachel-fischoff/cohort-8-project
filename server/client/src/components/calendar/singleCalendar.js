@@ -16,14 +16,16 @@ const SingleReactCalendar = () => {
             <div className="col">
             <Calendar
                 className="col"
-                showSingleView
-                showNeighboringMonth={false}
+                showDoubleView
+                showNeighboringMonth={true}
                 onChange={onChange}
                 value={date}
-            
+                
             />
         {console.log(date)}
+        <p>selected date : </p><a>{date.toString().split('202')[0]}</a>
         </div>
+        
       </div>
         )
 }
