@@ -15,7 +15,7 @@ class Groups extends Component {
   constructor(props) {
     super(props)
     //for the modals
-    this. state = {
+    this.state = {
     viewingToDos: false,
     events: [],
     isLoading: false,

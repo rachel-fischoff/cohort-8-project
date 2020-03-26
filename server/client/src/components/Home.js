@@ -29,6 +29,7 @@ class Home extends Component {
   //create new project
   clickHandlerNewProject = () => {
     console.log('clicked new project')
+    ProjectPop ()
   }
 
   //sorts teams and renders card
