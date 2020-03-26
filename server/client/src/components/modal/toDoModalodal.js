@@ -24,7 +24,7 @@ function ToDoModal() {
           aria-labelledby="example-custom-modal-styling-title" >
           <Modal.Header closeButton >
             <Modal.Title id="todo-title" className="text-center">
-               To-Do's
+               <h2>To-Do's</h2>
                <span><PieChartTodo /></span>
             </Modal.Title>
           </Modal.Header>

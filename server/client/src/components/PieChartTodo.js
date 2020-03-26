@@ -52,7 +52,7 @@ class PieChartTodo extends Component {
             lineWidth={100}
             totalValue = {`${this.state.num_tasks}`}
             paddingAngle={0}
-            radius={15}
+            radius={25}
             rounded={false}
             startAngle={100}
             style={{
@@ -60,8 +60,8 @@ class PieChartTodo extends Component {
               width: '75px'
             }}
             viewBoxSize={[
-             10,
-             10
+             25,
+             25
             ]}
           />
 
