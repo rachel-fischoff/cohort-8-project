@@ -4,6 +4,7 @@ const Schema = mongoose.Schema
 const GroupSchema = new Schema({
   group_name: String,
   group_type: String,
+  group_description: String,
   date_created: Date,
   people: [{
     type: Schema.Types.ObjectId,

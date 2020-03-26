@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import SingleTodo from '../SingleTodo';
 import TaskForm from '../TaskForm';
+
   
   function SingleToDoModal() {
       //state for modal
@@ -21,7 +22,6 @@ import TaskForm from '../TaskForm';
       const renderSingleTodoLists = function(){
         return(
           <h5 variant="primary" value='ID' onClick={clickOnATodoList}>
-             <SingleTodo />
           </h5>
         )
       }
@@ -29,8 +29,6 @@ import TaskForm from '../TaskForm';
       //need to add map function when data is avaliable where render function is
       return (
         <>
-           {renderSingleTodoLists()}
-           {renderSingleTodoLists()}
           <Modal className="modal-background-color"
               backdrop="true"
               size="xl"
