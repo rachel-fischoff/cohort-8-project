@@ -4,6 +4,7 @@ import SingleToDoModal from './singleToDoModal';
 import { Button, Accordion, Card } from 'react-bootstrap';
 import './modal.css';
 import NewList from '../NewList'
+import TodoList from '../TodoList/TodoList'
 
 function ToDoModal() {
     const [show, setShow] = useState(false);
@@ -13,7 +14,6 @@ function ToDoModal() {
         <h5 variant="primary" onClick={() => setShow(true)}>
          To-Do's
         </h5>
-  
         <Modal className="modal-background-color"
             backdrop="true"
             size="xl"
@@ -39,16 +39,10 @@ function ToDoModal() {
                 </Accordion.Collapse>
             
             </Accordion>
-
-
             </Modal.Title>
           </Modal.Header>
-
+          <TodoList />
           <Modal.Body>
-            <SingleToDoModal ></SingleToDoModal>
-            <p>
-              To-Do  list
-            </p>
           </Modal.Body>
         </Modal>
       </>
