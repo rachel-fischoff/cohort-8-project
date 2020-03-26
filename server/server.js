@@ -105,6 +105,7 @@ passport.use(
   )
 )
 
+<<<<<<< HEAD
 // const ensureAuthenticated = (req, res, next) => {
 //     if (!req.user) {
 //       res.status(401).json({
@@ -124,6 +125,18 @@ passport.use(
 //       'message': 'access denied'
 //   });
 // }
+=======
+const ensureAuthenticated = (req, res, next) => {
+    if (!req.user) {
+      res.status(401).json({
+        authenticated: false,
+        message: "user has not been authenticated"
+      });
+    } else {
+      next();
+    }
+  };
+>>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
 
 const googleAuth = passport.authenticate('google',
   { scope: ['profile', 'email']
@@ -332,7 +345,7 @@ app.get('/logout', (req, res) => {
 });
 
 //get current user's full profile
-app.get('/current_user', (req, res) => {
+app.get('/current_user', ensureAuthenticated, (req, res) => {
     const id = req.user
     User
     .findById(id).exec((error, user) => {
@@ -347,7 +360,11 @@ app.get('/current_user', (req, res) => {
 
 
 //GET route for /groups/groupId
+<<<<<<< HEAD
 app.get('/groups/:groupId', (req, res, next) => {
+=======
+app.get('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
+>>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
   Group.findOne({ _id: req.params.groupId})
       .populate(
           {path:'people'})
@@ -368,7 +385,7 @@ app.get('/groups/:groupId', (req, res, next) => {
 
   
 
-app.put ('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) => {
+app.put ('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
     Group.findByIdAndUpdate(req.params.groupId, {group_name: req.body.groupName, group_type: req.body.groupType, group_description: req.body.groupDescription }, function(err, group){
         if (err) {
             return next(err)
@@ -384,7 +401,7 @@ app.put ('/groups/:groupId', isLoggedIn, ensureAuthenticated, (req, res, next) =
 
 
 //POST route for /groups
-app.post('/groups/:groupId', (req, res, next) => {
+app.post('/groups/:groupId', ensureAuthenticated, (req, res, next) => {
     let newGroup = new Group()
 
 
@@ -407,7 +424,7 @@ app.post('/groups/:groupId', (req, res, next) => {
 
 
 //route for getting a single todo list page 
-app.get('/groups/:groupId/todos/:todo', (req, res, next) =>{
+app.get('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) =>{
     
     Todo.findOne({ _id: req.params.todo})
     .populate(
@@ -429,7 +446,11 @@ app.get('/groups/:groupId/todos/:todo', (req, res, next) =>{
 
 
 //route to update the single todo by name and description 
+<<<<<<< HEAD
 app.put('/groups/:groupId/todos/:todo', (req, res, next) => {
+=======
+app.put('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) => {
+>>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
     
     Todo.findByIdAndUpdate(req.params.todo, {name: req.body.name, description: req.body.description }, function(err, todo){
             if (err) {
@@ -446,7 +467,7 @@ app.put('/groups/:groupId/todos/:todo', (req, res, next) => {
 
 
 //route creates a new todo in the database
-app.post('/groups/:groupId/todos/:todo',  (req, res, next) => {
+app.post('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) => {
     
     let newTodo = new Todo()
 
@@ -469,7 +490,11 @@ app.post('/groups/:groupId/todos/:todo',  (req, res, next) => {
 })
 
 //returns the comments from each to do 
+<<<<<<< HEAD
 app.get('/groups/:groupId/todos/:todo/comments', (req, res, next) => {
+=======
+app.get('/groups/:groupId/todos/:todo/comments', ensureAuthenticated, (req, res, next) => {
+>>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
     
     Todo
     .findById(req.params.todo)
@@ -486,7 +511,11 @@ app.get('/groups/:groupId/todos/:todo/comments', (req, res, next) => {
     })
 
 //route creates a new comment for the todo
+<<<<<<< HEAD
 app.post('/groups/:groupId/todos/:todo/comments', (req, res, next) => {
+=======
+app.post('/groups/:groupId/todos/:todo/comments', ensureAuthenticated,  (req, res, next) => {
+>>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
     
     Todo
     .findById(req.params.todo)
@@ -513,7 +542,11 @@ app.post('/groups/:groupId/todos/:todo/comments', (req, res, next) => {
 
 
 //returns a single task  
+<<<<<<< HEAD
 app.get('/groups/:groupId/todos/:todo/tasks/:task', (req, res, next) => {
+=======
+app.get('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated,  (req, res, next) => {
+>>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
     
     Task
     .findById(req.params.task)
@@ -530,7 +563,11 @@ app.get('/groups/:groupId/todos/:todo/tasks/:task', (req, res, next) => {
     })
 
 //create a new task 
+<<<<<<< HEAD
 app.post('/groups/:groupId/todos/:todo/tasks/:task', (req, res, next) => {
+=======
+app.post('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated, (req, res, next) => {
+>>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
     Todo
     .findById(req.params.todo)
     .populate({path: 'tasks', populate: {path: 'assigned_to'}})
@@ -555,7 +592,11 @@ app.post('/groups/:groupId/todos/:todo/tasks/:task', (req, res, next) => {
 })
 
 // This returns all the Todos in the DB
+<<<<<<< HEAD
 app.get('/groups/:groupId/todos', (req, res, next) => {
+=======
+app.get('/groups/:groupId/todos', ensureAuthenticated, (req, res, next) => {
+>>>>>>> 6d4cbde75bc360b775b7b49e7277420409f177f1
 
   Group
     .findById(req.params.groupId)
@@ -574,7 +615,6 @@ app.get('/groups/:groupId/todos', (req, res, next) => {
 
 app.get('/home', ensureAuthenticated, (req, res, next) => {
   const id = req.user
-// a0289a025e882ac6c00c59b843206f84a7c3c412
 
   Group.find({people: {$all: [ObjectId(id)]}})
   .populate('people')
@@ -590,7 +630,7 @@ app.get('/home', ensureAuthenticated, (req, res, next) => {
 })
   
 //route for getting a groups tasks for one month
-app.get('/groups/:groupdId/schedule', (req, res) => {
+app.get('/groups/:groupdId/schedule', ensureAuthenticated, (req, res) => {
   const currentMonth = parseInt(req.body.currentMonth)
   const currentYear = parseInt(req.body.currentYear)
   const nextMonth = currentMonth + 1
