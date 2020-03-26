@@ -30,11 +30,11 @@ renderTodos() {
               cy={50}
               data={[
             {
-              color: '#98FB98',
+              color: '#2E8B57',
               title: 'One',
               value: `${todo.num_completed}`
             }, {
-              color: '#2E8B57',
+              color: '#98FB98',
               title: 'Two',
               value: `${todo.tasks.length - todo.num_completed}` 
             }
@@ -45,7 +45,7 @@ renderTodos() {
             lineWidth={100}
             totalValue = {`${todo.tasks.length}`}
             paddingAngle={0}
-            radius={50}
+            radius={25}
             rounded={false}
             startAngle={100}
             style={{
