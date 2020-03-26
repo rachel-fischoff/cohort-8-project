@@ -49,7 +49,6 @@ class ProjectPop extends React.Component {
     handleCancel = (e) => {
         e.preventDefault();
         this.setState({name: ''})
-        console.log('clicked cancel', e)
          }
 
 render() {
