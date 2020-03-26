@@ -3,7 +3,9 @@ import Modal from 'react-bootstrap/Modal'
 import './modal.css';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import TodoForm from '../TodoForm';
+import SingleTodo from '../SingleTodo';
+import TaskForm from '../TaskForm';
+
   
   function SingleToDoModal() {
       //state for modal
@@ -42,7 +44,7 @@ import TodoForm from '../TodoForm';
             </Modal.Header>
             <Modal.Body>
               <p>
-              <TodoForm />
+              <TaskForm />
               </p>
             </Modal.Body>
           </Modal>
