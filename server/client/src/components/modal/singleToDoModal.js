@@ -4,7 +4,7 @@ import './modal.css';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import SingleTodo from '../SingleTodo';
-import TodoForm from '../TodoForm';
+import TaskForm from '../TaskForm';
   
   function SingleToDoModal() {
       //state for modal
@@ -46,7 +46,7 @@ import TodoForm from '../TodoForm';
             </Modal.Header>
             <Modal.Body>
               <p>
-              <TodoForm />
+              <TaskForm />
               </p>
             </Modal.Body>
           </Modal>

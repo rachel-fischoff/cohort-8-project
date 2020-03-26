@@ -1,16 +1,17 @@
 import React from 'react';
+import { connect } from "react-redux";
 import $ from 'jquery';
+import * as actions from '../actions';
 import SingleReactCalendar from './calendar/singleCalendar'
 import './calendar/calendar.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-class TodoForm extends React.Component {
+class TaskForm extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      title: '',
       assigned_to: '',
       completed: '',
-      date_created: '',
       due_date: '',
     }
     
@@ -27,15 +28,6 @@ class TodoForm extends React.Component {
   handleSubmit(e){
     e.preventDefault()
     //create new task
-    const newTask = {
-      name: this.state.name,
-      description: this.state.description,
-      title: this.state.name,
-      assigned_to: '',
-      completed: '',
-      date_created: '',
-      due_date: '',
-    };
     //this.toggleHide()
   }
 
@@ -47,11 +39,8 @@ class TodoForm extends React.Component {
   handleCancel(e){
     e.preventDefault()
     this.setState( {
-        name: '',
-        description: '', 
         assigned_to: '',
         completed: '',
-        date_created:'',
         due_date: '',
     } )
     this.toggleHide()
@@ -60,28 +49,33 @@ class TodoForm extends React.Component {
   update(field){
     return (e) => {
       let value = e.target.value
-      // if( field === 'assigned_to' ){
-      //   value = value.split(',')
-      // }
       this.setState({ [field]: value })
     }
   }
 
   render(){
+
+    const { title, completed , assigned_to} = this.props;
+
     return (
       <div className='tool-form' id={`todo-id`}>
-      <div>Todo title</div>
+        <div className="row" >
+          <div class="custom-control custom-checkbox">
+            <div className="row" >
+              <div className="col">
+                <input type="checkbox" class="custom-control-input" id="defaultUnchecked"></input>
+                <label class="custom-control-label" for="defaultUnchecked"></label><span>Todo Title</span>
+              </div>
+            </div>
+          </div>
+        </div>
         <form>
           <div className='input-fields'>
-            <div className="row" >
-            <label></label>
-              <input type='text' id='title' placeholder='Describe this to-do...'
-                onChange={this.update('title')} value={this.state.title} />
-            </div>
+
             <div className="row" >
                 <label>Assigned to</label>
                 <input type='text' placeholder='Type names to assign...'
-                onChange={this.update('assigned_to')} value={this.state.assigned_to}/>
+                onChange={this.update('assigned_to')} value={assigned_to}/>
             </div>
               <div>
               <label>Due on</label>
@@ -125,9 +119,11 @@ class TodoForm extends React.Component {
               </ul>
               </div>
               <div className="row" >
-            <label>Notes</label>
-            <input type='text' placeholder='Add extra details...'
-              onChange={this.update('description')} value={this.state.description} />
+                <label>Notes</label>
+                <input 
+                  type='text' 
+                  placeholder='Add extra details...'
+                  value=""/>
               </div>
           </div>
           <div className='submit-buttons'>
@@ -142,4 +138,8 @@ class TodoForm extends React.Component {
   }
 }
 
-export default TodoForm
+function mapStateToProps(state) {
+  return state;
+}
+
+export default connect(mapStateToProps, actions)(TaskForm);
