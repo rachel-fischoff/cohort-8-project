@@ -67,8 +67,9 @@ input[type="radio"] {
 
 #todo-title {
   margin-left:45%;
+  display: inline-block;
 }
 
 span {
-  float: right;
+  float: left;
 }

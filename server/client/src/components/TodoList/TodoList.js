@@ -4,6 +4,7 @@ import * as actions from '../../actions'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './TodoList.css'
 import ReactMinimalPieChart from 'react-minimal-pie-chart'
+import { Image } from 'react-bootstrap'
 // import { Link } from 'react-router-dom'
 // import CommentsContainer from '../comments/comments_container'
 
@@ -45,7 +46,7 @@ renderTodos() {
             lineWidth={100}
             totalValue = {`${todo.tasks.length}`}
             paddingAngle={0}
-            radius={25}
+            radius={15}
             rounded={false}
             startAngle={100}
             style={{
@@ -61,9 +62,13 @@ renderTodos() {
           {
          todo.tasks.map(task => (
           <div className="todo-tasks">
+          <div className="row">
            <input type="checkbox" className="custom-control-input" id="defaultUnchecked"></input>
            <label className="custom-control-label" for="defaultUnchecked">{task.title}</label>
+           <span><Image src={task.assigned_to.profile_pic_url} alt="user avatar" roundedCircle fluid width="25px" height='25px'/></span>
+           <p className="profile-name">{task.assigned_to.profile_name}</p>
            <br></br>
+           </div>
           </div>
                       
             ))  
