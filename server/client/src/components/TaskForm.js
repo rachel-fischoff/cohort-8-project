@@ -127,9 +127,9 @@ class TaskForm extends React.Component {
               </div>
           </div>
           <div className='submit-buttons'>
-            <input type='submit' value='Add this to-do'
+            <input type='submit' value='Save changes'
               className='btn btn-submit' onClick={this.handleSubmit}/>
-            <input type='submit' value='Cancel'
+            <input type='submit' value='Discard changes'
               className='btn btn-cancel' onClick={this.handleCancel}/>
           </div>
         </form>

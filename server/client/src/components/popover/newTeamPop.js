@@ -39,7 +39,12 @@ class PopoverPage extends React.Component {
     console.log(this.props)
     console.log(newTeam)
     this.props.createNewGroup (newTeam)
+    this.refreshPage()
+  }
 
+  refreshPage =() => {
+    console.log('refreshed')
+    window.location.reload(true);
   }
 
   handleCancel = (e) => {

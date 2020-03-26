@@ -17,9 +17,8 @@ class Home extends Component {
    async componentDidMount() {
      await this.props.fetchUser()
      this.props.home()
-
    }
-   
+  
    //Create a new team
   clickHandlerNewTeam = () => {
     console.log('click')

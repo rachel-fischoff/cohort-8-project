@@ -37,14 +37,18 @@ class ProjectPop extends React.Component {
     console.log(this.props)
     console.log(newProject)
     this.props.createNewGroup (newProject)
+    this.refreshPage()
 
   }
 
+  refreshPage =() => {
+    console.log('refreshed')
+    window.location.reload(true);
+  }
 
     handleCancel = (e) => {
         e.preventDefault();
         this.setState({name: ''})
-        console.log('clicked cancel', e)
          }
 
 render() {

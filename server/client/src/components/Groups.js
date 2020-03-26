@@ -27,7 +27,6 @@ class Groups extends Component {
 };
   //fetches data when loads
   componentDidMount(){
-    console.log('should be group id #', this.props.match.params.groupId)
     this.props.fetchGroupDetails(this.props.match.params.groupId)
   }
 
@@ -58,7 +57,6 @@ class Groups extends Component {
     }
 
   loopThoroughTodos(t){
-    console.log('t', t)
     return(
 <p className="card-text">{t.title}</p>
     )
@@ -90,7 +88,7 @@ class Groups extends Component {
                 </div>
                 <div className="col-md-4">
                   <div className="card-inner">
-                    <ToDoModal />
+                    <ToDoModal groupId={this.props.match.params.groupId}/>
                       <hr />
                     <div className="card-body">
                     {this.props.todos.map(this.loopThoroughTodos)}

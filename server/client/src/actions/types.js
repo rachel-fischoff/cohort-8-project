@@ -1,6 +1,6 @@
 export const FETCH_HOME = 'fetch_home';
+
 export const FETCH_TODOS = 'fetch_todos';
-export const AUTH_USER = 'auth_user';
 
 export const FETCH_TASK = 'fetch_task';
 
