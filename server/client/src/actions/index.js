@@ -65,9 +65,10 @@ export const fetchTodos = (groupID, todoID) => dispatch => {
 //====================================================
 //Adding Task on TODO Component
 //TODO need actual route and need to test!!
-export const postTasks = (userID, groupID, todoID, task) => dispatch => {
+///groups/:groupId/todos/:todo/tasks/:task
+export const createNewTasks = (userID, groupID, todoID, task) => dispatch => {
   axios
-  .post(`/${userID}/groups/${groupID}/todos${todoID}`, 
+  .post(`/${userID}/groups/${groupID}/todos/${todoID}`, 
     task
     ).then(function (response) {
       dispatch({ type: FETCH_TODOS, payload: response.data });
