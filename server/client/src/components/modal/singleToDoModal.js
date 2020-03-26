@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import './modal.css';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+import TodoList from '../TodoList/TodoList';
 import TaskForm from '../TaskForm';
 
   
@@ -41,6 +42,7 @@ import TaskForm from '../TaskForm';
                 To-Do's header
               </Modal.Title>
             </Modal.Header>
+             <TodoList />
             <Modal.Body>
               <p>
               <TaskForm />

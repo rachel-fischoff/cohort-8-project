@@ -97,9 +97,20 @@ export const fetchTodos = (groupID, todoID) => dispatch => {
 
 //====================================================
 export const fetchTask = ( groupID, todoID, taskID) => dispatch => {
-  axios.get(`http://localhost:5000/groups/${groupID}/todos/${todoID}/${taskID}`
+  axios.get(`/groups/${groupID}/todos/${todoID}/${taskID}`
   ).then(function (response) {
     console.log('response in get Task', response)
+    dispatch({ type: FETCH_TASK, payload: response.data });
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+//update tast
+export const updateTask = (body, groupID, todoID,taskID) => dispatch => {
+  axios.post(`/groups/${groupID}/todos/${todoID}/tasks/${taskID}`, body
+  ).then(function (response) {
+    console.log('response in update Task', response)
     dispatch({ type: FETCH_TASK, payload: response.data });
   })
   .catch(function (error) {
