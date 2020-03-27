@@ -85,7 +85,6 @@ class ReactCalendar extends React.Component {
                                         >
               
                                         <ModalBody><div>Stuff and things</div>
-                                        
                                                 <div id="taskLeft" className="todo-tasks">
                                                 <div className="row">
                                                 <input  class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
