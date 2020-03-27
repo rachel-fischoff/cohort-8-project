@@ -139,7 +139,6 @@ renderSingleTodoList() {
                 <TaskForm 
                   groupID={this.props.group._id}
                   todoID={todo._id}
-                  
                    />
               </ModalBody>
               <ModalFooter>

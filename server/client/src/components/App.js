@@ -9,9 +9,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <AppContainer>
+      <div>
         {this.props.children}
-      </AppContainer>
+      </div>
     )
   }
 }
@@ -20,8 +20,4 @@ export default withRouter(connect(
   null,
   actions
 )(App));
-
-const AppContainer = styled.div`
-  padding-top: 90px;
-`;
 

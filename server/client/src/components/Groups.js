@@ -8,6 +8,7 @@ import './groups.css';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import {Image, Row, Container} from 'react-bootstrap'
+import Nav from './Nav'
 
 
 
@@ -50,6 +51,8 @@ class Groups extends Component {
       render() {
   
         return (
+          <div>
+          <Nav />
           <div className="groups-page">
             <div className="row">
               <br></br>
@@ -93,7 +96,7 @@ class Groups extends Component {
             </div>
           </div>
         </div>
-
+       </div>
       </div>
     </div>
     );
