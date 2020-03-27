@@ -9,7 +9,7 @@ import { Image } from 'react-bootstrap'
 //import Modal from 'react-bootstrap/Modal'
 import { Button, Modal,  ModalBody, ModalFooter } from 'reactstrap';
 // import { Link } from 'react-router-dom'
-// import CommentsContainer from '../comments/comments_container'
+
 
 
 class TodoList extends React.Component {
