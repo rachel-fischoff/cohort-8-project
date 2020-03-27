@@ -539,7 +539,7 @@ app.get('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated,  (req, 
     })
 
 //create a new task 
-app.post('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated, (req, res, next) => {
+app.post('/groups/:groupId/todos/:todo/tasks/', ensureAuthenticated, (req, res, next) => {
     Todo
     .findById(req.params.todo)
     .populate({path: 'tasks', populate: {path: 'assigned_to'}})
@@ -666,6 +666,69 @@ app.get('/search/users', ensureAuthenticated, (req, res, next) => {
         res.status(200);
         res.send({users})
       }
+    })
+})
+
+//toggle a task as completed or uncompleted
+app.put('/groups/:groupId/todos/:todo/tasks/:task', (req, res) => {
+
+  Task
+  .findById(req.params.task)
+  .exec((err, task) => {
+    if (err) {
+      res.send(err)
+    } else {
+      if (req.body.completed) {
+        task.completed = true
+      } else {
+        task.completed = false
+        }
+      }
+      task.save((err, response) => {
+        if (err) {
+          res.send(err)
+        } else {
+          Todo
+          .findById(req.params.todo)
+          .populate({path: "tasks"})
+          .exec((err, todo) => {
+            if (err) {
+              res.send(err)
+            } else {
+              let num_completed = 0
+              todo.tasks.forEach(task => {
+                if (task.completed == true) {
+                  num_completed += 1
+                }
+              })
+              todo.num_completed = num_completed
+              todo.save((err, todo) => {
+                if (err) {
+                  res.send(err)
+                } else {
+                  Group.findOne({ _id: req.params.groupId})
+                  .populate(
+                      {path:'people'})
+                  .populate({path: 'comments', populate: {path: 'author'}})
+                  .populate({path: 'todos', populate: {path:'comments'}, populate: {path:'tasks', 
+                  populate: {path:'assigned_to'}}})
+                  .exec((err, group) => {
+                    if (err) {
+                        return next(err)
+                    } if(group) {
+                        res.send(group)
+                    } else {
+                      res.status(404);
+                      return res.end(`group with id ${req.params.groupId} not found`);
+                    }
+                  });
+                }
+              }
+              )
+            }
+          })
+        }
+      })
     })
 })
 

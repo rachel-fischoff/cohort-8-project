@@ -23,7 +23,7 @@ function CalendarModal() {
         >
           <Modal.Header closeButton >
             <Modal.Title id="modal-title"  >
-              Calendar
+              Calendar 
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>

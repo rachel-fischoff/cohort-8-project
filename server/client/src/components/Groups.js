@@ -45,13 +45,13 @@ class Groups extends Component {
     
     //need to format dates and put in order!!
     let sortedDates = t.date_created.split('T')[0]
-    console.log('sortedDates ', sortedDates)
+    console.log('sortedDates ', t)
     
     return(
       <p className="card-text">{sortedDates}</p>
     )
   }
-
+// &nbsp;&nbsp;{t.task.title}
 
   renderPerson = (p) => {
       return(
@@ -82,7 +82,7 @@ class Groups extends Component {
                 <div className="row text-center ">
                   <div className="col-md-4 ">
                     <div className="card-inner h-100 ">
-                    <CalendarModal ><p>Calendar</p></CalendarModal>
+                    <CalendarModal ><p>Calendar </p></CalendarModal>
                     <hr />
                     <div className="card-body ">
                     <p className="card-text ">{this.props.todos.map(this.renderScheduleDates)}</p>

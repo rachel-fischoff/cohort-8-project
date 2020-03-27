@@ -18,7 +18,18 @@ export const fetchUser = () => dispatch => {
   });
 };
 
-
+//====================================================
+//Allow a user to toggle wether a tasks is completed
+export const toggleCompleted = (group, todo, task, completed) => dispatch => {
+  const body = {"completed": completed}
+  axios.put(`/groups/${group}/todos/${todo}/tasks/${task}`, body)
+  .then(function (response) {
+    dispatch({ type: FETCH_GROUP_DETAILS, payload: response.data });
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
 
 //====================================================
 //signout
@@ -40,7 +51,7 @@ export const home = () => dispatch => {
 
 //====================================================
 //Adding a new Group 
-//TODO : test with data 
+//WORKING
 export const createNewGroup = (body) => dispatch => {
   axios.post(`/groups`, body
   ).then(function (response) {
@@ -54,7 +65,7 @@ export const createNewGroup = (body) => dispatch => {
 
 
 //====================================================
-//Fetching Schedule for Group Component
+//Fetching Details for Group Component
 //WORKING
 export const fetchGroupDetails = (groupID) => dispatch => {
   axios.get(`/groups/${groupID}`
@@ -106,7 +117,9 @@ export const fetchTask = ( groupID, todoID, taskID) => dispatch => {
     console.log(error);
   });
 };
+
 //update task
+=======
 export const updateTask = (body, groupID, todoID,taskID) => dispatch => {
   axios.put(`/groups/${groupID}/todos/${todoID}/tasks/${taskID}`, body
   ).then(function (response) {
@@ -173,3 +186,5 @@ export const fetchUserSearch= (query) => dispatch => {
     console.log(error);
   });
 };
+
+
