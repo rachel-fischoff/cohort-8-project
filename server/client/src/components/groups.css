@@ -19,3 +19,21 @@
     width: auto;
     margin-top: 50px
  }
+
+ .tasks {
+   margin-left: 50px;
+ }
+ span {
+   margin-left: 20px;
+   margin-right: 10px;
+ }
+ 
+ .form-check-label {
+   margin-bottom: 17px;
+ }
+ 
+ .task-name {
+   margin-top: 8px;
+   font-size: 12px;
+   color: Grey;
+ }

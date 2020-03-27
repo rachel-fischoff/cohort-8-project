@@ -14,7 +14,6 @@ import NewTask from '../NewTask'
 // import { Link } from 'react-router-dom'
 // import CommentsContainer from '../comments/comments_container'
 
-
 class SingleTodoList extends React.Component {
     constructor(props) {
         super(props);

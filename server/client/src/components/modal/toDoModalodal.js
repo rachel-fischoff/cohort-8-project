@@ -14,6 +14,7 @@ function ToDoModal({groupId}) {
       <>
         <h5 variant="primary" onClick={() => setShow(true)}>
          To-Do's
+         <TodoList />
         </h5>
         <Modal className="modal-background-color"
             backdrop="true"
@@ -37,6 +38,7 @@ function ToDoModal({groupId}) {
                   <Card.Body>
                     <NewList groupId={groupId}/>
                   </Card.Body>
+
                   </Accordion.Collapse>
                 </Accordion>   
                 <br></br>
