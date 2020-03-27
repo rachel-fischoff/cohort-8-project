@@ -54,7 +54,7 @@ class PieChartTodo extends Component {
             paddingAngle={0}
             radius={25}
             rounded={false}
-            startAngle={100}
+            startAngle={0}
             style={{
               height: '75px',
               width: '75px'

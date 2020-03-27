@@ -109,6 +109,7 @@ renderTodos() {
           <h5>Tasks Completed: {todo.num_completed}/{todo.tasks.length}</h5>
           
           <Button className="btnlink" onClick={(e) => {this.toggleNested(); localStorage.setItem('todoId', e.target.value)}} value={todo._id}>{todo.name}</Button>
+          <form>
           <Modal
               isOpen={this.state.nestedModal}
               toggle={this.toggleNested}
@@ -133,6 +134,7 @@ renderTodos() {
                 </Button>{' '}
               </ModalFooter>
             </Modal>
+            </form>
         
           {
          todo.tasks.map(task => (

@@ -129,7 +129,7 @@ renderSingleTodoList() {
             ))  
           }
           <br></br>
-          
+        <form>
           <Modal
               isOpen={this.state.nestedModal}
               toggle={this.toggleNested}
@@ -147,7 +147,9 @@ renderSingleTodoList() {
                 </Button>{' '}
                 </ModalFooter>
             </Modal>
+            </form>
         </div>
+       
         
       ))
     )

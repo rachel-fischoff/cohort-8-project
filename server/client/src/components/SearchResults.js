@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import '../index.css';
 import SearchPop from './popover/searchPop'
+import Nav from './Nav'
 
 
 //this component is for the renders the search results
@@ -28,8 +29,9 @@ class SearchResults extends Component {
     }
   else{
     return (
+        <div>
            <div className="projects-row">
-        
+            <Nav />
                <div className="col-md-8-offset-3 text-center">
 
                 <h1>Teams & Projects</h1>
@@ -56,6 +58,7 @@ class SearchResults extends Component {
 
     )})}
                 </div>
+              </div>
               </div>
               
     );
