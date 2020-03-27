@@ -582,7 +582,7 @@ app.get('/home', ensureAuthenticated, (req, res, next) => {
 })
   
 //route for getting a groups tasks for one month
-app.get('/groups/:groupdId/schedule', ensureAuthenticated, (req, res) => {
+app.get('/groups/:groupId/schedule', ensureAuthenticated, (req, res) => {
   const currentMonth = parseInt(req.body.currentMonth)
   const currentYear = parseInt(req.body.currentYear)
   const nextMonth = currentMonth + 1
