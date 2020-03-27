@@ -4,13 +4,15 @@ import * as actions from '../../actions'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactMinimalPieChart from 'react-minimal-pie-chart'
 import { Image } from 'react-bootstrap'
-import singleToDoModal from '../modal/singleToDoModal';
-import { Button, Modal,  ModalBody, ModalFooter } from 'reactstrap';
+//import singleToDoModal from '../modal/singleToDoModal';
+//import Modal from 'react-bootstrap/Modal'
+import { Modal,  ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Accordion, Card } from 'react-bootstrap';
 import TaskForm from '../TaskForm'
 import './SingleTodoList.css'
-//import { Link } from 'react-router-dom'
-//import CommentsContainer from '../comments/comments_container'
-
+import NewTask from '../NewTask'
+// import { Link } from 'react-router-dom'
+// import CommentsContainer from '../comments/comments_container'
 
 class SingleTodoList extends React.Component {
     constructor(props) {
@@ -38,6 +40,7 @@ class SingleTodoList extends React.Component {
         console.log('click')
         this.setState({
           nestedModal: !this.state.nestedModal,
+          
           closeAll: false
         });
       }
@@ -131,7 +134,7 @@ renderSingleTodoList() {
                 <Button color="success" onClick={this.toggleNested}>
                   Done
                 </Button>{' '}
-              </ModalFooter>
+                </ModalFooter>
             </Modal>
            <br></br>
           </div>

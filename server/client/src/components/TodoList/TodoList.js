@@ -8,8 +8,10 @@ import ReactMinimalPieChart from 'react-minimal-pie-chart'
 import { Image } from 'react-bootstrap'
 //import singleToDoModal from '../modal/singleToDoModal';
 //import Modal from 'react-bootstrap/Modal'
-import { Button, Modal,  ModalBody, ModalFooter } from 'reactstrap';
+import { Modal,  ModalBody, ModalFooter } from 'reactstrap';
 import SingleTodoList from '../SingleTodoList/SingleTodoList'
+import NewTask from '../NewTask'
+import { Button, Accordion, Card } from 'react-bootstrap';
 // import { Link } from 'react-router-dom'
 
 
@@ -114,6 +116,16 @@ renderTodos() {
             >
               <ModalBody>
                 <SingleTodoList />
+                <Accordion>
+                <Accordion.Toggle as={Button} className="btn-success accordian-btn" variant="link" eventKey="1">
+                    + New Task
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="1">
+                  <Card.Body>
+                    <NewTask todoId={this.state.todoId}/>
+                  </Card.Body>
+                  </Accordion.Collapse>
+                </Accordion> 
               </ModalBody>
               <ModalFooter>
                 <Button color="success" onClick={this.toggleNested}>
