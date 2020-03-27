@@ -25,7 +25,8 @@ class LandingPage extends Component {
         <div className="d-flex landingLogo">
 
           <Image src={logo} ></Image>
-          <h1 className="logoTitle d-flex"> Basecamp</h1>
+          <h1 className="logoTitle d-flex"> HomeBase</h1>
+   
         </div>
 
         <div className="home-page">
@@ -33,6 +34,8 @@ class LandingPage extends Component {
             <div className="col-md-8-offset-3 text-center">
               <div className="card col-md-offset-3 text-center" styles="width: 18rem;">
                 <div className="card-body">
+                <h4 className="text-center">Login to HomeBase</h4>
+                <br></br>
                   <GoogleLoginButton />
                 </div>
               </div>
