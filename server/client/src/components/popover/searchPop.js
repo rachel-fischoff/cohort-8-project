@@ -10,23 +10,23 @@ import { Button, Modal,  ModalBody, ModalFooter, NavLink } from 'reactstrap';
 
 class SearchPop extends React.Component {
   
-  //constructs a new state for the Team 
   constructor(props) {
-      super(props)
+    super(props);
+    //sets state to empty 
+    this.state = {term: ''}
 
-  
-      this.state = {
-          searchValue: ''
-      }
-      //binds the functions
-      this.handleSubmit = this.handleSubmit.bind(this)
-      
+
+    this.onFormSubmit = this.onFormSubmit.bind(this);
   }
-  //called when user hits submit
-  handleSubmit(event) {
 
-    console.log(this.state, 'handle submit is working') 
+  //when you submit your form you fetch groups based on the term submitted
+  onFormSubmit(event) {
+    event.preventDefault();
     
+    let term = this.state.term
+
+    this.props.fetchGroupSearch(term);
+
   }
 
 render() {
@@ -45,9 +45,9 @@ render() {
             
             <MDBPopoverBody>
               <form >
-              <input type="newName" id="newGroupN" onChange={event => this.setState({name: event.target.value})}  />
+              <input type="newName" id="newGroupN" onChange={event => this.setState({term: event.target.value})}  />
                   <div>
-                  <button className="btn-success" type="onSubmit" onClick={this.handleSubmit}>Search</button> &nbsp;
+                  <button className="btn-success" type="onSubmit" onClick={this.onFormSubmit}>Search</button> &nbsp;
                   </div>
               </form>
             </MDBPopoverBody>
@@ -60,7 +60,8 @@ render() {
   );
 }
 }
-export default connect(
-  null,
-  actions
-)(SearchPop);
+function mapStateToProps(state) {
+  return state;
+  }
+  
+  export default connect(mapStateToProps, actions)(SearchPop);
