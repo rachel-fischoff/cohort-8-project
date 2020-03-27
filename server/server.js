@@ -107,10 +107,7 @@ passport.use(
 
 const ensureAuthenticated = (req, res, next) => {
     if (!req.user) {
-      res.status(401).json({
-        authenticated: false,
-        message: "user has not been authenticated"
-      });
+      res.redirect('/')
     } else {
       next();
     }
@@ -654,6 +651,11 @@ app.get('/search/groups', ensureAuthenticated, (req, res, next) => {
 
   Group
     .find({group_name: regExQuery})
+    .populate(
+      {path:'people'})
+    .populate({path: 'comments', populate: {path: 'author'}})
+    .populate({path: 'todos', populate: {path:'comments'}, populate: {path:'tasks', 
+    populate: {path:'assigned_to'}}})
     .exec((err, groups) => {
       if (err) {
         res.send(err)
