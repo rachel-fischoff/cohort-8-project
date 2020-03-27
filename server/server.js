@@ -689,8 +689,64 @@ app.get('/search/users', ensureAuthenticated, (req, res, next) => {
     })
 })
 
+//add a new task
+app.post('/groups/:groupId/todos/:todo/tasks/', (req, res) => {
+  let newTask = new Task()
+
+  newTask.title = req.body.title
+  newTask.date_created = new Date()
+  newTask.due_date = req.body.dueDate || ""
+  newTask.completed = false
+
+  User
+  .find({profile_name: req.body.profileName})
+  .exec((err, user) => {
+    if (err) {
+      res.send(err)
+    } else {
+      newTask.assigned_to = user[0]
+      newTask.save((err, task) => {
+        if (err) {
+          res.send(err)
+        } else {
+          Todo
+          .findById(req.params.todo)
+          .exec((err, todo) => {
+            if (err) {
+              res.send(err)
+            } else {
+              todo.tasks.push(task)
+              todo.save((err, todo) => {
+                if (err) {
+                  res.send(err)
+                } else {
+                  Group.findOne({ _id: req.params.groupId})
+                  .populate({path:'people'})
+                  .populate({path: 'comments', populate: {path: 'author'}})
+                  .populate({path: 'todos', populate: {path:'comments'}, populate: {path:'tasks', 
+                  populate: {path:'assigned_to'}}})
+                  .exec((err, group) => {
+                    if (err) {
+                        return next(err)
+                    } if(group) {
+                        res.send(group)
+                    } else {
+                      res.status(404);
+                      return res.end(`group with id ${req.params.groupId} not found`);
+                    }
+                  });
+                }
+              })
+            }
+          })
+        }
+      })
+    }
+  })
+})
+
 //toggle a task as completed or uncompleted
-app.put('/groups/:groupId/todos/:todo/tasks/:task/togglecompleted', (req, res) => {
+app.put('/groups/:groupId/todos/:todo/tasks/:task/togglecompleted', ensureAuthenticated, (req, res) => {
 
   Task
   .findById(req.params.task)
