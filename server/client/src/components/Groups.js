@@ -60,8 +60,10 @@ class Groups extends Component {
     }
 
   loopThoroughTodos(t){
+    console.log(t)
     return(
-<p className="card-text">{t.title}</p>
+<p className="card-text">{t.name}</p>
+
     )
   }
 
@@ -104,7 +106,7 @@ class Groups extends Component {
                     <MessageBoardModal></MessageBoardModal>
                     <hr />
                     <div className="card-body">
-                    <p className="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
+                    <p className="card-text">Coming Soon!</p>
                   </div>
                 </div>
               </div>
@@ -123,7 +125,7 @@ function mapStateToProps (state) {
     return ({
       people: state.group.people,
       comments: state.group.comments,
-      todos: state.group.comments,
+      todos: state.group.todos,
       groupName: state.group.group_name,
       groupDescription: state.group.group_description,
       groupId: state.group._id
