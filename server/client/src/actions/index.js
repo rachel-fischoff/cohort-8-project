@@ -31,7 +31,6 @@ export const toggleCompleted = (group, todo, task, completed) => dispatch => {
   });
 }
 
-
 //====================================================
 //signout
 
