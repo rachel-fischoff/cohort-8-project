@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCampground, faCommentAlt, faInbox, faChartPie, faSmile, faSearch } from "@fortawesome/free-solid-svg-icons";
 import 'font-awesome/css/font-awesome.min.css';
 import SearchPop from './popover/searchPop';
+import './Nav.css';
 
 
 const Nav = () => {
@@ -26,7 +27,7 @@ const Nav = () => {
           <li><Link to="/home"><FontAwesomeIcon icon={faInbox}/> Hey!</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faChartPie}/> Activity</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faSmile}/> My Stuff</Link></li>
-          <li><SearchPop ></SearchPop> </li>
+          <li id="searchP"><SearchPop ></SearchPop> </li>
           
 
         </React.Fragment>

@@ -8,7 +8,7 @@ import ReactMinimalPieChart from 'react-minimal-pie-chart'
 import { Image } from 'react-bootstrap'
 //import singleToDoModal from '../modal/singleToDoModal';
 //import Modal from 'react-bootstrap/Modal'
-import { Modal,  ModalBody, ModalFooter } from 'reactstrap';
+import { Modal,  ModalBody, ModalFooter, NavLink } from 'reactstrap';
 import SingleTodoList from '../SingleTodoList/SingleTodoList'
 import NewTask from '../NewTask'
 import { Button, Accordion, Card } from 'react-bootstrap';
@@ -108,7 +108,7 @@ renderTodos() {
       
           <h5>Tasks Completed: {todo.num_completed}/{todo.tasks.length}</h5>
           
-          <Button onClick={(e) => {this.toggleNested(); localStorage.setItem('todoId', e.target.value)}} value={todo._id}>{todo.name}</Button>
+          <Button className="btnlink" onClick={(e) => {this.toggleNested(); localStorage.setItem('todoId', e.target.value)}} value={todo._id}>{todo.name}</Button>
           <Modal
               isOpen={this.state.nestedModal}
               toggle={this.toggleNested}
@@ -148,7 +148,7 @@ renderTodos() {
            <br></br>
            </div>
           </div>
-                      
+                    
             ))  
           }
           <br></br>

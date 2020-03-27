@@ -23,7 +23,6 @@ render(
   <Provider store={store}>
     <Router  >
       <Fragment>
-        <Nav />
         <App>
           <Switch>
             <Route exact path="/" component={LandingPage} />

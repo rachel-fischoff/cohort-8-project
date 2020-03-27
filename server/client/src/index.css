@@ -1,30 +1,57 @@
+.app_body {
+    background-color: #f6f2ef;
+    padding: 20px;
+
+}
+
+
+
+
 .custom-control-input {
-   margin-left: 50px;
+    margin-left: 50px;
 }
 
 .card {
+    display: inline-block;
+    border-radius: 25px;
+    text-align: center;
+    display: inline-block;
+    height: 200px;
+    width: 325px;
+    align-content: center;
+    margin-bottom: 50px;
+
+}
+
+.card__content {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+    overflow: hidden;
    border-radius: 25px;
    text-align: center;
    display: inline-block;
    height: 200px;
    width: 325px;
    align-content: center;
-   margin-bottom: 50px;
+   margin-bottom: 20px;
 }
 
 /*makes the group text not overflow card*/
-.card-inner
-{
+.card-inner {
+    background-color: #fff;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    overflow: hidden;
 }
 
-.over
-{
+.over {
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;   
+    text-overflow: ellipsis;
 }
 
 
@@ -33,7 +60,7 @@
 }
 
 .h3 {
-  color: #283c46
+    color: #283c46
 }
 
 .separator {
@@ -41,20 +68,32 @@
     align-items: center;
     text-align: center;
 }
-.separator::before, .separator::after {
+
+.separator::before,
+.separator::after {
     content: '';
     flex: 1;
     border-bottom: .20px solid #283c46;
     margin-left: 100px;
     margin-right: 100px;
 }
+
 .separator::before {
     margin-right: 25px;
 }
+
 .separator::after {
     margin-left: 25px;
 }
 
 .new-button {
+    margin-top: 100px;
     margin-left: 100px;
 }
+
+.projects-row {
+    background-color: #f6f2ef;
+    padding-top: 20px;
+}
+
+

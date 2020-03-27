@@ -16,10 +16,13 @@ class ProjectPop extends React.Component {
           name: '',
           type:'',
           description: '',
+          isVisible: false
       }
       //binds the functions
       this.handleSubmit = this.handleSubmit.bind(this)
       this.handleCancel = this.handleCancel.bind(this)
+      this.setVisibility = this.setVisibility.bind(this) 
+      this.setVisible = this.setVisible.bind(this)
   }
   //called when user hits submit
   handleSubmit(event) {
@@ -37,6 +40,16 @@ class ProjectPop extends React.Component {
     this.props.createNewGroup (newProject)
   }
 
+  setVisibility = () => {
+    console.log('CLICK')
+    this.setState({isVisible: false})
+  }
+
+  setVisible = () => {
+    console.log('CLICK')
+    this.setState({isVisible: true})
+  }
+
 
     handleCancel = (e) => {
         e.preventDefault();
@@ -50,11 +63,12 @@ render() {
 
         <MDBPopover
           placement="right"
+          isVisible={this.state.isVisible}
           popover
           clickable
           id="popper2"
         >
-          <MDBBtn><button id="but-pop" className="btn btn-success new-button" data-toggle="popover"
+          <MDBBtn><button id="but-pop" className="btn btn-success new-button" data-toggle="popover" onClick={this.setVisible }
               >+ New</button></MDBBtn>
           
             
@@ -63,7 +77,7 @@ render() {
               <input type="newName" id="newGroupN" onChange={event => this.setState({name: event.target.value})}  />
                   <div>
                   <button className="btn-success" type="onSubmit" onClick={this.handleSubmit}>Save</button> &nbsp;
-                  <button className="btn-danger" type="onSubmit" onClick={this.handleCancel}>Cancel</button>
+                  <button className="btn-danger" type="onSubmit" onClick={this.setVisibility }>Cancel</button>
                   </div>
               </form>
             </MDBPopoverBody>
