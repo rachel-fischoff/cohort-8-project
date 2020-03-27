@@ -24,6 +24,7 @@ class TodoList extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.toggleNested = this.toggleNested.bind(this);
     this.toggleAll = this.toggleAll.bind(this);
+    this.clickCheckBox = this.clickCheckBox.bind(this)
   }
 
   toggle() {
@@ -52,6 +53,9 @@ class TodoList extends React.Component {
     console.log(this.props.group.todos)
   }
 
+  clickCheckBox(todo, task, value) {
+    this.props.toggleCompleted(this.props.group._id, todo._id, task._id, value)
+  }
   
 
 renderTodos() {
@@ -122,7 +126,7 @@ renderTodos() {
          todo.tasks.map(task => (
           <div className="todo-tasks">
           <div className="row">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
+          <input class="form-check-input" type="checkbox" checked={task.completed} id="defaultCheck1" onClick={(e) => {this.clickCheckBox(todo, task, e.target.checked)}}></input>
           <label class="form-check-label" for="defaultCheck1">{task.title}</label>
            <span><Image src={task.assigned_to.profile_pic_url} alt="user avatar" roundedCircle fluid width="25px" height='25px'/></span>
            <p className="profile-name">Assigned To: {task.assigned_to.profile_name}</p>
