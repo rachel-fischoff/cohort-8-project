@@ -4,6 +4,7 @@ import * as actions from '../../actions'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './TodoList.css'
 import ReactMinimalPieChart from 'react-minimal-pie-chart'
+import { Image } from 'react-bootstrap'
 // import { Link } from 'react-router-dom'
 // import CommentsContainer from '../comments/comments_container'
 
@@ -11,8 +12,6 @@ import ReactMinimalPieChart from 'react-minimal-pie-chart'
 class TodoList extends React.Component {
 
   async componentDidMount() {
-    console.log(this.props)
-    console.log(this.props.group.todos)
   }
 
 renderTodos() {
@@ -30,11 +29,11 @@ renderTodos() {
               cy={50}
               data={[
             {
-              color: '#98FB98',
+              color: '#2E8B57',
               title: 'One',
               value: `${todo.num_completed}`
             }, {
-              color: '#2E8B57',
+              color: '#98FB98',
               title: 'Two',
               value: `${todo.tasks.length - todo.num_completed}` 
             }
@@ -45,7 +44,7 @@ renderTodos() {
             lineWidth={100}
             totalValue = {`${todo.tasks.length}`}
             paddingAngle={0}
-            radius={50}
+            radius={15}
             rounded={false}
             startAngle={100}
             style={{
@@ -61,9 +60,13 @@ renderTodos() {
           {
          todo.tasks.map(task => (
           <div className="todo-tasks">
+          <div className="row">
            <input type="checkbox" className="custom-control-input" id="defaultUnchecked"></input>
            <label className="custom-control-label" for="defaultUnchecked">{task.title}</label>
+           <span><Image src={task.assigned_to.profile_pic_url} alt="user avatar" roundedCircle fluid width="25px" height='25px'/></span>
+           <p className="profile-name">{task.assigned_to.profile_name}</p>
            <br></br>
+           </div>
           </div>
                       
             ))  

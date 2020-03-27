@@ -1,3 +1,15 @@
 .todo-tasks {
   margin-left: 50px;
 }
+span {
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+.custom-control-label {
+  margin-bottom: 15px;
+}
+
+.profile-name {
+  margin-top: 3px;
+}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_HOME, FETCH_TODOS, FETCH_TASK, NOT_AUTH_USER, FETCH_USER, FETCH_GROUP_DETAILS } from './types';
+import { FETCH_HOME, FETCH_TODOS, FETCH_TASK, NOT_AUTH_USER, FETCH_USER, FETCH_GROUP_DETAILS, FETCH_SCHEDULE } from './types';
 
 
 //====================================================
@@ -40,7 +40,7 @@ export const home = () => dispatch => {
 
 //====================================================
 //Adding a new Group 
-//TODO : test with data 
+//WORKING
 export const createNewGroup = (body) => dispatch => {
   axios.post(`/groups`, body
   ).then(function (response) {
@@ -70,8 +70,8 @@ export const fetchGroupDetails = (groupID) => dispatch => {
 //====================================================
 //route creates a new todo in the database
 //WORKING
-export const createNewTodo = (body, groupID, todoID) => dispatch => {
-  axios.post(`/groups/${groupID}/todos/${todoID}`, body
+export const createNewTodo = (body, groupID) => dispatch => {
+  axios.post(`/groups/${groupID}/todos`, body
   ).then(function (response) {
     console.log('response in createNew Todo', response)
     dispatch({ type: FETCH_TODOS, payload: response.data });
@@ -81,18 +81,30 @@ export const createNewTodo = (body, groupID, todoID) => dispatch => {
   });
 };
 //====================================================
-//Fetching TODOs for Group Component
-//TODO need actual route and need to test!!
-export const fetchTodos = (groupID, todoID) => dispatch => {
-  axios.get(`/groups/${groupID}/todos/${todoID}`
+
+export const fetchTodos = (groupID) => dispatch => {
+  axios.get(`/groups/${groupID}/todos`
   ).then(function (response) {
     console.log('response in get Todos', response)
-    dispatch({ type: FETCH_TODOS, payload: response.data });
+    dispatch({ type: FETCH_SCHEDULE, payload: response.data });
   })
   .catch(function (error) {
     console.log(error);
   });
 };
+
+export const fetchSchedule = (groupID) => dispatch => {
+  axios.get(`/groups/${groupID}/schedule`
+  ).then(function (response) {
+    console.log('schedule', response)
+    console.log('response in get Todos', response)
+    dispatch({ type: FETCH_SCHEDULE, payload: response.data });
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
 
 
 //====================================================
@@ -132,15 +144,3 @@ export const createNewTodoTask = (body, userID, groupID, todoID ) => dispatch =>
     });
   };
 
-//====================================================
-//Fetching Schedule for Group Component
-//TODO need actual route and need to test!!
-export const fetchSchedule = (userID, groupID) => dispatch => {
-  axios.get(`/${userID}/groups/${groupID}/schedule`
-  ).then(function (response) {
-    dispatch({ type: FETCH_TODOS, payload: response.data });
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-};

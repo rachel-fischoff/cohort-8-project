@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import ReactCalendar from '../calendar/calendar'
 import './modal.css';
 
-function CalendarModal() {
+function CalendarModal({groupId}) {
     const [show, setShow] = useState(false);
   
     return (
@@ -27,10 +27,7 @@ function CalendarModal() {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-              <ReactCalendar />
-            <p>
-              Calendar feature
-            </p>
+              <ReactCalendar groupId={groupId} />
           </Modal.Body>
         </Modal>
         </div>

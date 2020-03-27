@@ -439,7 +439,7 @@ app.put('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) =>
 
 
 //route creates a new todo in the database
-app.post('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) => {
+app.post('/groups/:groupId/todos', ensureAuthenticated, (req, res, next) => {
     
     let newTodo = new Todo()
 
@@ -573,6 +573,7 @@ app.get('/home', ensureAuthenticated, (req, res, next) => {
   .exec((err, groups) => {
   if (err) return next(err)
   if (err){
+     
       res.writeHead(404);	
       return response.end("No user is signed in.");
     } else {
