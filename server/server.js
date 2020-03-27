@@ -690,7 +690,7 @@ app.get('/search/users', ensureAuthenticated, (req, res, next) => {
 })
 
 //toggle a task as completed or uncompleted
-app.put('/groups/:groupId/todos/:todo/tasks/:task', (req, res) => {
+app.put('/groups/:groupId/todos/:todo/tasks/:task/togglecompleted', (req, res) => {
 
   Task
   .findById(req.params.task)
