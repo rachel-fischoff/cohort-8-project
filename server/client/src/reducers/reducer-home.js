@@ -6,8 +6,6 @@ const INITIAL_STATE = []
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case FETCH_HOME :
-      //should return payload!!!!!! returning state to see data
-      console.log(action.payload)
       return action.payload
     default:
       return state;

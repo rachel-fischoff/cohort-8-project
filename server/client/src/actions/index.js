@@ -1,5 +1,6 @@
 import axios from "axios";
-import { FETCH_HOME, FETCH_TODOS, FETCH_TASK, NOT_AUTH_USER, FETCH_SEARCH, FETCH_USER, FETCH_GROUP_DETAILS } from './types';
+import { FETCH_HOME, FETCH_TODOS, FETCH_TASK, NOT_AUTH_USER, FETCH_USER, FETCH_GROUP_DETAILS, FETCH_SCHEDULE, FETCH_SEARCH } from './types';
+
 
 
 //====================================================
@@ -92,18 +93,30 @@ export const createNewTodo = (body, groupID) => dispatch => {
   });
 };
 //====================================================
-//Fetching TODOs for Group Component
-//TODO need actual route and need to test!!
-export const fetchTodos = (groupID, todoID) => dispatch => {
-  axios.get(`/groups/${groupID}/todos/${todoID}`
+
+export const fetchTodos = (groupID) => dispatch => {
+  axios.get(`/groups/${groupID}/todos`
   ).then(function (response) {
     console.log('response in get Todos', response)
-    dispatch({ type: FETCH_TODOS, payload: response.data });
+    dispatch({ type: FETCH_SCHEDULE, payload: response.data });
   })
   .catch(function (error) {
     console.log(error);
   });
 };
+
+export const fetchSchedule = (groupID) => dispatch => {
+  axios.get(`/groups/${groupID}/schedule`
+  ).then(function (response) {
+    console.log('schedule', response)
+    console.log('response in get Todos', response)
+    dispatch({ type: FETCH_SCHEDULE, payload: response.data });
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
 
 
 //====================================================
@@ -145,19 +158,6 @@ export const createNewTodoTask = (body, groupID, todoID, taskID ) => dispatch =>
     });
   };
 
-//====================================================
-//Fetching Schedule for Group Component
-//TODO need actual route and need to test!!
-export const fetchSchedule = (groupID) => dispatch => {
-  axios.get(`/groups/${groupID}/schedule`
-  ).then(function (response) {
-    console.log('response for schedule', response)
-    dispatch({ type: FETCH_TODOS, payload: response.data });
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-};
 
 //====================================================
 //Fetching Search for Groups
@@ -186,5 +186,3 @@ export const fetchUserSearch= (query) => dispatch => {
     console.log(error);
   });
 };
-
-

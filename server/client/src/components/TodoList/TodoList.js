@@ -51,8 +51,6 @@ class TodoList extends React.Component {
   }
 
   async componentDidMount() {
-    console.log(this.props)
-    console.log(this.props.group.todos)
   }
 
   clickCheckBox(todo, task, value) {
@@ -124,8 +122,10 @@ renderTodos() {
          todo.tasks.map(task => (
           <div className="todo-tasks">
           <div className="row">
+
           <input class="form-check-input" type="checkbox" checked={task.completed} id="defaultCheck1" onClick={(e) => {this.clickCheckBox(todo, task, e.target.checked)}}></input>
           <label class="form-check-label" for="defaultCheck1">{task.title}</label>
+
            <span><Image src={task.assigned_to.profile_pic_url} alt="user avatar" roundedCircle fluid width="25px" height='25px'/></span>
            <p className="profile-name">Assigned To: {task.assigned_to.profile_name}</p>
            <br></br>
