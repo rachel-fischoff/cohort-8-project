@@ -10,4 +10,3 @@ export const FETCH_GROUP_DETAILS = 'fetch_group_details'
 
 export const FETCH_USER = 'fetch_user'
 
-

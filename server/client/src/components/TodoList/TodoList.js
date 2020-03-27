@@ -63,7 +63,7 @@ renderTodos() {
          todo.tasks.map(task => (
           <div className="todo-tasks">
           <div className="row">
-           <input type="checkbox" className="custom-control-input" id="defaultUnchecked"></input>
+           <input type="checkbox" className="custom-control-input" id="defaultUnchecked" onClcik={(e) => {alert("click")}}></input>
            <label className="custom-control-label" for="defaultUnchecked">{task.title}</label>
            <span><Image src={task.assigned_to.profile_pic_url} alt="user avatar" roundedCircle fluid width="25px" height='25px'/></span>
            <p className="profile-name">{task.assigned_to.profile_name}</p>
