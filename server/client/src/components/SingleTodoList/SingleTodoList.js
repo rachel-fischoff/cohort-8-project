@@ -122,6 +122,14 @@ renderSingleTodoList() {
            <span><Image src={task.assigned_to.profile_pic_url} alt="user avatar" roundedCircle fluid width="25px" height='25px'/></span>
            <p className="profile-name">Assigned To: {task.assigned_to.profile_name}  </p>
            </div>
+
+           <br></br>
+          </div>
+                    
+            ))  
+          }
+          <br></br>
+          
           <Modal
               isOpen={this.state.nestedModal}
               toggle={this.toggleNested}
@@ -136,14 +144,6 @@ renderSingleTodoList() {
                 </Button>{' '}
                 </ModalFooter>
             </Modal>
-           <br></br>
-          </div>
-                    
-            ))  
-          }
-          <br></br>
-          
-        
         </div>
         
       ))
