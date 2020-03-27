@@ -74,12 +74,10 @@ class ReactCalendar extends React.Component {
  
             return (
                     <div>
-                      
                         {tasks.map(task => {
                             return(
-                                <div className="todo-tasks fixed-center">
-                                    <input className="d-flex position-left form-check-input" type="checkbox"  id="defaultCheck1"></input>
-                                    <NavLink onClick={this.toggleNested} className="position-absolute float-left form-check-label" for="defaultCheck1">{moment(task.due_date).format("dddd, MMM Do")}&nbsp;&nbsp;{task.title}</NavLink>
+                                <div className="cal-tasks">
+                                    <NavLink onClick={this.toggleNested} className="" for="defaultCheck1">{moment(task.due_date).format("MMM Do")}&nbsp;&nbsp;{task.title}</NavLink>
                                         <Modal
                                         isOpen={this.state.nestedModal}
                                         toggle={this.toggleNested}
@@ -106,6 +104,7 @@ class ReactCalendar extends React.Component {
                                             </Button>
                                         </ModalFooter>
                                         </Modal>
+                                      <br></br>
                                     <br></br>
                                 </div>
 
@@ -117,8 +116,8 @@ class ReactCalendar extends React.Component {
   
     render() {
         return (
-            <div className=" row">
-            <div className="col fixed-center" id="calendarCenter">
+            <div className="row">
+            <div className="col">
                 <div>{this.sortAndRenderDates()}</div>
             </div>
             <br></br>
