@@ -10,55 +10,55 @@ import GoogleLoginButton from './GoogleLoginButton';
 import logo from './assets/logo.JPG'
 import { Image } from 'react-bootstrap';
 
-class LandingPage extends Component {  
+class LandingPage extends Component {
 
 
 
-    renderPage = () => {
-        console.log('props auth from landing page: ', this.props.auth)
-        // switch (this.props.auth) {
-        //   case null:
-        //     return;
-          // case true:
-            return (
-              <React.Fragment>
-              <div className="d-flex inline-block">
-                
-                <Image className="landingLogo" src={logo} ></Image>
-                <h5 className="logoTitle">Basecamp</h5>
-              </div>
-              
-                <div className="home-page">
-                <div className="projects-row">
-                    <div className="col-md-8-offset-3 text-center">
-                        <div className="card col-md-offset-3 text-center" styles="width: 18rem;">
-                        <div className="card-body">
-                            <GoogleLoginButton />
-                        </div>
-                    </div>
-                    </div>
-                    </div>
+  renderPage = () => {
+    console.log('props auth from landing page: ', this.props.auth)
+    // switch (this.props.auth) {
+    //   case null:
+    //     return;
+    // case true:
+    return (
+      <React.Fragment>
+        <div className="d-flex landingLogo">
+
+          <Image src={logo} ></Image>
+          <h1 className="logoTitle d-flex"> Basecamp</h1>
+        </div>
+
+        <div className="home-page">
+          <div className="projects-row">
+            <div className="col-md-8-offset-3 text-center">
+              <div className="card col-md-offset-3 text-center" styles="width: 18rem;">
+                <div className="card-body">
+                  <GoogleLoginButton />
                 </div>
-              </React.Fragment>
-              
-            )
-          // default:
-          //   return (
-          //       //redirect to Home Page
-          //       <Redirect to="/auth" component={Home}/>
-          //   );
-        // }
-    }
+              </div>
+            </div>
+          </div>
+        </div>
+      </React.Fragment>
 
-    render() {
-        return(
-            <div>{this.renderPage()}</div>
-        )
-    }
+    )
+    // default:
+    //   return (
+    //       //redirect to Home Page
+    //       <Redirect to="/auth" component={Home}/>
+    //   );
+    // }
+  }
+
+  render() {
+    return (
+      <div>{this.renderPage()}</div>
+    )
+  }
 }
 
-function mapStateToProps({auth}) {
-    return { auth };
+function mapStateToProps({ auth }) {
+  return { auth };
 }
 
 export default connect(mapStateToProps, actions)(LandingPage);
