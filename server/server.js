@@ -623,7 +623,8 @@ app.get('/groups/:groupId/schedule', ensureAuthenticated, (req, res) => {
 
   Group
     .findById(req.params.groupId)
-    .populate({path: 'todos', populate: {path: 'tasks'}})
+  //  .populate({path: 'todos', populate: {path: 'tasks'}})
+    .populate({path: 'todos', populate: {path: 'tasks', populate: {path:'assigned_to'}}})
     .exec((err, groups) => {
       if (err) {
         res.send(err)
