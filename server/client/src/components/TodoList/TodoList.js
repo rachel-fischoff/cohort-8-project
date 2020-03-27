@@ -5,15 +5,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './TodoList.css'
 import ReactMinimalPieChart from 'react-minimal-pie-chart'
 import { Image } from 'react-bootstrap'
-<<<<<<< HEAD
-import singleToDoModal from '../modal/singleToDoModal';
+//import singleToDoModal from '../modal/singleToDoModal';
 //import Modal from 'react-bootstrap/Modal'
 import { Button, Modal,  ModalBody, ModalFooter } from 'reactstrap';
 // import { Link } from 'react-router-dom'
-=======
-import SingleToDoModal from '../modal/singleToDoModal'
-import { Link } from 'react-router-dom'
->>>>>>> 679c6908bf52e4ed21efa50b04ca6e88dee86941
 // import CommentsContainer from '../comments/comments_container'
 
 
