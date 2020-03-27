@@ -21,7 +21,6 @@ export const fetchUser = () => dispatch => {
 //====================================================
 //Allow a user to toggle wether a tasks is completed
 export const toggleCompleted = (group, todo, task, completed) => dispatch => {
-  console.log("In toggleCompleted: ", group, todo, task, completed)
   const body = {"completed": completed}
   axios.put(`/groups/${group}/todos/${todo}/tasks/${task}`, body)
   .then(function (response) {
@@ -31,21 +30,6 @@ export const toggleCompleted = (group, todo, task, completed) => dispatch => {
     console.log(error);
   });
 }
-
-//====================================================
-//Allow a user to toggle wether a tasks is completed
-export const toggleCompleted = (group, todo, task, completed) => dispatch => {
-  const body = {"completed": completed}
-  axios.put(`/groups/${group}/todos/${todo}/tasks/${task}`, body)
-  .then(function (response) {
-    dispatch({ type: FETCH_GROUP_DETAILS, payload: response.data });
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-}
-
-
 
 
 //====================================================
