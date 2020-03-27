@@ -539,7 +539,7 @@ app.get('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated,  (req, 
     })
 
 //create a new task 
-app.post('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated, (req, res, next) => {
+app.post('/groups/:groupId/todos/:todo/tasks/', ensureAuthenticated, (req, res, next) => {
     Todo
     .findById(req.params.todo)
     .populate({path: 'tasks', populate: {path: 'assigned_to'}})
@@ -595,6 +595,77 @@ app.get('/home', ensureAuthenticated, (req, res, next) => {
       res.send(groups)
     }  
   });
+})
+
+//toggle a task as completed or uncompleted
+app.put('/groups/:groupId/todos/:todo/tasks/:task', (req, res) => {
+
+  Task
+  .findById(req.params.task)
+  .exec((err, task) => {
+    if (err) {
+      res.send(err)
+    } else {
+      if (req.body.completed) {
+        task.completed = true
+        task.save((err, response) => {
+          if (err) {
+            res.send(err)
+          }
+        })
+      } else {
+        task.completed = false
+        task.save((err, response) => {
+          if (err) {
+            res.send(err)
+          }
+        })
+      }
+    }
+  })
+
+  Todo
+  .findById(req.params.todo)
+  .exec((err, todo) => {
+    if (err) {
+      res.send(err)
+    } else {
+      if (true) {
+        todo.num_completed += 1
+        todo.save((err, response) => {
+          if (err) {
+            res.send(err)
+          } else {
+            res.send("task marked as completed!")
+          }
+        })
+      } else {
+        todo.num_completed -= 1
+        todo.save((err, response) => {
+          if (err) {
+            res.send(err)
+          }
+        })
+      }
+    }
+  })
+
+  Group.findOne({ _id: req.params.groupId})
+      .populate(
+          {path:'people'})
+      .populate({path: 'comments', populate: {path: 'author'}})
+      .populate({path: 'todos', populate: {path:'comments'}, populate: {path:'tasks', 
+      populate: {path:'assigned_to'}}})
+      .exec((err, group) => {
+        if (err) {
+            return next(err)
+        } if(group) {
+            res.send(group)
+        } else {
+          res.status(404);
+          return res.end(`group with id ${req.params.groupId} not found`);
+        }
+      });
 })
   
 //route for getting a groups tasks for one month
