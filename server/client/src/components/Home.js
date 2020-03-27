@@ -71,7 +71,6 @@ class Home extends Component {
     {t.people.map(this.renderPerson)}
     </Row>
     </Container>
-    <p className="card-text">{t.group_description}</p>
     {/* <a href={`/groups/${t._id}`} className="card-link" alt="click on groups page"></a> */}
    </div>
    </Link>
