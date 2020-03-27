@@ -19,7 +19,8 @@ class Groups extends Component {
     viewingToDos: false,
     events: [],
     isLoading: false,
-    selectedEvent: null
+    selectedEvent: null,
+    dates:[]
   }
 
   //binds function to this state
@@ -37,18 +38,19 @@ class Groups extends Component {
   modalConfirmHandler = () => {
     this.setState({ viewingToDos: false });
   }
-
-  renderScheduleDates(t){
-    
-    //need to format dates and put in order!!
-    let sortedDates = t.date_created.split('T')[0]
+  //sorts dates and renders
+  scheduleDates(){
+    let sortedDates = []
+    this.props.todos.map((t)=>{sortedDates.push(t.date_created)})
+    sortedDates.sort()
+    sortedDates.reverse()
     console.log('sortedDates ', sortedDates)
-    
-    return(
-      <p className="card-text">{sortedDates}</p>
-    )
+    return sortedDates.map((t)=>{    
+      return(
+      <p className="card-text">{t}</p>
+      )
+    })
   }
-
 
   renderPerson = (p) => {
       return(
@@ -82,7 +84,7 @@ class Groups extends Component {
                     <CalendarModal groupId={this.props.match.params.groupId}><p>Calendar</p></CalendarModal>
                     <hr />
                     <div className="card-body ">
-                    <p className="card-text ">{this.props.todos.map(this.renderScheduleDates)}</p>
+                    <p className="card-text ">{this.scheduleDates()}</p>
                     </div>
                   </div>
                 </div>

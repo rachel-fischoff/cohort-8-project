@@ -3,9 +3,9 @@ import Modal from 'react-bootstrap/Modal'
 import ReactCalendar from '../calendar/calendar'
 import './modal.css';
 
-function CalendarModal({groupId}) {
+function CalendarModal({groupId, dates}) {
     const [show, setShow] = useState(false);
-  
+    console.log('dates', dates)
     return (
       <div className="row">
           <div className="col">
