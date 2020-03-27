@@ -635,9 +635,7 @@ app.put('/groups/:groupId/todos/:todo/tasks/:task', (req, res) => {
         todo.save((err, response) => {
           if (err) {
             res.send(err)
-          } else {
-            res.send("task marked as completed!")
-          }
+          } 
         })
       } else {
         todo.num_completed -= 1
