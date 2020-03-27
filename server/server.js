@@ -439,7 +439,7 @@ app.put('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) =>
 
 
 //route creates a new todo in the database
-app.post('/groups/:groupId/todos/', (req, res, next) => {
+app.post('/groups/:groupId/todos/', ensureAuthenticated, (req, res, next) => {
     
     let newTodo = new Todo()
 
