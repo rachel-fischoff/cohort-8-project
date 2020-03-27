@@ -98,7 +98,7 @@ class Home extends Component {
               <div className="projects-row">
               <ProjectPop></ProjectPop>
                 <div className="col-md-8-offset-3 text-center">
-                 <h1 className="separator">Projects</h1>
+                 <h1>Projects</h1>
                   <br></br>
                   {this.props.homePage.map(this.sortProject)}
                 </div>

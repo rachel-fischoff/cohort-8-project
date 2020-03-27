@@ -44,10 +44,20 @@
 
  .groups-page {
    background-color:  #f6f2ef;
-   height: 1000px;
+   min-height: 1000px;
+   height: auto;
    width: auto;
+   margin-right: auto;
  }
 
  .card-inner {
    background-color:white;
+ }
+
+ .panel { 
+   background-color:white;
+   margin-left: 110px;
+   min-height: 800px;
+   height: auto;
+   display: flex;
  }
