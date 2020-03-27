@@ -3,7 +3,9 @@ import GroupReducer from './reducer-group';
 import HomePageReducer from './reducer-home';
 import UserReducer from './reducer-user';
 import TodoReducer from './reducer-todo';
+import TaskReducer from './reducer-task';
 import ScheduleReducer from './reducer-schedule'
+
 
 
 const rootReducer = combineReducers({
@@ -11,7 +13,9 @@ const rootReducer = combineReducers({
   home: HomePageReducer,
   user: UserReducer,
   todo: TodoReducer,
+  task: TaskReducer,
   schedule: ScheduleReducer
+
 });
 
 export default rootReducer;

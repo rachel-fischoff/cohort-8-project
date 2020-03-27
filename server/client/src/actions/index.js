@@ -144,20 +144,6 @@ export const updateTask = (body, groupID, todoID,taskID) => dispatch => {
   });
 };
 
-//Adding Task on TODO Component
-//TODO need actual route and need to test!!
-///groups/:groupId/todos/:todo/tasks/:task
-export const createNewTodoTask = (body, groupID, todoID, taskID ) => dispatch => {
-  axios
-  .post(`/groups/${groupID}/todos/${todoID}/tasks/${taskID}`, body
-    ).then(function (response) {
-      dispatch({ type: FETCH_TODOS, payload: response.data });
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  };
-
 
 //====================================================
 //Fetching Search for Groups

@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { connect } from "react-redux";
 import * as actions from '../../actions'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import $ from 'jquery';
 import './TodoList.css'
 import ReactMinimalPieChart from 'react-minimal-pie-chart'
 import { Image } from 'react-bootstrap'
@@ -53,11 +54,14 @@ class TodoList extends React.Component {
   async componentDidMount() {
   }
 
+
   clickCheckBox(todo, task, value) {
     this.props.toggleCompleted(this.props.group._id, todo._id, task._id, value)
   }
   
 renderTodos() {
+
+
   if (this.props.group.todos === undefined) {
     return (
       <div>Loading ... </div>
@@ -123,6 +127,7 @@ renderTodos() {
           <div className="todo-tasks">
           <div className="row">
 
+
           <input class="form-check-input" type="checkbox" checked={task.completed} id="defaultCheck1" onClick={(e) => {this.clickCheckBox(todo, task, e.target.checked)}}></input>
           <label class="form-check-label" for="defaultCheck1">{task.title}</label>
 
@@ -145,6 +150,7 @@ renderTodos() {
 }
 
   render() {
+
       return (
         
       <div>
@@ -161,7 +167,9 @@ function mapStateToProps(state) {
   return ({
     homePage: state.home,
     user: state.user,
-    group: state.group
+    group: state.group,
+    groupId: state.group._id,
+    todoId: state.todo._id
   })
 }
 
