@@ -5,16 +5,54 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './TodoList.css'
 import ReactMinimalPieChart from 'react-minimal-pie-chart'
 import { Image } from 'react-bootstrap'
+import singleToDoModal from '../modal/singleToDoModal';
+//import Modal from 'react-bootstrap/Modal'
+import { Button, Modal,  ModalBody, ModalFooter } from 'reactstrap';
 // import { Link } from 'react-router-dom'
 // import CommentsContainer from '../comments/comments_container'
 
 
 class TodoList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modal: false,
+      nestedModal: false,
+      closeAll: false
+    };
+
+    this.toggle = this.toggle.bind(this);
+    this.toggleNested = this.toggleNested.bind(this);
+    this.toggleAll = this.toggleAll.bind(this);
+  }
+
+  toggle() {
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }));
+  }
+
+  toggleNested() {
+    console.log('click')
+    this.setState({
+      nestedModal: !this.state.nestedModal,
+      closeAll: false
+    });
+  }
+
+  toggleAll() {
+    this.setState({
+      nestedModal: !this.state.nestedModal,
+      closeAll: true
+    });
+  }
 
   async componentDidMount() {
     console.log(this.props)
     console.log(this.props.group.todos)
   }
+
+  
 
 renderTodos() {
   if (this.props.group.todos === undefined) {
@@ -24,6 +62,7 @@ renderTodos() {
   } else {
     return(
       this.props.group.todos.map(todo => (
+        
         <div>
           <ReactMinimalPieChart
               animate={false}
@@ -57,8 +96,28 @@ renderTodos() {
              20
             ]}
           />
+      
           <h5>Tasks Completed: {todo.num_completed}/{todo.tasks.length}</h5>
-          <h2>{todo.name}</h2>
+          
+          
+          <Button onClick={this.toggleNested}>{todo.name}</Button>
+          <Modal
+              isOpen={this.state.nestedModal}
+              toggle={this.toggleNested}
+              onClosed={this.state.closeAll ? this.toggle : undefined}
+            >
+              
+              <ModalBody>Stuff and things</ModalBody>
+              <ModalFooter>
+                <Button color="primary" onClick={this.toggleNested}>
+                  Done
+                </Button>{' '}
+                <Button color="secondary" onClick={this.toggleAll}>
+                  All Done
+                </Button>
+              </ModalFooter>
+            </Modal>
+        
           {
          todo.tasks.map(task => (
           <div className="todo-tasks">
@@ -74,7 +133,10 @@ renderTodos() {
             ))  
           }
           <br></br>
+          
+          
         </div>
+        
       ))
     )
   }
@@ -82,7 +144,12 @@ renderTodos() {
 
   render() {
       return (
-      <div>{this.renderTodos()}</div>
+        
+      <div>
+      {this.renderTodos()}
+      
+      </div>
+      
       )
   }
 }

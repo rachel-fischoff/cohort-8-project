@@ -31,6 +31,7 @@ class ReactCalendar extends React.Component {
                                 <div className="todo-tasks">
                                     <input type="checkbox" className="custom-control-input" id="defaultUnchecked"></input>
                                     <label className="custom-control-label" for="defaultUnchecked">{task.due_date.split('T')[0]}&nbsp;&nbsp;{task.title}</label>
+                                    
                                     <br></br>
                                 </div>
 
