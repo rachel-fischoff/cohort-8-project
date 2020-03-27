@@ -47,3 +47,7 @@
    height: 1000px;
    width: auto;
  }
+
+ .card-inner {
+   background-color:white;
+ }
