@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_HOME, FETCH_TODOS, FETCH_TASK, NOT_AUTH_USER, FETCH_USER, FETCH_GROUP_DETAILS, FETCH_SCHEDULE, FETCH_SEARCH } from './types';
+import { FETCH_HOME, FETCH_TODOS, FETCH_TASK, FETCH_SEARCH_TERM, FETCH_SEARCH_USER, NOT_AUTH_USER, FETCH_USER, FETCH_GROUP_DETAILS, FETCH_SCHEDULE, FETCH_SEARCH_GROUP } from './types';
 
 
 
@@ -164,12 +164,17 @@ export const fetchGroupSearch= (query) => dispatch => {
   axios.get(`/search/groups?query=` + query)
   .then(function (response) {
     console.log('response for search', response)
-    dispatch({ type: FETCH_SEARCH, payload: response.data });
+    dispatch({ type: FETCH_SEARCH_GROUP, payload: response.data.groups });
   })
   .catch(function (error) {
     console.log(error);
   });
 };
+
+export const fetchTermSearch = (search)=>dispatch => {
+  console.log(search)
+  dispatch({ type: FETCH_SEARCH_TERM, payload: search });
+}
 
 //====================================================
 //Fetching Search for User
@@ -178,7 +183,7 @@ export const fetchUserSearch= (query) => dispatch => {
   axios.get(`/search/users?query=` + query)
   .then(function (response) {
     console.log('response for search', response)
-    dispatch({ type: FETCH_SEARCH, payload: response.data });
+    dispatch({ type: FETCH_SEARCH_USER, payload: response.data.users });
   })
   .catch(function (error) {
     console.log(error);
