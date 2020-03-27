@@ -2,17 +2,18 @@ import React, { Component, Fragment, useState } from 'react';
 import Modal from 'react-bootstrap/Modal'
 import ReactCalendar from '../calendar/calendar'
 import './modal.css';
+import SingleCalendar from '../calendar/singleCalendar'
 
-function CalendarModal() {
+function CalendarModal({groupId, dates}) {
     const [show, setShow] = useState(false);
-  
+
     return (
       <div className="row">
           <div className="col">
         <h5 variant="primary" onClick={() => setShow(true)}>
          Calendar
         </h5>
-  
+        <ReactCalendar groupId={groupId} />
         <Modal className="modal-background-color"
             backdrop="true"
             size="xl"
@@ -23,14 +24,12 @@ function CalendarModal() {
         >
           <Modal.Header closeButton >
             <Modal.Title id="modal-title"  >
-              Calendar
+              Calendar 
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-              <ReactCalendar />
-            <p>
-              Calendar feature
-            </p>
+          <SingleCalendar/>
+              <ReactCalendar groupId={groupId} />
           </Modal.Body>
         </Modal>
         </div>

@@ -5,23 +5,65 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './TodoList.css'
 import ReactMinimalPieChart from 'react-minimal-pie-chart'
 import { Image } from 'react-bootstrap'
+//import singleToDoModal from '../modal/singleToDoModal';
+//import Modal from 'react-bootstrap/Modal'
+import { Button, Modal,  ModalBody, ModalFooter } from 'reactstrap';
+import SingleTodoList from '../SingleTodoList/SingleTodoList'
 // import { Link } from 'react-router-dom'
-// import CommentsContainer from '../comments/comments_container'
+
 
 
 class TodoList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modal: false,
+      nestedModal: false,
+      closeAll: false,
+      todoId: ''
+    };
 
-  async componentDidMount() {
-    console.log(this.props)
-    console.log(this.props.group.todos)
+    this.toggle = this.toggle.bind(this);
+    this.toggleNested = this.toggleNested.bind(this);
+    this.toggleAll = this.toggleAll.bind(this);
+    this.clickCheckBox = this.clickCheckBox.bind(this)
   }
 
+  toggle() {
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }));
+  }
+
+  toggleNested() {
+    console.log('click')
+    this.setState({
+      nestedModal: !this.state.nestedModal,
+      closeAll: false
+    });
+  }
+
+  toggleAll() {
+    this.setState({
+      nestedModal: !this.state.nestedModal,
+      closeAll: true
+    });
+  }
+
+  async componentDidMount() {
+  }
+
+  clickCheckBox(todo, task, value) {
+    this.props.toggleCompleted(this.props.group._id, todo._id, task._id, value)
+  }
+  
 renderTodos() {
   if (this.props.group.todos === undefined) {
     return (
       <div>Loading ... </div>
     )
   } else {
+
     return(
       this.props.group.todos.map(todo => (
         <div>
@@ -57,16 +99,35 @@ renderTodos() {
              20
             ]}
           />
+      
           <h5>Tasks Completed: {todo.num_completed}/{todo.tasks.length}</h5>
-          <h2>{todo.name}</h2>
+          
+          <Button onClick={(e) => {this.toggleNested(); localStorage.setItem('todoId', e.target.value)}} value={todo._id}>{todo.name}</Button>
+          <Modal
+              isOpen={this.state.nestedModal}
+              toggle={this.toggleNested}
+              onClosed={this.state.closeAll ? this.toggle : undefined}
+            >
+              <ModalBody>
+                <SingleTodoList />
+              </ModalBody>
+              <ModalFooter>
+                <Button color="success" onClick={this.toggleNested}>
+                  Done
+                </Button>{' '}
+              </ModalFooter>
+            </Modal>
+        
           {
          todo.tasks.map(task => (
           <div className="todo-tasks">
           <div className="row">
-           <input type="checkbox" className="custom-control-input" id="defaultUnchecked"></input>
-           <label className="custom-control-label" for="defaultUnchecked">{task.title}</label>
+
+          <input class="form-check-input" type="checkbox" checked={task.completed} id="defaultCheck1" onClick={(e) => {this.clickCheckBox(todo, task, e.target.checked)}}></input>
+          <label class="form-check-label" for="defaultCheck1">{task.title}</label>
+
            <span><Image src={task.assigned_to.profile_pic_url} alt="user avatar" roundedCircle fluid width="25px" height='25px'/></span>
-           <p className="profile-name">{task.assigned_to.profile_name}</p>
+           <p className="profile-name">Assigned To: {task.assigned_to.profile_name}</p>
            <br></br>
            </div>
           </div>
@@ -74,7 +135,10 @@ renderTodos() {
             ))  
           }
           <br></br>
+          
+          
         </div>
+        
       ))
     )
   }
@@ -82,7 +146,12 @@ renderTodos() {
 
   render() {
       return (
-      <div>{this.renderTodos()}</div>
+        
+      <div>
+      {this.renderTodos()}
+      
+      </div>
+      
       )
   }
 }

@@ -34,6 +34,7 @@ class NewList extends React.Component {
             this.props.createNewTodo(NewList, this.props.groupId)
             this.setState({name: ''})
             this.setState({description: ''})
+            this.props.fetchGroupDetails(this.props.groupId)
         }
     }
 

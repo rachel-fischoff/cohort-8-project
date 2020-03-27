@@ -1,5 +1,6 @@
 import axios from "axios";
-import { FETCH_HOME, FETCH_TODOS, FETCH_TASK, NOT_AUTH_USER, FETCH_USER, FETCH_GROUP_DETAILS } from './types';
+import { FETCH_HOME, FETCH_TODOS, FETCH_TASK, NOT_AUTH_USER, FETCH_USER, FETCH_GROUP_DETAILS, FETCH_SCHEDULE, FETCH_SEARCH } from './types';
+
 
 
 //====================================================
@@ -18,6 +19,18 @@ export const fetchUser = () => dispatch => {
   });
 };
 
+//====================================================
+//Allow a user to toggle wether a tasks is completed
+export const toggleCompleted = (group, todo, task, completed) => dispatch => {
+  const body = {"completed": completed}
+  axios.put(`/groups/${group}/todos/${todo}/tasks/${task}`, body)
+  .then(function (response) {
+    dispatch({ type: FETCH_GROUP_DETAILS, payload: response.data });
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
 
 //====================================================
 //signout
@@ -39,7 +52,7 @@ export const home = () => dispatch => {
 
 //====================================================
 //Adding a new Group 
-//TODO : test with data 
+//WORKING
 export const createNewGroup = (body) => dispatch => {
   axios.post(`/groups`, body
   ).then(function (response) {
@@ -53,7 +66,7 @@ export const createNewGroup = (body) => dispatch => {
 
 
 //====================================================
-//Fetching Schedule for Group Component
+//Fetching Details for Group Component
 //WORKING
 export const fetchGroupDetails = (groupID) => dispatch => {
   axios.get(`/groups/${groupID}`
@@ -69,8 +82,8 @@ export const fetchGroupDetails = (groupID) => dispatch => {
 //====================================================
 //route creates a new todo in the database
 //WORKING
-export const createNewTodo = (body, groupID, todoID) => dispatch => {
-  axios.post(`/groups/${groupID}/todos/${todoID}`, body
+export const createNewTodo = (body, groupID) => dispatch => {
+  axios.post(`/groups/${groupID}/todos`, body
   ).then(function (response) {
     console.log('response in createNew Todo', response)
     dispatch({ type: FETCH_TODOS, payload: response.data });
@@ -80,13 +93,24 @@ export const createNewTodo = (body, groupID, todoID) => dispatch => {
   });
 };
 //====================================================
-//Fetching TODOs for Group Component
-//TODO need actual route and need to test!!
-export const fetchTodos = (groupID, todoID) => dispatch => {
-  axios.get(`/groups/${groupID}/todos/${todoID}`
+
+export const fetchTodos = (groupID) => dispatch => {
+  axios.get(`/groups/${groupID}/todos`
   ).then(function (response) {
     console.log('response in get Todos', response)
-    dispatch({ type: FETCH_TODOS, payload: response.data });
+    dispatch({ type: FETCH_SCHEDULE, payload: response.data });
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
+export const fetchSchedule = (groupID) => dispatch => {
+  axios.get(`/groups/${groupID}/schedule`
+  ).then(function (response) {
+    console.log('schedule', response)
+    console.log('response in get Todos', response)
+    dispatch({ type: FETCH_SCHEDULE, payload: response.data });
   })
   .catch(function (error) {
     console.log(error);
@@ -94,9 +118,10 @@ export const fetchTodos = (groupID, todoID) => dispatch => {
 };
 
 
+
 //====================================================
 export const fetchTask = ( groupID, todoID, taskID) => dispatch => {
-  axios.get(`/groups/${groupID}/todos/${todoID}/${taskID}`
+  axios.get(`/groups/${groupID}/todos/${todoID}/tasks/${taskID}`
   ).then(function (response) {
     console.log('response in get Task', response)
     dispatch({ type: FETCH_TASK, payload: response.data });
@@ -105,9 +130,11 @@ export const fetchTask = ( groupID, todoID, taskID) => dispatch => {
     console.log(error);
   });
 };
-//update tast
+
+//update task
+
 export const updateTask = (body, groupID, todoID,taskID) => dispatch => {
-  axios.post(`/groups/${groupID}/todos/${todoID}/tasks/${taskID}`, body
+  axios.put(`/groups/${groupID}/todos/${todoID}/tasks/${taskID}`, body
   ).then(function (response) {
     console.log('response in update Task', response)
     dispatch({ type: FETCH_TASK, payload: response.data });
@@ -120,9 +147,9 @@ export const updateTask = (body, groupID, todoID,taskID) => dispatch => {
 //Adding Task on TODO Component
 //TODO need actual route and need to test!!
 ///groups/:groupId/todos/:todo/tasks/:task
-export const createNewTodoTask = (body, userID, groupID, todoID ) => dispatch => {
+export const createNewTodoTask = (body, groupID, todoID, taskID ) => dispatch => {
   axios
-  .post(`/${userID}/groups/${groupID}/todos/${todoID}`, body
+  .post(`/groups/${groupID}/todos/${todoID}/tasks/${taskID}`, body
     ).then(function (response) {
       dispatch({ type: FETCH_TODOS, payload: response.data });
     })
@@ -131,13 +158,29 @@ export const createNewTodoTask = (body, userID, groupID, todoID ) => dispatch =>
     });
   };
 
+
 //====================================================
-//Fetching Schedule for Group Component
-//TODO need actual route and need to test!!
-export const fetchSchedule = (userID, groupID) => dispatch => {
-  axios.get(`/${userID}/groups/${groupID}/schedule`
-  ).then(function (response) {
-    dispatch({ type: FETCH_TODOS, payload: response.data });
+//Fetching Search for Groups
+//TODO need to test!!
+export const fetchGroupSearch= (query) => dispatch => {
+  axios.get(`/search/groups?query=` + query)
+  .then(function (response) {
+    console.log('response for schedule', response)
+    dispatch({ type: FETCH_SEARCH, payload: response.data });
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
+//====================================================
+//Fetching Search for User
+//TODO need to test!!
+export const fetchUserSearch= (query) => dispatch => {
+  axios.get(`/search/users?query=` + query)
+  .then(function (response) {
+    console.log('response for schedule', response)
+    dispatch({ type: FETCH_SEARCH, payload: response.data });
   })
   .catch(function (error) {
     console.log(error);

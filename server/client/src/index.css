@@ -12,6 +12,22 @@
    margin-bottom: 50px;
 }
 
+/*makes the group text not overflow card*/
+.card-inner
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.over
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;   
+}
+
+
 .btn-success {
     color: white
 }
