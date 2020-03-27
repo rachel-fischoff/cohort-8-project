@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
 import styled from "styled-components";
 import * as actions from '../actions';
@@ -6,20 +7,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCampground, faCommentAlt, faInbox, faChartPie, faSmile, faSearch } from "@fortawesome/free-solid-svg-icons";
 import 'font-awesome/css/font-awesome.min.css';
 
+class Nav extends Component { 
 
-const Nav = () => {
 
-  const handleLogoutClick = () => {
+  handleLogoutClick = () => {
     // Logout using Google passport api
     // Set authenticated state to false in the HomePage
+
     window.open('http://localhost:5000/logout', "_self");
   };
 
-  const renderLinks = () => {
+  renderLinks = () => {
 
       return (
         <React.Fragment>
-          <li onClick={handleLogoutClick}>Sign Out</li>
+          <li onClick={this.handleLogoutClick}>Sign Out</li>
           <li><Link to="/home"><FontAwesomeIcon icon={faCampground} /> Home</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faCommentAlt}/> Pings</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faInbox}/> Hey!</Link></li>
@@ -32,7 +34,9 @@ const Nav = () => {
       );
   }
 
-
+  render() {
+    //User logged in render links 
+  if(this.props.auth.user._id  || this.props.auth.group.people.length > 0){
   return (
     <NavContainer>
       <div id="logo">
@@ -44,17 +48,37 @@ const Nav = () => {
       </div>
     
       <NavUl>
-        {renderLinks()}
+        {this.renderLinks()}
       </NavUl>
     </NavContainer>
-  );
+  )
+  }
+
+  return (
+    <NavContainer>
+      <div id="logo">
+        <h1 className="h3">HomeBase</h1>
+      </div>
+    </NavContainer>
+  )
 };
+}
+
+function mapStateToProps(state) {
+console.log(state, "nav")
+  return ({
+    auth: state
+  })
+
+}
+
+export default connect(
+  mapStateToProps
+)(Nav);
 
 
-export default Nav;
 
 const NavContainer = styled.div`
-
   position: fixed;
   background-color: #f6f2ef;
   display: block;
@@ -90,5 +114,6 @@ const NavUl = styled.ul`
   }
   li a {
     color: #283c46;
+  }
   }
 `;
