@@ -16,3 +16,42 @@ span {
   color: Grey;
 }
 
+.btnlink {
+  background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+    color: black;
+    font-weight: 700;
+}
+
+.btnlink:hover {
+  background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+    color: rgb(26, 25, 25);
+    font-weight: 750;
+}
+
+.btnlink:active {
+  background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+    color: rgb(26, 25, 25);
+    font-weight: 750;
+}
+.btnlink:visited {
+  background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+    color: rgb(26, 25, 25);
+    font-weight: 750;
+}
+
