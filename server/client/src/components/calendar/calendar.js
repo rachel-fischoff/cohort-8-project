@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import './calendar.css';
+import moment from 'moment'
 
 import * as actions from '../../actions';
 import _ from 'lodash';
@@ -73,11 +74,12 @@ class ReactCalendar extends React.Component {
  
             return (
                     <div>
+                      
                         {tasks.map(task => {
                             return(
                                 <div className="todo-tasks fixed-center">
                                     <input className="d-flex position-left form-check-input" type="checkbox"  id="defaultCheck1"></input>
-                                    <NavLink onClick={this.toggleNested} className="position-absolute float-left form-check-label" for="defaultCheck1">{task.due_date.split('T')[0]}&nbsp;&nbsp;{task.title}</NavLink>
+                                    <NavLink onClick={this.toggleNested} className="position-absolute float-left form-check-label" for="defaultCheck1">{moment(task.due_date).format("dddd, MMM Do")}&nbsp;&nbsp;{task.title}</NavLink>
                                         <Modal
                                         isOpen={this.state.nestedModal}
                                         toggle={this.toggleNested}
