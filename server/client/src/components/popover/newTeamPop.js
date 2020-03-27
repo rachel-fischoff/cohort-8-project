@@ -18,10 +18,13 @@ class PopoverPage extends React.Component {
           name: '',
           type:'',
           description: '',
+          isVisible: false
       }
       //binds the functions
       this.handleSubmit = this.handleSubmit.bind(this)
       this.handleCancel = this.handleCancel.bind(this)
+      this.setVisibility = this.setVisibility.bind(this) 
+      this.setVisible = this.setVisible.bind(this)
   }
   //called when user hits submit
   handleSubmit(event) {
@@ -37,6 +40,15 @@ class PopoverPage extends React.Component {
 
     this.props.createNewGroup (newTeam)
   }
+  setVisibility = () => {
+    console.log('CLICK')
+    this.setState({isVisible: false})
+  }
+
+  setVisible = () => {
+    console.log('CLICK')
+    this.setState({isVisible: true})
+  }
 
   handleCancel = (e) => {
     e.preventDefault();
@@ -50,11 +62,12 @@ class PopoverPage extends React.Component {
         
               <MDBPopover 
                 placement="right"
+                isVisible={this.state.isVisible}
                 popover
                 clickable
                 id="popper3"
               >
-                <MDBBtn><button id="but-pop" className="btn btn-success new-button" data-toggle="popover"
+                <MDBBtn><button id="but-pop" className="btn btn-success new-button" data-toggle="popover" onClick={this.setVisible }
                     >+ New</button></MDBBtn>
                 
                   
@@ -64,7 +77,7 @@ class PopoverPage extends React.Component {
                     onChange={event => this.setState({name: event.target.value})}  />
                         <div>
                         <button className="btn-success" type="button" onClick={this.handleSubmit} >Save</button> &nbsp;
-                        <button className="btn-danger" type="button" onClick={this.handleCancel}>Cancel</button>
+                        <button className="btn-danger" type="button" onClick={this.setVisibility }>Cancel</button>
                         </div>
                     </form>
                   </MDBPopoverBody>
