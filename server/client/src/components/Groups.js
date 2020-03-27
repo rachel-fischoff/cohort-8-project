@@ -28,6 +28,7 @@ class Groups extends Component {
   //fetches data when loads
   componentDidMount(){
     this.props.fetchGroupDetails(this.props.match.params.groupId)
+  
   }
 
   viewToDoList = () => {
@@ -38,6 +39,22 @@ class Groups extends Component {
     this.setState({ viewingToDos: false });
   }
 
+<<<<<<< HEAD
+=======
+
+
+  renderScheduleDates(t){
+    
+    //need to format dates and put in order!!
+    let sortedDates = t.date_created.split('T')[0]
+    console.log('sortedDates ', t)
+    
+    return(
+      <p className="card-text">{sortedDates}</p>
+    )
+  }
+// &nbsp;&nbsp;{t.task.title}
+>>>>>>> 4acbf348cf242b27f33ab5e8cedc7de36d19373a
 
   renderPerson = (p) => {
       return(
@@ -68,9 +85,17 @@ class Groups extends Component {
                 <div className="row text-center ">
 
                   <div className="col-md-4 ">
+<<<<<<< HEAD
                     <div className="card-inner">
                       <CalendarModal groupId={this.props.match.params.groupId}><p>Calendar</p></CalendarModal>
                       <hr />
+=======
+                    <div className="card-inner h-100 ">
+                    <CalendarModal ><p>Calendar </p></CalendarModal>
+                    <hr />
+                    <div className="card-body ">
+                    <p className="card-text ">{this.props.todos.map(this.renderScheduleDates)}</p>
+>>>>>>> 4acbf348cf242b27f33ab5e8cedc7de36d19373a
                     </div>
                   </div>
 

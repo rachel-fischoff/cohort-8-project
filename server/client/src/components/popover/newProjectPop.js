@@ -34,8 +34,6 @@ class ProjectPop extends React.Component {
     newProject.comments = []
     newProject.people = []
 
-    console.log(this.props)
-    console.log(newProject)
     this.props.createNewGroup (newProject)
   }
 

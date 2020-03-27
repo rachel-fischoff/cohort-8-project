@@ -35,8 +35,6 @@ class PopoverPage extends React.Component {
     newTeam.comments = []
     newTeam.people = []
 
-    console.log(this.props)
-    console.log(newTeam)
     this.props.createNewGroup (newTeam)
   }
 

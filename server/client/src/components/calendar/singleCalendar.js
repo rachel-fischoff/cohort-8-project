@@ -4,6 +4,7 @@ import Calendar from 'react-calendar';
 import './calendar.css';
 
 
+
 const SingleReactCalendar = () => {
     const [date, setDate] = useState(new Date());
     
@@ -22,7 +23,6 @@ const SingleReactCalendar = () => {
                 value={date}
                 
             />
-        {console.log(date)}
         <p>selected date : </p><a>{date.toString().split('202')[0]}</a>
         </div>
         
