@@ -122,20 +122,7 @@ renderSingleTodoList() {
            <span><Image src={task.assigned_to.profile_pic_url} alt="user avatar" roundedCircle fluid width="25px" height='25px'/></span>
            <p className="profile-name">Assigned To: {task.assigned_to.profile_name}  </p>
            </div>
-          <Modal
-              isOpen={this.state.nestedModal}
-              toggle={this.toggleNested}
-              onClosed={this.state.closeAll ? this.toggle : undefined}
-            >
-              <ModalBody>
-                <TaskForm />
-              </ModalBody>
-              <ModalFooter>
-                <Button color="success" onClick={this.toggleNested}>
-                  Done
-                </Button>{' '}
-                </ModalFooter>
-            </Modal>
+
            <br></br>
           </div>
                     
@@ -143,7 +130,23 @@ renderSingleTodoList() {
           }
           <br></br>
           
-        
+          <Modal
+              isOpen={this.state.nestedModal}
+              toggle={this.toggleNested}
+              onClosed={this.state.closeAll ? this.toggle : undefined}
+            >
+              <ModalBody>
+                <TaskForm 
+                  groupID={this.props.group._id}
+                  todoID={todo._id}
+                   />
+              </ModalBody>
+              <ModalFooter>
+                <Button color="success" onClick={this.toggleNested}>
+                  Done
+                </Button>{' '}
+                </ModalFooter>
+            </Modal>
         </div>
         
       ))

@@ -30,7 +30,13 @@
     right: 0;
     padding: 10px;
     overflow: hidden;
-    
+   border-radius: 25px;
+   text-align: center;
+   display: inline-block;
+   height: 200px;
+   width: 325px;
+   align-content: center;
+   margin-bottom: 20px;
 }
 
 /*makes the group text not overflow card*/
@@ -81,6 +87,7 @@
 }
 
 .new-button {
+    margin-top: 100px;
     margin-left: 100px;
 }
 
@@ -88,4 +95,5 @@
     background-color: #f6f2ef;
     padding-top: 20px;
 }
+
 

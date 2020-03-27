@@ -7,7 +7,8 @@ import MessageBoardModal from '../components/modal/messageBoardModal';
 import './groups.css';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import { Image, Row, Container } from 'react-bootstrap'
+import {Image, Row, Container} from 'react-bootstrap'
+import Nav from './Nav'
 
 
 
@@ -45,6 +46,7 @@ class Groups extends Component {
       <Image src={p.profile_pic_url} roundedCircle fluid width="50px" height='50px' />
     )
   }
+
 
 
   render() {
@@ -100,7 +102,6 @@ class Groups extends Component {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     );

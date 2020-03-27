@@ -9,6 +9,10 @@
     border: 2px solid #E8E8E8;
  }
 
+ .card-groups {
+   margin-top: 130px;
+ }
+
  card-title-groups {
     font-weight: bold;
  }
@@ -36,4 +40,20 @@
    margin-top: 8px;
    font-size: 12px;
    color: Grey;
+ }
+
+ .groups-page {
+   background-color:  #f6f2ef;
+   height: 1000px;
+   width: auto;
+ }
+
+ .card-inner {
+   background-color:white;
+ }
+
+ .panel { 
+   background-color:white;
+   margin-left: 110px;
+   height: 800px;
  }

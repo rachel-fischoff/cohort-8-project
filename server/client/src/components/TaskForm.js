@@ -27,14 +27,16 @@ class TaskForm extends React.Component {
   //groupID, todosID, taskID should be passed from the todoList
   //not working
   componentDidMount() {
+    console.log(this.props)
     //fetch is working with hardcoded values
-    let groupID = '5e7d1070603a8140d3ae27ba';
-    let todoID = '5e7d1064603a8140d3ae27b7';
-    let taskID = '5e7d1055603a8140d3ae2796';
+
+    let groupID = this.props.groupID;
+    let todoID = this.props.todoID;
+    let taskID = this.props.taskID;
 
     this.props.fetchTask(groupID, todoID, taskID)
     
-    $( '.calendar' ).toggle();
+    //$( '.calendar' ).toggle();
 
   }
 
@@ -42,7 +44,7 @@ class TaskForm extends React.Component {
     e.preventDefault()
     //update the task
     const updatedTask = {
-      assigned_to: this.state.assigned_to,
+      assigned_to: this.state.assigned_to.profile_name,
       completed: false, //checkbox 
       due_date: this.state.due_date, //calendar value or nothing
     }
@@ -80,12 +82,15 @@ class TaskForm extends React.Component {
   }
 
   handleDueDateChange(e) {
-    e.preventDefault();
-    let dueDate = e.target.value //will need to capture date from the calendar or nothing
-    
-    this.setState({
-      due_date: dueDate
-    })
+    // e.preventDefault();
+    // let dueDate = e.target.value //will need to capture date from the calendar or nothing
+    // if (dueDate === 'specificDate') this.toggleHide()
+    // //need to pass calendar value to dueDate
+    // if (dueDate === 'noDueDate') dueDate = '';
+
+    // this.setState({
+    //   due_date: dueDate
+    // })
   }
 
   handleCheckBoxChange(e) {
@@ -98,6 +103,8 @@ class TaskForm extends React.Component {
     // console.log('from people: ', people);
     return value
     //return people.filter((person) => person._id === value)
+    //get the name from the users collection
+
   }
 
   render(){
@@ -124,7 +131,7 @@ class TaskForm extends React.Component {
             <div className="row" >
                 <label>Assigned to</label>
                 <input type='text' placeholder='Type names to assign...'
-                onChange={this.update('assigned_to')} value={this.getAssigneeName(assigned_to)}/>
+                onChange={this.update('assigned_to')} value={this.getAssigneeName(assigned_to.profile_name)}/>
             </div>
               <div>
               <label>Due on</label>
@@ -154,7 +161,7 @@ class TaskForm extends React.Component {
                   <div className="calendar hidden"><SingleReactCalendar /></div>
                 </li>
       
-                <li>
+                {/*<li>
                   <label>
                     <input
                       type="radio"
@@ -164,7 +171,7 @@ class TaskForm extends React.Component {
                     />
                     Range of dates
                   </label>
-                </li>
+                </li>*/}
               </ul>
               </div>
               <div className="row" >

@@ -9,7 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import '../index.css';
 import PopoverPage from './popover/newTeamPop';
-import ProjectPop from './popover/newProjectPop'
+import ProjectPop from './popover/newProjectPop';
+import Nav from './Nav';
 
 
 class Home extends Component { 
@@ -82,27 +83,27 @@ class Home extends Component {
 
 
     return (
+      <div>
+      <Nav />
         <div className="home-page">
            <div className="projects-row">
              <PopoverPage></PopoverPage>
                <div className="col-md-8-offset-3 text-center">
-
-                <h1>Teams</h1>
+                <h1 className="separator">Teams</h1>
                   <br></br>
                   {this.props.homePage.map(this.sortTeam)}
                 </div>
               </div>
               
               <div className="projects-row">
-                <div className="col justify-content-left">
-               <ProjectPop></ProjectPop>
-               </div>
+              <ProjectPop></ProjectPop>
                 <div className="col-md-8-offset-3 text-center">
-                 <h1>Projects</h1>
+                 <h1 className="separator">Projects</h1>
                   <br></br>
                   {this.props.homePage.map(this.sortProject)}
                 </div>
             </div>
+          </div>
         </div>
     );
 // }else{
