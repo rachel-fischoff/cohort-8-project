@@ -12,30 +12,8 @@ import { Button, Modal,  ModalBody, ModalFooter, NavLink } from 'reactstrap';
 import ReactCalendar from '../calendar/calendar';
 
 class SearchPop extends React.Component {
-  
-  constructor(props) {
-    super(props);
-    //sets state to empty 
-    this.state = {term: ''}
 
 
-    this.onFormSubmit = this.onFormSubmit.bind(this);
-  }
-
-
-
-  //when you submit your form you fetch groups based on the term submitted
-  onFormSubmit(event) {
-    event.preventDefault();
-    
-    let term = this.state.term
-
-
-    this.props.fetchGroupSearch(term);
-    this.props.fetchUserSearch(term);
-
-
-  }
 
 render() {
   return (
@@ -55,9 +33,9 @@ render() {
             
             <MDBPopoverBody>
               <form >
-              <input placeholder='Search' onChange={event => this.setState({term: event.target.value})} value={this.state.term} />
+              <input placeholder='Search' onChange={event => this.props.fetchTermSearch(event.target.value)} />
                   <div>
-                  <Link to='/search'><button className="btn-success" type="onSubmit" onClick={this.onFormSubmit}>Search</button> </Link>&nbsp;
+                  <button className="btn-success" ><Link to ='/search' >Search</Link></button> &nbsp;
                   </div>
               </form>
             </MDBPopoverBody>

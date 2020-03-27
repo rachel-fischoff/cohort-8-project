@@ -13,6 +13,8 @@ export const FETCH_USER = 'fetch_user'
 
 export const FETCH_SCHEDULE = 'fetch_schedule'
 
-export const FETCH_SEARCH = 'fetch_search'
+export const FETCH_SEARCH_GROUP = 'fetch_search_group'
+export const FETCH_SEARCH_USER = 'fetch_search_user'
+export const FETCH_SEARCH_TERM = 'fetch_search_term'
 
 
