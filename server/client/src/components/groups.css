@@ -69,3 +69,7 @@
  h5 {
   overflow: hide !important;
  }
+.card-body {
+  overflow: hidden;
+}
+ 
