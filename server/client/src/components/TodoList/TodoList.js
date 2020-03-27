@@ -59,7 +59,6 @@ class TodoList extends React.Component {
     this.props.toggleCompleted(this.props.group._id, todo._id, task._id, value)
   }
   
-
 renderTodos() {
   if (this.props.group.todos === undefined) {
     return (

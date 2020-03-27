@@ -8,6 +8,7 @@ import { Image } from 'react-bootstrap'
 //import Modal from 'react-bootstrap/Modal'
 import { Button, Modal,  ModalBody, ModalFooter } from 'reactstrap';
 import TaskForm from '../TaskForm'
+import './SingleTodoList.css'
 // import { Link } from 'react-router-dom'
 // import CommentsContainer from '../comments/comments_container'
 
@@ -87,7 +88,7 @@ renderSingleTodoList() {
             lineWidth={100}
             totalValue = {`${todo.tasks.length}`}
             paddingAngle={0}
-            radius={15}
+            radius={40}
             rounded={false}
             startAngle={100}
             style={{
@@ -101,15 +102,19 @@ renderSingleTodoList() {
       
           <p className="todo-completed">{todo.num_completed}/{todo.tasks.length} completed</p>
           <h2>{todo.name}</h2>
+          <br></br>
           {
          todo.tasks.map(task => (
           <div className="todo-tasks">
           <div className="row">
           <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
-          <label class="form-check-label" for="defaultCheck1">{task.title}</label>
+          <label class="form-check-label" id="task" for="defaultCheck1">{task.title}</label>
+          <button type="button" id="btn" class="btn btn-secondary btn-sm float-right" onClick={(e) => {this.toggleNested(); localStorage.setItem('taskId', e.target.value)}} value={task._id}>Assign/Schedule...</button>
+          </div>
+           <div className="row">
            <span><Image src={task.assigned_to.profile_pic_url} alt="user avatar" roundedCircle fluid width="25px" height='25px'/></span>
-           <p className="profile-name">Assigned To: {task.assigned_to.profile_name}</p>
-           <Button onClick={(e) => {this.toggleNested(); localStorage.setItem('taskId', e.target.value)}} value={task._id}>Assign/Schedule...</Button>
+           <p className="profile-name">Assigned To: {task.assigned_to.profile_name}  </p>
+           </div>
           <Modal
               isOpen={this.state.nestedModal}
               toggle={this.toggleNested}
@@ -125,14 +130,13 @@ renderSingleTodoList() {
               </ModalFooter>
             </Modal>
            <br></br>
-           </div>
           </div>
-                      
+                    
             ))  
           }
           <br></br>
           
-          
+        
         </div>
         
       ))
