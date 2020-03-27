@@ -55,10 +55,12 @@ class Groups extends Component {
           <Nav />
           <div className="groups-page">
             <div className="row">
+            <div className="col-md-10 panel">
               <br></br>
                <div className="card-groups col-md-10 mx-auto">
                <h1 className="card-title-groups text-center">{this.props.groupName}</h1>
                <h4 className="card-title-groups text-center text-muted"> {this.props.groupDescription}</h4>
+               <br></br>
                <Container>
                 <Row className="justify-content-md-center">
                   {this.props.people.map(this.renderPerson)}
@@ -98,6 +100,7 @@ class Groups extends Component {
         </div>
        </div>
       </div>
+    </div>
     </div>
     );
   }
