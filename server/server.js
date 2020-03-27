@@ -439,11 +439,9 @@ app.put('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) =>
 
 
 //route creates a new todo in the database
-<<<<<<< HEAD
+
 app.post('/groups/:groupId/todos', ensureAuthenticated, (req, res, next) => {
-=======
-app.post('/groups/:groupId/todos/', ensureAuthenticated, (req, res, next) => {
->>>>>>> 679c6908bf52e4ed21efa50b04ca6e88dee86941
+
     
     let newTodo = new Todo()
 
@@ -618,11 +616,7 @@ app.get('/groups/:groupId/schedule', ensureAuthenticated, (req, res) => {
         tasks = []
         groups.todos.forEach((todo) => {
           todo.tasks.forEach((task) => {
-            const month = task.due_date.getMonth()
-            const year = task.due_date.getFullYear()
-            if ((month == currentMonth || month == nextMonth) && year == currentYear) {
               tasks.push(task)
-            }
           })
         })
         res.send({tasks, currentMonth, currentYear, nextMonth})

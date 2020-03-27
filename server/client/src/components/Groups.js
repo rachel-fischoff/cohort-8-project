@@ -19,8 +19,7 @@ class Groups extends Component {
     viewingToDos: false,
     events: [],
     isLoading: false,
-    selectedEvent: null,
-    dates:[]
+    selectedEvent: null
   }
 
   //binds function to this state
@@ -38,19 +37,7 @@ class Groups extends Component {
   modalConfirmHandler = () => {
     this.setState({ viewingToDos: false });
   }
-  //sorts dates and renders
-  scheduleDates(){
-    let sortedDates = []
-    this.props.todos.map((t)=>{sortedDates.push(t.date_created)})
-    sortedDates.sort()
-    sortedDates.reverse()
-    console.log('sortedDates ', sortedDates)
-    return sortedDates.map((t)=>{    
-      return(
-      <p className="card-text">{t}</p>
-      )
-    })
-  }
+
 
   renderPerson = (p) => {
       return(
@@ -58,11 +45,7 @@ class Groups extends Component {
       )
     }
 
-  loopThoroughTodos(t){
-    return(
-<p className="card-text">{t.title}</p>
-    )
-  }
+
 
       render() {
   
@@ -72,35 +55,36 @@ class Groups extends Component {
               <br></br>
                <div className="card-groups col-md-10 mx-auto">
                <h1 className="card-title-groups text-center">{this.props.groupName}</h1>
+
+
                <Container>
                 <Row>
                   {this.props.people.map(this.renderPerson)}
                 </Row>
               </Container>
+
+
               <div className="card-body ">
                 <div className="row text-center ">
+
                   <div className="col-md-4 ">
-                    <div className="card-inner h-100 ">
-                    <CalendarModal groupId={this.props.match.params.groupId}><p>Calendar</p></CalendarModal>
-                    <hr />
-                    <div className="card-body ">
-                    <p className="card-text ">{this.scheduleDates()}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="card-inner">
-                    <ToDoModal groupId={this.props.match.params.groupId}/>
+                    <div className="card-inner">
+                      <CalendarModal groupId={this.props.match.params.groupId}><p>Calendar</p></CalendarModal>
                       <hr />
-                    <div className="card-body">
-                    {this.props.todos.map(this.loopThoroughTodos)}
                     </div>
                   </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="card-inner">
-                    <MessageBoardModal></MessageBoardModal>
-                    <hr />
+
+                  <div className="col-md-4">
+                    <div className="card-inner">
+                      <ToDoModal groupId={this.props.match.params.groupId}/>
+                      <hr />
+                    </div>
+                  </div>
+
+                  <div className="col-md-4">
+                    <div className="card-inner">
+                      <MessageBoardModal></MessageBoardModal>
+                      <hr />
                     <div className="card-body">
                     <p className="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
                   </div>
@@ -121,7 +105,7 @@ function mapStateToProps (state) {
     return ({
       people: state.group.people,
       comments: state.group.comments,
-      todos: state.group.comments,
+      todos: state.group.todos,
       groupName: state.group.group_name,
       groupId: state.group._id
     })};

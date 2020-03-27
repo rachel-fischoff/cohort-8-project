@@ -6,7 +6,7 @@ const INITIAL_STATE = {}
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case FETCH_SCHEDULE :
-      return action.payload.Group.todos
+      return action.payload.tasks
     default:
       return state;
   }
