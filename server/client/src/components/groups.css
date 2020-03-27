@@ -7,26 +7,30 @@
     align-content: center;
     padding: 20px;
     border: 2px solid #E8E8E8;
+    overflow: hide !important;
  }
 
  .card-groups {
-   margin-top: 130px;
+   margin-top: 50px;
+   overflow: hide !important;
  }
 
- card-title-groups {
+ .card-title-groups {
     font-weight: bold;
+    overflow: hide !important;
  }
 
- groups-page {
+ .groups-page {
     border: 10px solid #E8E8E8;
     height: 800px;
     width: auto;
-    margin-top: 50px
+    overflow: hide !important;
  }
 
  .tasks {
    margin-left: 50px;
  }
+
  span {
    margin-left: 20px;
    margin-right: 10px;
@@ -52,6 +56,7 @@
 
  .card-inner {
    background-color:white;
+   overflow: hide !important;
  }
 
  .panel { 
@@ -59,5 +64,8 @@
    margin-left: 110px;
    min-height: 800px;
    height: auto;
-   display: flex;
+ }
+
+ h5 {
+  overflow: hide !important;
  }

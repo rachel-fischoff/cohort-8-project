@@ -4,9 +4,6 @@
 
 }
 
-
-
-
 .custom-control-input {
     margin-left: 50px;
 }
@@ -19,7 +16,7 @@
     height: 200px;
     width: 325px;
     align-content: center;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 
 }
 
@@ -36,7 +33,6 @@
    height: 200px;
    width: 325px;
    align-content: center;
-   margin-bottom: 20px;
 }
 
 /*makes the group text not overflow card*/
@@ -87,7 +83,7 @@
 }
 
 .new-button {
-    margin-top: 100px;
+    margin-top: 60px;
     margin-left: 100px;
 }
 

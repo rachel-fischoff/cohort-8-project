@@ -21,13 +21,14 @@ const Nav = () => {
 
       return (
         <React.Fragment>
-          <li onClick={handleLogoutClick}>Sign Out</li>
+          <li></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faCampground} /> Home</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faCommentAlt}/> Pings</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faInbox}/> Hey!</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faChartPie}/> Activity</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faSmile}/> My Stuff</Link></li>
           <li id="searchP"><SearchPop ></SearchPop> </li>
+          <li onClick={handleLogoutClick}>Sign Out</li>
           
 
         </React.Fragment>
@@ -58,7 +59,7 @@ export default Nav;
 
 const NavContainer = styled.div`
 
-  position: fixed;
+  position: absolute;
   background-color: #f6f2ef;
   display: block;
   color: #283c46
@@ -75,15 +76,13 @@ const NavContainer = styled.div`
     color: #283c46;
   }
   width: 100%;
-  margin:auto;
 `;
 
 const NavUl = styled.ul`
   background-color: rgba(246,242,239,0.9);
-  display: flex;
+  display: fixed;
   flex-direction: row;
   justify-content: center;
-  margin-top: 10px;
   list-style: none;
   li:first-child {
     float: right;
