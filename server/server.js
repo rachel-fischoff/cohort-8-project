@@ -107,10 +107,7 @@ passport.use(
 
 const ensureAuthenticated = (req, res, next) => {
     if (!req.user) {
-      res.status(401).json({
-        authenticated: false,
-        message: "user has not been authenticated"
-      });
+      res.redirect('/')
     } else {
       next();
     }
@@ -528,7 +525,7 @@ app.get('/groups/:groupId/todos/:todo/tasks/:task',   (req, res, next) => {
     
     Task
     .findById(req.params.task)
-    .populate({path: 'assinged_to'})
+    .populate({path: 'assigned_to'})
     .exec((err, task) => {
         if (err) return next(err)
         if (task) {
@@ -540,8 +537,26 @@ app.get('/groups/:groupId/todos/:todo/tasks/:task',   (req, res, next) => {
         })
     })
 
+//route to update the single todo by name and description 
+app.put('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated, (req, res, next) => {
+    
+  Todo.findByIdAndUpdate(req.params.task, {title: req.body.title, due_date: req.body.due_date,  assigned_to: req.body.assigned_to}, function(err, todo){
+          if (err) {
+              return next(err)
+          }if(todo) {
+              todo.save()
+              res.end()
+      } else {
+          res.status(404);
+          return res.end(`todo with id ${req.params.todo} not found`);
+      }
+      });
+  })
+
+
+
 //create a new task 
-app.post('/groups/:groupId/todos/:todo/tasks/', ensureAuthenticated, (req, res, next) => {
+app.post('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) => {
     Todo
     .findById(req.params.todo)
     .populate({path: 'tasks', populate: {path: 'assigned_to'}})
@@ -608,7 +623,8 @@ app.get('/groups/:groupId/schedule', ensureAuthenticated, (req, res) => {
 
   Group
     .findById(req.params.groupId)
-    .populate({path: 'todos', populate: {path: 'tasks'}})
+  //  .populate({path: 'todos', populate: {path: 'tasks'}})
+    .populate({path: 'todos', populate: {path: 'tasks', populate: {path:'assigned_to'}}})
     .exec((err, groups) => {
       if (err) {
         res.send(err)

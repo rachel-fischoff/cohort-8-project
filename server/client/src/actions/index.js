@@ -144,6 +144,19 @@ export const updateTask = (body, groupID, todoID,taskID) => dispatch => {
   });
 };
 
+//create new task
+
+export const createNewTask = (body, groupID, todoID) => dispatch => {
+  axios.post(`/groups/${groupID}/todos/${todoID}`, body
+  ).then(function (response) {
+    console.log('response in update Task', response)
+    dispatch({ type: FETCH_TASK, payload: response.data });
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
 
 //====================================================
 //Fetching Search for Groups

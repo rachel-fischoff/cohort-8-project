@@ -27,7 +27,9 @@ class TaskForm extends React.Component {
   //groupID, todosID, taskID should be passed from the todoList
   //not working
   componentDidMount() {
+    console.log(this.props)
     //fetch is working with hardcoded values
+
     let groupID = this.props.groupID;
     let todoID = this.props.todoID;
     let taskID = this.props.taskID;
@@ -42,7 +44,7 @@ class TaskForm extends React.Component {
     e.preventDefault()
     //update the task
     const updatedTask = {
-      assigned_to: this.state.assigned_to,
+      assigned_to: this.state.assigned_to.profile_name,
       completed: false, //checkbox 
       due_date: this.state.due_date, //calendar value or nothing
     }
@@ -129,7 +131,7 @@ class TaskForm extends React.Component {
             <div className="row" >
                 <label>Assigned to</label>
                 <input type='text' placeholder='Type names to assign...'
-                onChange={this.update('assigned_to')} value={this.getAssigneeName(assigned_to)}/>
+                onChange={this.update('assigned_to')} value={this.getAssigneeName(assigned_to.profile_name)}/>
             </div>
               <div>
               <label>Due on</label>
