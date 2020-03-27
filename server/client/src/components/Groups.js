@@ -50,6 +50,12 @@ class Groups extends Component {
 
 
   render() {
+    console.log('props', this.props.people)
+    if (this.props.people == 'undefined'){
+      return(
+        <p>Loading</p>
+      )
+    }else{
 
     return (
       <div className="groups-page app_body">
@@ -107,7 +113,7 @@ class Groups extends Component {
     );
   }
 }
-
+}
 
 function mapStateToProps(state) {
   return ({
