@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import SingleCalendar from './singleCalendar'
 import './calendar.css';
 
 import * as actions from '../../actions';
@@ -60,7 +59,7 @@ class ReactCalendar extends React.Component {
     let sortedDates = []
     _.map(this.props.tasks, function(task){sortedDates.push(task.due_date)})
     sortedDates.sort()
-    sortedDates.reverse()
+
 
   
     //ugly loop to match the order dates array to the whole task
