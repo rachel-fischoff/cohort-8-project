@@ -636,6 +636,11 @@ app.get('/search/groups', ensureAuthenticated, (req, res, next) => {
 
   Group
     .find({group_name: regExQuery})
+    .populate(
+      {path:'people'})
+    .populate({path: 'comments', populate: {path: 'author'}})
+    .populate({path: 'todos', populate: {path:'comments'}, populate: {path:'tasks', 
+    populate: {path:'assigned_to'}}})
     .exec((err, groups) => {
       if (err) {
         res.send(err)
