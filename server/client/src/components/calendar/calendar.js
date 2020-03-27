@@ -1,10 +1,13 @@
-import React, { useState } from "react";
-import { render } from "react-dom";
+import React from "react";
 import { connect } from "react-redux";
-import SingleCalendar from './singleCalendar'
 import './calendar.css';
+
+import * as actions from '../../actions';
+import _ from 'lodash';
+
 import { Button, Modal,  ModalBody, ModalFooter, NavLink } from 'reactstrap';
 import { Image } from 'react-bootstrap'
+
 
 
 
@@ -44,14 +47,28 @@ class ReactCalendar extends React.Component {
         });
       }
 
-    async componentDidMount() {
-        console.log(this.props)
+    componentDidMount() {
+        //fetches the tasks
+        this.props.fetchSchedule(this.props.groupId)
+    }
 
-        let todos = this.props.group.todos;
-        console.log(todos.task)
-        todos.map(task => (
-            console.log('map ', task.tasks)
-        ))
+
+  sortAndRenderDates=()=>{
+    //orders the due dates
+    let tasks = []
+    let sortedDates = []
+    _.map(this.props.tasks, function(task){sortedDates.push(task.due_date)})
+    sortedDates.sort()
+
+
+  
+    //ugly loop to match the order dates array to the whole task
+    for (let i = 0; i< sortedDates.length; i++){
+        for (let j=0; j< this.props.tasks.length; j++){
+            if (sortedDates[i] == this.props.tasks[j].due_date){
+                tasks.push(this.props.tasks[j])
+            }
+        }
     }
  
             return (
@@ -113,10 +130,8 @@ class ReactCalendar extends React.Component {
 
 function mapStateToProps(state) {
     return ({
-        homePage: state.home,
-        user: state.user,
-        group: state.group
+        tasks: state.schedule
     })
 }
 
-export default connect(mapStateToProps)(ReactCalendar);
+export default connect(mapStateToProps, actions)(ReactCalendar);
