@@ -58,7 +58,7 @@ export default Nav;
 
 const NavContainer = styled.div`
 
-  position: fixed;
+  position: absolute;
   background-color: #f6f2ef;
   display: block;
   color: #283c46
@@ -75,15 +75,13 @@ const NavContainer = styled.div`
     color: #283c46;
   }
   width: 100%;
-  margin:auto;
 `;
 
 const NavUl = styled.ul`
   background-color: rgba(246,242,239,0.9);
-  display: flex;
+  display: fixed;
   flex-direction: row;
   justify-content: center;
-  margin-top: 10px;
   list-style: none;
   li:first-child {
     float: right;

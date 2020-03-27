@@ -52,10 +52,13 @@ class Groups extends Component {
   render() {
 
     return (
+      <div>
+      <Nav />
       <div className="groups-page app_body">
-        <div className="row ">
+        <div className="row">
           <br></br>
-          <div className="card-groups col-md-10 mx-auto">
+          <div className="card-groups col-md-10 panel">
+            <br></br>
             <h1 className="card-title-groups text-center">{this.props.groupName}</h1>
             <h4 className="card-title-groups text-center text-muted"> {this.props.groupDescription}</h4>
             <Container>
@@ -64,7 +67,7 @@ class Groups extends Component {
               </Row>
             </Container>
 
-
+          <div className="row">
             <div className="card-body ">
               <div className="row text-center ">
                 <div classname="card__content">
@@ -72,37 +75,44 @@ class Groups extends Component {
                     <div className="card-inner">
                       <CalendarModal groupId={this.props.match.params.groupId}><p>Calendar</p></CalendarModal>
                       <hr />
-
+                        </div> 
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="card__content ">
-                  <div className="row text-center ">
-                    <div className="col-md-4">
-                      <div className="card-inner">
+            <div className="card-body ">
+              <div className="row text-center ">
+                <div classname="card__content">
+                  <div className="col-md-4 ">
+                    <div className="card-inner">
                         <ToDoModal groupId={this.props.match.params.groupId} />
                         <hr />
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div className="card__content">
-                  <div className="col-md-4">
+            <div className="card-body ">
+              <div className="row text-center ">
+                <div classname="card__content">
+                  <div className="col-md-4 ">
                     <div className="card-inner">
                       <MessageBoardModal></MessageBoardModal>
                       <hr />
-                      <div className="card-body">
-                        <p className="card-text">Coming Soon!</p>
+                      <p className="card-text">Coming Soon!</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
+      </div>
+
       </div>
     );
   }
