@@ -4,13 +4,12 @@ import * as actions from '../../actions'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactMinimalPieChart from 'react-minimal-pie-chart'
 import { Image } from 'react-bootstrap'
-//import singleToDoModal from '../modal/singleToDoModal';
-//import Modal from 'react-bootstrap/Modal'
+import singleToDoModal from '../modal/singleToDoModal';
 import { Button, Modal,  ModalBody, ModalFooter } from 'reactstrap';
 import TaskForm from '../TaskForm'
 import './SingleTodoList.css'
-// import { Link } from 'react-router-dom'
-// import CommentsContainer from '../comments/comments_container'
+//import { Link } from 'react-router-dom'
+//import CommentsContainer from '../comments/comments_container'
 
 
 class SingleTodoList extends React.Component {

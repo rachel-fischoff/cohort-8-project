@@ -10,10 +10,9 @@ export const FETCH_GROUP_DETAILS = 'fetch_group_details'
 
 export const FETCH_USER = 'fetch_user'
 
-<<<<<<< HEAD
+
 export const FETCH_SCHEDULE = 'fetch_schedule'
-=======
+
 export const FETCH_SEARCH = 'fetch_search'
->>>>>>> 4acbf348cf242b27f33ab5e8cedc7de36d19373a
 
 

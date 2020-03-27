@@ -122,13 +122,10 @@ renderTodos() {
          todo.tasks.map(task => (
           <div className="todo-tasks">
           <div className="row">
-<<<<<<< HEAD
-          <input className="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
-          <label className="form-check-label" for="defaultCheck1">{task.title}</label>
-=======
+
           <input class="form-check-input" type="checkbox" checked={task.completed} id="defaultCheck1" onClick={(e) => {this.clickCheckBox(todo, task, e.target.checked)}}></input>
           <label class="form-check-label" for="defaultCheck1">{task.title}</label>
->>>>>>> 4acbf348cf242b27f33ab5e8cedc7de36d19373a
+
            <span><Image src={task.assigned_to.profile_pic_url} alt="user avatar" roundedCircle fluid width="25px" height='25px'/></span>
            <p className="profile-name">Assigned To: {task.assigned_to.profile_name}</p>
            <br></br>

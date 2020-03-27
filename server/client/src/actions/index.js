@@ -1,9 +1,6 @@
 import axios from "axios";
-<<<<<<< HEAD
-import { FETCH_HOME, FETCH_TODOS, FETCH_TASK, NOT_AUTH_USER, FETCH_USER, FETCH_GROUP_DETAILS, FETCH_SCHEDULE } from './types';
-=======
-import { FETCH_HOME, FETCH_TODOS, FETCH_TASK, NOT_AUTH_USER, FETCH_SEARCH, FETCH_USER, FETCH_GROUP_DETAILS } from './types';
->>>>>>> 4acbf348cf242b27f33ab5e8cedc7de36d19373a
+import { FETCH_HOME, FETCH_TODOS, FETCH_TASK, NOT_AUTH_USER, FETCH_USER, FETCH_GROUP_DETAILS, FETCH_SCHEDULE, FETCH_SEARCH } from './types';
+
 
 
 //====================================================
@@ -161,21 +158,6 @@ export const createNewTodoTask = (body, groupID, todoID, taskID ) => dispatch =>
     });
   };
 
-<<<<<<< HEAD
-=======
-//====================================================
-//Fetching Schedule for Group Component
-//TODO need actual route and need to test!!
-export const fetchSchedule = (groupID) => dispatch => {
-  axios.get(`/groups/${groupID}/schedule`
-  ).then(function (response) {
-    console.log('response for schedule', response)
-    dispatch({ type: FETCH_TODOS, payload: response.data });
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-};
 
 //====================================================
 //Fetching Search for Groups
@@ -204,6 +186,3 @@ export const fetchUserSearch= (query) => dispatch => {
     console.log(error);
   });
 };
-
-
->>>>>>> 4acbf348cf242b27f33ab5e8cedc7de36d19373a
