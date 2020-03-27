@@ -39,7 +39,6 @@ class NewList extends React.Component {
     }
 
     render() {
-        console.log('newlist props', this.props)
         return (
             <div className='row'>
                 <div className="col">

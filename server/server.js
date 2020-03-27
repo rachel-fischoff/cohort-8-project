@@ -464,12 +464,12 @@ app.post('/groups/:groupId/todos', ensureAuthenticated, (req, res, next) => {
             res.send(err)
           }
           group.todos.push(todo)
-          group.save((err, grou) => {
+          group.save((err, group) => {
             if (err) {
               res.writeHead(400)
               res.send(err)
             }
-            res.send({group, todo})
+            res.send({group})
           })
         }
       )
