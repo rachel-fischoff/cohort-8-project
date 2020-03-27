@@ -128,7 +128,11 @@ renderSingleTodoList() {
               onClosed={this.state.closeAll ? this.toggle : undefined}
             >
               <ModalBody>
-                <TaskForm />
+                <TaskForm 
+                  groupID={this.props.group._id}
+                  todoID={todo._id}
+                  taskID={task._id}
+                   />
               </ModalBody>
               <ModalFooter>
                 <Button color="success" onClick={this.toggleNested}>

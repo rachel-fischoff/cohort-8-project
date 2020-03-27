@@ -28,13 +28,13 @@ class TaskForm extends React.Component {
   //not working
   componentDidMount() {
     //fetch is working with hardcoded values
-    let groupID = '5e7d1070603a8140d3ae27ba';
-    let todoID = '5e7d1064603a8140d3ae27b7';
-    let taskID = '5e7d1055603a8140d3ae2796';
+    let groupID = this.props.groupID;
+    let todoID = this.props.todoID;
+    let taskID = this.props.taskID;
 
     this.props.fetchTask(groupID, todoID, taskID)
     
-    $( '.calendar' ).toggle();
+    //$( '.calendar' ).toggle();
 
   }
 
@@ -80,12 +80,15 @@ class TaskForm extends React.Component {
   }
 
   handleDueDateChange(e) {
-    e.preventDefault();
-    let dueDate = e.target.value //will need to capture date from the calendar or nothing
-    
-    this.setState({
-      due_date: dueDate
-    })
+    // e.preventDefault();
+    // let dueDate = e.target.value //will need to capture date from the calendar or nothing
+    // if (dueDate === 'specificDate') this.toggleHide()
+    // //need to pass calendar value to dueDate
+    // if (dueDate === 'noDueDate') dueDate = '';
+
+    // this.setState({
+    //   due_date: dueDate
+    // })
   }
 
   handleCheckBoxChange(e) {
@@ -98,6 +101,8 @@ class TaskForm extends React.Component {
     // console.log('from people: ', people);
     return value
     //return people.filter((person) => person._id === value)
+    //get the name from the users collection
+
   }
 
   render(){
@@ -154,7 +159,7 @@ class TaskForm extends React.Component {
                   <div className="calendar hidden"><SingleReactCalendar /></div>
                 </li>
       
-                <li>
+                {/*<li>
                   <label>
                     <input
                       type="radio"
@@ -164,7 +169,7 @@ class TaskForm extends React.Component {
                     />
                     Range of dates
                   </label>
-                </li>
+                </li>*/}
               </ul>
               </div>
               <div className="row" >
