@@ -5,6 +5,7 @@ const INITIAL_STATE = {
     comments: [],
     todos: [],
     groupName: '',
+    groupDescription:'',
     groupId: ''};
 
 //NEED TO DO

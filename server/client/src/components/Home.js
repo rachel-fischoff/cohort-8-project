@@ -58,7 +58,9 @@ class Home extends Component {
   //renders individual card
   renderGroup = (t) =>{
     return(
+    
     <div className="card col-md-offset-3 text-center" styles="width: 18rem;">
+    <Link to={`/groups/${t._id}`}>
     <div className="card-body">
     <h5 className="card-title">{t.group_name}</h5>
     <h6 className="card-subtitle mb-2 text-muted">{t.group_type}</h6>
@@ -68,11 +70,13 @@ class Home extends Component {
     </Row>
     </Container>
     <p className="card-text">{t.group_description}</p>
-    <a href={`/groups/${t._id}`} className="card-link">Card link</a>
+    {/* <a href={`/groups/${t._id}`} className="card-link" alt="click on groups page"></a> */}
    </div>
+   </Link>
   </div>
+
     )
-  }
+    }
 
   render() {
 

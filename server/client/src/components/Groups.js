@@ -47,7 +47,6 @@ class Groups extends Component {
     }
 
 
-
       render() {
   
         return (
@@ -56,10 +55,8 @@ class Groups extends Component {
               <br></br>
                <div className="card-groups col-md-10 mx-auto">
                <h1 className="card-title-groups text-center">{this.props.groupName}</h1>
-
-
                <Container>
-                <Row>
+                <Row className="justify-content-md-center">
                   {this.props.people.map(this.renderPerson)}
                 </Row>
               </Container>
@@ -88,7 +85,7 @@ class Groups extends Component {
                       <MessageBoardModal></MessageBoardModal>
                       <hr />
                     <div className="card-body">
-                    <p className="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
+                    <p className="card-text">Coming Soon!</p>
                   </div>
                 </div>
               </div>
@@ -109,6 +106,7 @@ function mapStateToProps (state) {
       comments: state.group.comments,
       todos: state.group.todos,
       groupName: state.group.group_name,
+      groupDescription: state.group.group_description,
       groupId: state.group._id
     })};
   

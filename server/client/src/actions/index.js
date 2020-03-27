@@ -163,7 +163,7 @@ export const createNewTodoTask = (body, groupID, todoID, taskID ) => dispatch =>
 //Fetching Search for Groups
 //TODO need to test!!
 export const fetchGroupSearch= (query) => dispatch => {
-  axios.get(`/search/groups?=` + query)
+  axios.get(`/search/groups?query=` + query)
   .then(function (response) {
     console.log('response for schedule', response)
     dispatch({ type: FETCH_SEARCH, payload: response.data });
@@ -177,7 +177,7 @@ export const fetchGroupSearch= (query) => dispatch => {
 //Fetching Search for User
 //TODO need to test!!
 export const fetchUserSearch= (query) => dispatch => {
-  axios.get(`/search/users?=` + query)
+  axios.get(`/search/users?query=` + query)
   .then(function (response) {
     console.log('response for schedule', response)
     dispatch({ type: FETCH_SEARCH, payload: response.data });
