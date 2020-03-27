@@ -73,8 +73,9 @@ class Groups extends Component {
               <br></br>
                <div className="card-groups col-md-10 mx-auto">
                <h1 className="card-title-groups text-center">{this.props.groupName}</h1>
+                <h4 className="card-title-groups text-center text-muted">{this.props.groupDescription}</h4>
                <Container>
-                <Row>
+                <Row className="justify-content-md-center">
                   {this.props.people.map(this.renderPerson)}
                 </Row>
               </Container>
@@ -124,6 +125,7 @@ function mapStateToProps (state) {
       comments: state.group.comments,
       todos: state.group.comments,
       groupName: state.group.group_name,
+      groupDescription: state.group.group_description,
       groupId: state.group._id
     })};
   
