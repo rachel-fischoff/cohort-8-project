@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch, withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from '../actions';
-import queryString from "query-string";
 import _ from "lodash";
 import {Image, Row, Container} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import '../index.css';
-import SearchPop from './popover/searchPop'
+
 
 
 //this component is for the renders the search results
@@ -28,6 +27,8 @@ class SearchResults extends Component {
     }
   else{
     return (
+   
+      
            <div className="projects-row">
         
                <div className="col-md-8-offset-3 text-center">
