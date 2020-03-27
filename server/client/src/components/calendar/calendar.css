@@ -144,3 +144,9 @@
 #taskLeft {
   text-align: left;
 }
+
+.cal-tasks {
+  margin-left: 0px;
+  display: block;
+  height: 40px;
+}
