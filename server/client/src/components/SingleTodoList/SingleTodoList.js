@@ -26,6 +26,7 @@ class SingleTodoList extends React.Component {
         this.toggle = this.toggle.bind(this);
         this.toggleNested = this.toggleNested.bind(this);
         this.toggleAll = this.toggleAll.bind(this);
+        this.clickCheckBox = this.clickCheckBox.bind(this)
       }
     
       toggle() {
@@ -47,6 +48,10 @@ class SingleTodoList extends React.Component {
           nestedModal: !this.state.nestedModal,
           closeAll: true
         });
+      }
+
+      clickCheckBox(todo, task, value) {
+        this.props.toggleCompleted(this.props.group._id, todo._id, task._id, value)
       }
 
 componentDidMount() {
@@ -107,7 +112,7 @@ renderSingleTodoList() {
          todo.tasks.map(task => (
           <div className="todo-tasks">
           <div className="row">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
+          <input class="form-check-input" type="checkbox" checked={task.completed} id="defaultCheck1" onClick={(e) => {this.clickCheckBox(todo, task, e.target.checked)}}></input>
           <label class="form-check-label" id="task" for="defaultCheck1">{task.title}</label>
           <button type="button" id="btn" class="btn btn-secondary btn-sm float-right" onClick={(e) => {this.toggleNested(); localStorage.setItem('taskId', e.target.value)}} value={task._id}>Assign/Schedule...</button>
           </div>
