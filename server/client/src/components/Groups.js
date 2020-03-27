@@ -55,6 +55,7 @@ class Groups extends Component {
               <br></br>
                <div className="card-groups col-md-10 mx-auto">
                <h1 className="card-title-groups text-center">{this.props.groupName}</h1>
+               <h4 className="card-title-groups text-center text-muted"> {this.props.groupDescription}</h4>
                <Container>
                 <Row className="justify-content-md-center">
                   {this.props.people.map(this.renderPerson)}
