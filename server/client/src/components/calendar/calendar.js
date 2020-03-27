@@ -84,11 +84,10 @@ class ReactCalendar extends React.Component {
                                         onClosed={this.state.closeAll ? this.toggle : undefined}
                                         >
               
-                                        <ModalBody><div>Stuff and things</div>
+                                        <ModalBody><div>{task.title}</div>
                                                 <div id="taskLeft" className="todo-tasks">
                                                 <div className="row">
                                                 <input  class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
-                                                <label  class="form-check-label" for="defaultCheck1">{task.title}</label>
                                                 <span></span>
                                                 <p id="insideCal" className="profile-name">Assigned To: {task.assigned_to.profile_name}</p>
                                                 <span><Image src={task.assigned_to.profile_pic_url} alt="user avatar" roundedCircle fluid width="25px" height='25px'/></span>
