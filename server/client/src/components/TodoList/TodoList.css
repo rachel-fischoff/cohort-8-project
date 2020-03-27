@@ -24,6 +24,7 @@ span {
     cursor: pointer;
     color: black;
     font-weight: 700;
+    font-size: 125%;
 }
 
 .btnlink:hover {

@@ -21,13 +21,14 @@ const Nav = () => {
 
       return (
         <React.Fragment>
-          <li onClick={handleLogoutClick}>Sign Out</li>
+          <li></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faCampground} /> Home</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faCommentAlt}/> Pings</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faInbox}/> Hey!</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faChartPie}/> Activity</Link></li>
           <li><Link to="/home"><FontAwesomeIcon icon={faSmile}/> My Stuff</Link></li>
           <li id="searchP"><SearchPop ></SearchPop> </li>
+          <li onClick={handleLogoutClick}>Sign Out</li>
           
 
         </React.Fragment>
