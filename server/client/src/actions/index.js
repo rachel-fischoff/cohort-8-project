@@ -119,7 +119,7 @@ export const fetchTask = ( groupID, todoID, taskID) => dispatch => {
 };
 
 //update task
-=======
+
 export const updateTask = (body, groupID, todoID,taskID) => dispatch => {
   axios.put(`/groups/${groupID}/todos/${todoID}/tasks/${taskID}`, body
   ).then(function (response) {
