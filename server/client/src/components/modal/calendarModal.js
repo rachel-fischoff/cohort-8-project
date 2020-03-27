@@ -29,7 +29,7 @@ function CalendarModal({groupId, dates}) {
           </Modal.Header>
           <Modal.Body>
           <SingleCalendar/>
-              <ReactCalendar groupId={groupId} />
+          <ReactCalendar groupId={groupId} />
           </Modal.Body>
         </Modal>
         </div>

@@ -53,19 +53,11 @@ class ReactCalendar extends React.Component {
             console.log('map ', task.tasks)
         ))
     }
-
-    renderTodos() {
-        if (this.props.group.todos === undefined) {
+ 
             return (
-                <div>Loading ... </div>
-            )
-        } else {
-            return (
-                this.props.group.todos.map(todo => (
-                    <div className=" row">
-                        <div className="col fixed-center" id="calendarCenter">
-                        {
-                            todo.tasks.map(task => (
+                    <div>
+                        {tasks.map(task => {
+                            return(
                                 <div className="todo-tasks fixed-center">
                                     <input className="d-flex position-left form-check-input" type="checkbox"  id="defaultCheck1"></input>
                                     <NavLink onClick={this.toggleNested} className="position-absolute float-left form-check-label" for="defaultCheck1">{task.due_date.split('T')[0]}&nbsp;&nbsp;{task.title}</NavLink>
@@ -99,24 +91,21 @@ class ReactCalendar extends React.Component {
                                     <br></br>
                                 </div>
 
-                            ))
-                        }
-                        <br></br>
-                        </div>
-                    </div>
-                ))
+                        )})}
+        </div>
             )
-        }
-    }
-
+}
+    
+  
     render() {
         return (
-            <div>
-                <SingleCalendar
-
-                />
-                <div>{this.renderTodos()}</div>
+            <div className=" row">
+            <div className="col fixed-center" id="calendarCenter">
+                <div>{this.sortAndRenderDates()}</div>
             </div>
+            <br></br>
+            </div>
+            
         )
     }
 }
