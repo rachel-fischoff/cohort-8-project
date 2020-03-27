@@ -29,8 +29,8 @@ class ReactCalendar extends React.Component {
                         {
                             todo.tasks.map(task => (
                                 <div className="todo-tasks">
-                                    <input type="checkbox" className="custom-control-input" id="defaultUnchecked"></input>
-                                    <label className="custom-control-label" for="defaultUnchecked">{task.due_date.split('T')[0]}&nbsp;&nbsp;{task.title}</label>
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
+                                    <label class="form-check-label" for="defaultCheck1">{task.due_date.split('T')[0]}&nbsp;&nbsp;{task.title}</label>
                                     <br></br>
                                 </div>
 
