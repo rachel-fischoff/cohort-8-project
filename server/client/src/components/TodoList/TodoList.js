@@ -8,6 +8,7 @@ import { Image } from 'react-bootstrap'
 //import singleToDoModal from '../modal/singleToDoModal';
 //import Modal from 'react-bootstrap/Modal'
 import { Button, Modal,  ModalBody, ModalFooter } from 'reactstrap';
+import SingleTodoList from '../SingleTodoList/SingleTodoList'
 // import { Link } from 'react-router-dom'
 
 
@@ -18,7 +19,8 @@ class TodoList extends React.Component {
     this.state = {
       modal: false,
       nestedModal: false,
-      closeAll: false
+      closeAll: false,
+      todoId: ''
     };
 
     this.toggle = this.toggle.bind(this);
@@ -60,9 +62,9 @@ renderTodos() {
       <div>Loading ... </div>
     )
   } else {
+
     return(
       this.props.group.todos.map(todo => (
-        
         <div>
           <ReactMinimalPieChart
               animate={false}
@@ -99,22 +101,19 @@ renderTodos() {
       
           <h5>Tasks Completed: {todo.num_completed}/{todo.tasks.length}</h5>
           
-          
-          <Button onClick={this.toggleNested}>{todo.name}</Button>
+          <Button onClick={(e) => {this.toggleNested(); localStorage.setItem('todoId', e.target.value)}} value={todo._id}>{todo.name}</Button>
           <Modal
               isOpen={this.state.nestedModal}
               toggle={this.toggleNested}
               onClosed={this.state.closeAll ? this.toggle : undefined}
             >
-              
-              <ModalBody>Stuff and things</ModalBody>
+              <ModalBody>
+                <SingleTodoList />
+              </ModalBody>
               <ModalFooter>
-                <Button color="primary" onClick={this.toggleNested}>
+                <Button color="success" onClick={this.toggleNested}>
                   Done
                 </Button>{' '}
-                <Button color="secondary" onClick={this.toggleAll}>
-                  All Done
-                </Button>
               </ModalFooter>
             </Modal>
         
