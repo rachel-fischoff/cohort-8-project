@@ -439,7 +439,9 @@ app.put('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) =>
 
 
 //route creates a new todo in the database
-app.post('/groups/:groupId/todos/', ensureAuthenticated, (req, res, next) => {
+
+app.post('/groups/:groupId/todos', ensureAuthenticated, (req, res, next) => {
+
     
     let newTodo = new Todo()
 
@@ -522,7 +524,7 @@ app.post('/groups/:groupId/todos/:todo/comments', ensureAuthenticated,  (req, re
 
 
 //returns a single task  
-app.get('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated,  (req, res, next) => {
+app.get('/groups/:groupId/todos/:todo/tasks/:task',   (req, res, next) => {
     
     Task
     .findById(req.params.task)
@@ -589,6 +591,7 @@ app.get('/home', ensureAuthenticated, (req, res, next) => {
   .exec((err, groups) => {
   if (err) return next(err)
   if (err){
+     
       res.writeHead(404);	
       return response.end("No user is signed in.");
     } else {
@@ -613,11 +616,7 @@ app.get('/groups/:groupId/schedule', ensureAuthenticated, (req, res) => {
         tasks = []
         groups.todos.forEach((todo) => {
           todo.tasks.forEach((task) => {
-            const month = task.due_date.getMonth()
-            const year = task.due_date.getFullYear()
-            if ((month == currentMonth || month == nextMonth) && year == currentYear) {
               tasks.push(task)
-            }
           })
         })
         res.send({tasks, currentMonth, currentYear, nextMonth})

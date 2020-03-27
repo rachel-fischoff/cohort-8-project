@@ -14,8 +14,8 @@ import ProjectPop from './popover/newProjectPop'
 
 class Home extends Component { 
 
-   async componentDidMount() {
-     await this.props.fetchUser()
+   componentDidMount() {
+     this.props.fetchUser()
      this.props.home()
    }
   
@@ -57,7 +57,6 @@ class Home extends Component {
 
   //renders individual card
   renderGroup = (t) =>{
-    console.log('t', t)
     return(
     
     <div className="card col-md-offset-3 text-center" styles="width: 18rem;">
@@ -80,7 +79,7 @@ class Home extends Component {
     }
 
   render() {
-// if (this.props.authenticated){
+
 
     return (
         <div className="home-page">

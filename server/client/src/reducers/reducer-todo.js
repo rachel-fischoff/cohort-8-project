@@ -15,7 +15,7 @@ const INITIAL_STATE = {
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case FETCH_TODOS :
-      return action.payload
+      return action.payload.Group
     default:
       return state;
   }
