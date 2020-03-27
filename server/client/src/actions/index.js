@@ -85,8 +85,7 @@ export const fetchGroupDetails = (groupID) => dispatch => {
 export const createNewTodo = (body, groupID) => dispatch => {
   axios.post(`/groups/${groupID}/todos`, body
   ).then(function (response) {
-    console.log('response in createNew Todo', response)
-    dispatch({ type: FETCH_GROUP_DETAILS, payload: response.data.Group });
+    dispatch({ type: FETCH_GROUP_DETAILS, payload: response.data });
   })
   .catch(function (error) {
     console.log(error);

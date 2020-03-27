@@ -38,6 +38,12 @@ class ProjectPop extends React.Component {
     newProject.people = []
 
     this.props.createNewGroup (newProject)
+    this.setVisibility()
+    this.refreshPage()
+  }
+
+  refreshPage =() => {
+    window.location.reload(true);
   }
 
   setVisibility = () => {

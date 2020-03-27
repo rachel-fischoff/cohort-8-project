@@ -39,7 +39,14 @@ class PopoverPage extends React.Component {
     newTeam.people = []
 
     this.props.createNewGroup (newTeam)
+    this.setVisibility()
+    this.refreshPage()
   }
+
+  refreshPage =() => {
+    window.location.reload(true);
+  }
+
   setVisibility = () => {
     console.log('CLICK')
     this.setState({isVisible: false})
