@@ -439,25 +439,41 @@ app.put('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) =>
 
 
 //route creates a new todo in the database
-app.post('/groups/:groupId/todos/:todo', ensureAuthenticated, (req, res, next) => {
+app.post('/groups/:groupId/todos/', ensureAuthenticated, (req, res, next) => {
     
     let newTodo = new Todo()
 
 
     newTodo.name = req.body.name
     newTodo.description = req.body.description
-    newTodo.num_tasks= req.body.num_tasks
-    newTodo.num_completed = req.body.num_completed
+    newTodo.num_tasks= 0
+    newTodo.num_completed = 0
     newTodo.date_created = new Date ()
     newTodo.tasks = []
     newTodo.comments = []
     
 
-    newTodo.save(function (err) {
+    newTodo.save(function (err, todo) {
         if (err) {
             return next(err);
         }
-        res.send('Todo Created successfully')
+        Group
+        .findById(req.params.groupId)
+        .exec((err, group) => {
+          if(err) {
+            res.writeHead(400)
+            res.send(err)
+          }
+          group.todos.push(todo)
+          group.save((err, grou) => {
+            if (err) {
+              res.writeHead(400)
+              res.send(err)
+            }
+            res.send({group, todo})
+          })
+        }
+      )
     })
 })
 
@@ -582,7 +598,7 @@ app.get('/home', ensureAuthenticated, (req, res, next) => {
 })
   
 //route for getting a groups tasks for one month
-app.get('/groups/:groupdId/schedule', ensureAuthenticated, (req, res) => {
+app.get('/groups/:groupId/schedule', ensureAuthenticated, (req, res) => {
   const currentMonth = parseInt(req.body.currentMonth)
   const currentYear = parseInt(req.body.currentYear)
   const nextMonth = currentMonth + 1
