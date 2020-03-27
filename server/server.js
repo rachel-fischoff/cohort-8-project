@@ -458,6 +458,11 @@ app.post('/groups/:groupId/todos', ensureAuthenticated, (req, res, next) => {
         }
         Group
         .findById(req.params.groupId)
+        .populate(
+          {path:'people'})
+        .populate({path: 'comments', populate: {path: 'author'}})
+        .populate({path: 'todos', populate: {path:'comments'}, populate: {path:'tasks', 
+         populate: {path:'assigned_to'}}})
         .exec((err, group) => {
           if(err) {
             res.writeHead(400)
@@ -469,7 +474,7 @@ app.post('/groups/:groupId/todos', ensureAuthenticated, (req, res, next) => {
               res.writeHead(400)
               res.send(err)
             }
-            res.send({group})
+            res.send(group)
           })
         }
       )
