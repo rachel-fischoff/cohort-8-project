@@ -64,4 +64,16 @@
     background-color: #f6f2ef;
 }
 
+.landingLogo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50px;
+}
+
+.logoTitle {
+    float: left;
+    overflow: auto;
+    text-align: center;
+}
 

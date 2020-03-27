@@ -7,6 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import '../index.css';
 import GoogleLoginButton from './GoogleLoginButton';
+import logo from './assets/logo.JPG'
+import { Image } from 'react-bootstrap';
 
 class LandingPage extends Component {  
 
@@ -20,6 +22,12 @@ class LandingPage extends Component {
           // case true:
             return (
               <React.Fragment>
+              <div className="d-flex inline-block">
+                
+                <Image className="landingLogo" src={logo} ></Image>
+                <h5 className="logoTitle">Basecamp</h5>
+              </div>
+              
                 <div className="home-page">
                 <div className="projects-row">
                     <div className="col-md-8-offset-3 text-center">
@@ -32,6 +40,7 @@ class LandingPage extends Component {
                     </div>
                 </div>
               </React.Fragment>
+              
             )
           // default:
           //   return (
