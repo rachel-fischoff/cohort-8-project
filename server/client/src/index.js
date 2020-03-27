@@ -14,12 +14,14 @@ import LandingPage from './components/LandingPage';
 //import TaskForm from './components/TaskForm';
 import Groups from './components/Groups';
 import ReactCalendar from './components/calendar/calendar';
+import SearchResults from './components/SearchResults'
+
 
 const store = createStore(rootReducer, {}, applyMiddleware(thunk));
 
 render(
   <Provider store={store}>
-    <Router>
+    <Router  >
       <Fragment>
         <Nav />
         <App>
@@ -28,6 +30,7 @@ render(
             <Route exact path="/home" component={Home} />
             <Route exact path={`/groups/:groupId`} component={Groups} />
             <Route exact path="/calendar" component={ReactCalendar} />
+            <Route exact path = "/search" component = {SearchResults} />
           </Switch>
         </App>
       </Fragment>
