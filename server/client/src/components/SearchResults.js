@@ -31,7 +31,7 @@ class SearchResults extends Component {
     return (
         <div>
            <div className="projects-row">
-            <Nav />
+            <Nav /> 
                <div className="col-md-8-offset-3 text-center">
 
                 <h1>Teams & Projects</h1>
