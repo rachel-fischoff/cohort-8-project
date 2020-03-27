@@ -2,22 +2,35 @@ import React, { Fragment } from 'react'
 import { connect } from "react-redux";
 import * as actions from '../../actions'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import $ from 'jquery';
 import './TodoList.css'
 import ReactMinimalPieChart from 'react-minimal-pie-chart'
 import { Image } from 'react-bootstrap'
-import SingleToDoModal from '../modal/singleToDoModal'
+import TaskForm from '../TaskForm';
 import { Link } from 'react-router-dom'
 // import CommentsContainer from '../comments/comments_container'
 
 
 class TodoList extends React.Component {
+  constructor(props){
+    super(props)
+
+    
+    this.redirectToTask = this.redirectToTask.bind(this)
+  }
 
   async componentDidMount() {
     console.log(this.props)
     console.log(this.props.group.todos)
   }
 
+  redirectToTask() {
+    return <TaskForm />
+  }
+
 renderTodos() {
+
+
   if (this.props.group.todos === undefined) {
     return (
       <div>Loading ... </div>
@@ -64,8 +77,12 @@ renderTodos() {
          todo.tasks.map(task => (
           <div className="todo-tasks">
           <div className="row">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
-          <label class="form-check-label" for="defaultCheck1">{task.title}</label>
+          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ></input>
+          <label class="form-check-label" for="defaultCheck1" >
+
+          <span>To-do's</span>
+          
+          </label>
            <span><Image src={task.assigned_to.profile_pic_url} alt="user avatar" roundedCircle fluid width="25px" height='25px'/></span>
            <p className="profile-name">Assigned To: {task.assigned_to.profile_name}</p>
            <br></br>
@@ -82,6 +99,7 @@ renderTodos() {
 }
 
   render() {
+
       return (
       <div>{this.renderTodos()}</div>
       )
@@ -93,7 +111,9 @@ function mapStateToProps(state) {
   return ({
     homePage: state.home,
     user: state.user,
-    group: state.group
+    group: state.group,
+    groupId: state.group._id,
+    todoId: state.todo._id
   })
 }
 

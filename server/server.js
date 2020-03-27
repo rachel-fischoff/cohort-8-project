@@ -506,7 +506,7 @@ app.post('/groups/:groupId/todos/:todo/comments', ensureAuthenticated,  (req, re
 
 
 //returns a single task  
-app.get('/groups/:groupId/todos/:todo/tasks/:task', ensureAuthenticated,  (req, res, next) => {
+app.get('/groups/:groupId/todos/:todo/tasks/:task',   (req, res, next) => {
     
     Task
     .findById(req.params.task)

@@ -16,7 +16,7 @@ const SingleReactCalendar = () => {
             <div className="col">
             <Calendar
                 className="col"
-                showDoubleView
+                showSingleView
                 showNeighboringMonth={true}
                 onChange={onChange}
                 value={date}

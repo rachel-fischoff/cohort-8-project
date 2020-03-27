@@ -97,20 +97,9 @@ export const fetchTodos = (groupID, todoID) => dispatch => {
 
 //====================================================
 export const fetchTask = ( groupID, todoID, taskID) => dispatch => {
-  axios.get(`/groups/${groupID}/todos/${todoID}/${taskID}`
+  axios.get(`/groups/${groupID}/todos/${todoID}/tasks/${taskID}`
   ).then(function (response) {
     console.log('response in get Task', response)
-    dispatch({ type: FETCH_TASK, payload: response.data });
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-};
-//update tast
-export const updateTask = (body, groupID, todoID,taskID) => dispatch => {
-  axios.post(`/groups/${groupID}/todos/${todoID}/tasks/${taskID}`, body
-  ).then(function (response) {
-    console.log('response in update Task', response)
     dispatch({ type: FETCH_TASK, payload: response.data });
   })
   .catch(function (error) {
@@ -121,9 +110,9 @@ export const updateTask = (body, groupID, todoID,taskID) => dispatch => {
 //Adding Task on TODO Component
 //TODO need actual route and need to test!!
 ///groups/:groupId/todos/:todo/tasks/:task
-export const createNewTodoTask = (body, userID, groupID, todoID ) => dispatch => {
+export const updateTask = (body, groupID, todoID, taskID ) => dispatch => {
   axios
-  .post(`/${userID}/groups/${groupID}/todos/${todoID}`, body
+  .post(`/groups/${groupID}/todos/${todoID}/tasks/${taskID}`, body
     ).then(function (response) {
       dispatch({ type: FETCH_TODOS, payload: response.data });
     })
