@@ -1,34 +1,27 @@
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal'
 import './modal.css';
+import {render} from 'react'
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import TodoList from '../TodoList/TodoList';
 import TaskForm from '../TaskForm';
 
   
-  function SingleToDoModal() {
+  function SingleToDoModal({todoId}) {
       //state for modal
       const [show, setShow] = useState(false);
       
       //when a sing todo list is clicked on it changes the state to see modal
       //also event value to know which one was clicked
-      //did not write event.value info without data
-      const clickOnATodoList = function(e){
-          setShow(true)
-      }
+      //did not write event.value info without dat
 
-      //loop through todos
-      const renderSingleTodoLists = function(){
-        return(
-          <h5 variant="primary" value='ID' onClick={clickOnATodoList}>
-          </h5>
-        )
-      }
 
       //need to add map function when data is avaliable where render function is
-      return (
+        return (
         <>
+          <h5 variant="primary" value='todoId' onClick={() => setShow(true)}>
+          </h5>
           <Modal className="modal-background-color"
               backdrop="true"
               size="xl"
@@ -51,7 +44,8 @@ import TaskForm from '../TaskForm';
           </Modal>
         </>
       );
-    }
+  }
+
   
     function mapStateToProps(state) {
       return {state};
