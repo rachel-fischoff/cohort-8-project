@@ -71,20 +71,15 @@ class ReactCalendar extends React.Component {
             }
         }
     }
-        if (this.props.tasks === undefined) {
-            return (
-                <div>Loading ... </div>
-            )
-        } else {
+ 
             return (
                     <div>
-                        {
-                            tasks.map(function(t){
-                                return(
+                        {tasks.map(task => {
+                            return(
                                 <div className="todo-tasks fixed-center">
                                     <input className="d-flex position-left form-check-input" type="checkbox"  id="defaultCheck1"></input>
-                                    <NavLink className="position-absolute float-left form-check-label" for="defaultCheck1">{t.due_date}&nbsp;&nbsp;{t.title}</NavLink>
-                                        {/* <Modal
+                                    <NavLink onClick={this.toggleNested} className="position-absolute float-left form-check-label" for="defaultCheck1">{task.due_date.split('T')[0]}&nbsp;&nbsp;{task.title}</NavLink>
+                                        <Modal
                                         isOpen={this.state.nestedModal}
                                         toggle={this.toggleNested}
                                         onClosed={this.state.closeAll ? this.toggle : undefined}
@@ -95,10 +90,10 @@ class ReactCalendar extends React.Component {
                                                 <div id="taskLeft" className="todo-tasks">
                                                 <div className="row">
                                                 <input  class="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
-                                                <label  class="form-check-label" for="defaultCheck1">{t.title}</label>
+                                                <label  class="form-check-label" for="defaultCheck1">{task.title}</label>
                                                 <span></span>
-                                                <p id="insideCal" className="profile-name">Assigned To: {t.assigned_to.profile_name}</p>
-                                                <span><Image src={t.assigned_to.profile_pic_url} alt="user avatar" roundedCircle fluid width="25px" height='25px'/></span>
+                                                <p id="insideCal" className="profile-name">Assigned To: {task.assigned_to.profile_name}</p>
+                                                <span><Image src={task.assigned_to.profile_pic_url} alt="user avatar" roundedCircle fluid width="25px" height='25px'/></span>
                                                 </div>
                                                 </div>
                                         </ModalBody>
@@ -110,25 +105,25 @@ class ReactCalendar extends React.Component {
                                             All Done
                                             </Button>
                                         </ModalFooter>
-                                        </Modal> */}
+                                        </Modal>
                                     <br></br>
                                 </div>
-                                )
-                            
-                            })
-                        }
-                        <br></br>
-                        </div>
-                )
-        }
-    }
+
+                        )})}
+        </div>
+            )
+}
     
   
     render() {
         return (
-            <div>
+            <div className=" row">
+            <div className="col fixed-center" id="calendarCenter">
                 <div>{this.sortAndRenderDates()}</div>
             </div>
+            <br></br>
+            </div>
+            
         )
     }
 }
