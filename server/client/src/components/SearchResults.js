@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from '../actions';
 import queryString from "query-string";
@@ -8,33 +8,18 @@ import {Image, Row, Container} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import '../index.css';
-import PopoverPage from './popover/newTeamPop';
-import ProjectPop from './popover/newProjectPop';
-import Nav from './Nav';
+import SearchPop from './popover/searchPop'
 
 
+//this component is for the renders the search results
+class SearchResults extends Component { 
 
-class Home extends Component { 
+    componentDidMount() {
+   
+      }
 
-   componentDidMount() {
-     this.props.fetchUser()
-     this.props.home()
-   }
-  
-   //Create a new team
-  clickHandlerNewTeam = () => {
-    console.log('click')
-    PopoverPage()
-  }
-
-  //create new project
-  clickHandlerNewProject = () => {
-    console.log('clicked new project')
-    ProjectPop ()
-  }
-
-  //sorts teams and renders card
-  sortTeam = (p) => {
+    //sorts teams and renders card
+    sortTeam = (p) => {
     if (p.group_type === 'team'){
       return (
       this.renderGroup(p)
@@ -84,27 +69,27 @@ class Home extends Component {
 
 
     return (
-      <div>
-      <Nav />
         <div className="home-page">
            <div className="projects-row">
-             <PopoverPage></PopoverPage>
+        
                <div className="col-md-8-offset-3 text-center">
-                <h1 className="separator">Teams</h1>
+
+                <h1>Teams</h1>
                   <br></br>
-                  {this.props.homePage.map(this.sortTeam)}
+                  {this.props.searchResults.map(this.sortTeam)}
                 </div>
               </div>
               
               <div className="projects-row">
-              <ProjectPop></ProjectPop>
+                <div className="col justify-content-left">
+      
+               </div>
                 <div className="col-md-8-offset-3 text-center">
                  <h1>Projects</h1>
                   <br></br>
-                  {this.props.homePage.map(this.sortProject)}
+                  {this.props.searchResults.map(this.sortProject)}
                 </div>
             </div>
-          </div>
         </div>
     );
 // }else{
@@ -113,16 +98,17 @@ class Home extends Component {
 }
 }
 
+
+
 function mapStateToProps(state) {
-  return ({
-    homePage: state.home,
-    user: state.user
-  })
-
-}
-
-export default connect(
-  mapStateToProps,
-  actions
-)(Home);
-
+    
+    console.log(state.search)
+    return ({
+    searchResults: state.search,
+  
+     
+    })
+   
+  }
+    
+export default connect(mapStateToProps, actions)(SearchResults);
