@@ -28,6 +28,7 @@ class Groups extends Component {
   //fetches data when loads
   componentDidMount(){
     this.props.fetchGroupDetails(this.props.match.params.groupId)
+  
   }
 
   viewToDoList = () => {
@@ -37,6 +38,8 @@ class Groups extends Component {
   modalConfirmHandler = () => {
     this.setState({ viewingToDos: false });
   }
+
+
 
   renderScheduleDates(t){
     
