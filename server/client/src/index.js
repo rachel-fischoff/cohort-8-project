@@ -16,6 +16,7 @@ import Groups from './components/Groups';
 import ReactCalendar from './components/calendar/calendar';
 import SearchResults from './components/SearchResults'
 import SingleTodoList from './components/SingleTodoList/SingleTodoList'
+import TaskForm from './components/TaskForm'
 
 
 const store = createStore(rootReducer, {}, applyMiddleware(thunk));
@@ -30,6 +31,7 @@ render(
             <Route exact path="/home" component={Home} />
             <Route exact path={`/groups/:groupId`} component={Groups} />
             <Route exact path={`/groups/:groupId/todo/:todoId`} component={SingleTodoList}/>
+            <Route exact path={`/groups/:groupId/todo/:todoId/task/:taskId`} component={TaskForm}/>
             <Route exact path="/calendar" component={ReactCalendar} />
             <Route exact path = "/search" component = {SearchResults} />
           </Switch>

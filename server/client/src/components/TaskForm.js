@@ -6,6 +6,8 @@ import SingleReactCalendar from './calendar/singleCalendar'
 import './calendar/calendar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './groups.css'
+import { Button } from 'react-bootstrap';
+import Nav from './Nav'
 
 class TaskForm extends React.Component {
   constructor(props){
@@ -114,6 +116,11 @@ class TaskForm extends React.Component {
     console.log('task from task form: ', this.props.task)
 
     return (
+      <>
+      <Nav />
+      <div className="app_body">
+      <div className="card-groups col-md-10 panel">
+      <br></br>
       <div className='tasks' id={`todo-id`}>
         <div className="row" >
           <div class="custom-control custom-checkbox">
@@ -189,7 +196,13 @@ class TaskForm extends React.Component {
               className='btn btn-cancel' onClick={this.handleCancel}/>
           </div>
         </form>
+        <Button color="success" href={`/groups/${this.props.match.params.groupId}/todo/${this.props.match.params.todoId}`}>
+                  Done
+      </Button>{' '}
       </div>
+      </div>
+      </div>
+      </>
     )
   }
 }

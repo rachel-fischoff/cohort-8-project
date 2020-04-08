@@ -122,7 +122,7 @@ renderSingleTodoList() {
           <div className="row">
           <input class="form-check-input" type="checkbox" checked={task.completed} id="defaultCheck1" onClick={(e) => {this.clickCheckBox(todo, task, e.target.checked)}}></input>
           <label class="form-check-label" id="task" for="defaultCheck1">{task.title}</label>
-          <button type="button" id="btn" class="btn btn-secondary btn-sm float-right" onClick={(e) => {this.toggleNested(); localStorage.setItem('taskId', e.target.value)}} value={task._id}>Assign/Schedule...</button>
+          <a href={`/groups/${this.props.group._id}/todo/${todo._id}/task/${task._id}`}><button className="btnlink"  id="btn" class="btn btn-secondary btn-sm float-right" value={task._id}>Assign/Schedule...</button></a>
           </div>
            <div className="row">
            <span><Image src={task.assigned_to.profile_pic_url} alt="user avatar" roundedCircle fluid width="25px" height='25px'/></span>
