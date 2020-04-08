@@ -172,6 +172,10 @@ renderSingleTodoList() {
       <div className="card-groups col-md-10 panel">
       <br></br>
       {this.renderSingleTodoList()}
+
+      <Button color="success" href={`/groups/${this.props.match.params.groupId}`}>
+                  Done
+      </Button>{' '}
       </div>
       </div>
       </>
