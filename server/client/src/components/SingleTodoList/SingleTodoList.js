@@ -7,7 +7,7 @@ import { Image } from 'react-bootstrap'
 //import singleToDoModal from '../modal/singleToDoModal';
 //import Modal from 'react-bootstrap/Modal'
 import { Modal,  ModalBody, ModalFooter } from 'reactstrap';
-import { Button, Accordion, Card } from 'react-bootstrap';
+import { Button, Row, Col} from 'react-bootstrap';
 import TaskForm from '../TaskForm'
 import './SingleTodoList.css'
 import NewTask from '../NewTask'
@@ -80,6 +80,11 @@ renderSingleTodoList() {
     return(
       newTodo.map(todo => (
         <div>
+          <Row className="justify-content-md-center">
+          
+          <h2 className='todo-title'>{todo.name}</h2>
+       
+      
           <ReactMinimalPieChart
               animate={false}
               cx={50}
@@ -105,16 +110,16 @@ renderSingleTodoList() {
             rounded={false}
             startAngle={100}
             style={{
-              height: '100px'
+              height: '100px',
+              width:'100px'
             }}
             viewBoxSize={[
              20,
              20
             ]}
           />
-      
-          <p className="todo-completed text-center">{todo.num_completed}/{todo.tasks.length} completed</p>
-          <h2 className='text-center'>{todo.name}</h2>
+        
+          </Row>
           <br></br>
           {
          todo.tasks.map(task => (
@@ -173,7 +178,7 @@ renderSingleTodoList() {
       <br></br>
       {this.renderSingleTodoList()}
 
-      <Button color="success" href={`/groups/${this.props.match.params.groupId}`}>
+      <Button color="success" className='right' href={`/groups/${this.props.match.params.groupId}`}>
                   Done
       </Button>{' '}
       </div>

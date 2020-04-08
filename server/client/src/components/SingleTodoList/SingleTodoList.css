@@ -6,3 +6,16 @@
 #task {
     margin-right: 20px;
 }
+
+.todo-title{
+ margin-top:20px;
+}
+
+.todo-tasks{
+    margin-left:400px;
+}
+
+.right{
+    float:right;
+    margin-right:400px;
+}

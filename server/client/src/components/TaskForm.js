@@ -32,9 +32,9 @@ class TaskForm extends React.Component {
     console.log(this.props)
     //fetch is working with hardcoded values
 
-    let groupID = this.props.groupID;
-    let todoID = this.props.todoID;
-    let taskID = this.props.taskID;
+    let groupID = this.props.match.params.groupId
+    let todoID = this.props.match.params.todoID;
+    let taskID = this.props.match.params.taskID;
 
     this.props.fetchTask(groupID, todoID, taskID)
     
