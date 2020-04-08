@@ -15,6 +15,7 @@ import LandingPage from './components/LandingPage';
 import Groups from './components/Groups';
 import ReactCalendar from './components/calendar/calendar';
 import SearchResults from './components/SearchResults'
+import SingleTodoList from './components/SingleTodoList/SingleTodoList'
 
 
 const store = createStore(rootReducer, {}, applyMiddleware(thunk));
@@ -28,6 +29,7 @@ render(
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/home" component={Home} />
             <Route exact path={`/groups/:groupId`} component={Groups} />
+            <Route exact path={`/groups/:groupId/todo/:todoId`} component={SingleTodoList}/>
             <Route exact path="/calendar" component={ReactCalendar} />
             <Route exact path = "/search" component = {SearchResults} />
           </Switch>

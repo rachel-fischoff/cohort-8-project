@@ -11,7 +11,7 @@ import { Image } from 'react-bootstrap'
 import { Modal,  ModalBody, ModalFooter, NavLink } from 'reactstrap';
 import SingleTodoList from '../SingleTodoList/SingleTodoList'
 import NewTask from '../NewTask'
-import { Button, Accordion, Card } from 'react-bootstrap';
+import { Button, Accordion, Card} from 'react-bootstrap';
 // import { Link } from 'react-router-dom'
 
 
@@ -107,8 +107,7 @@ renderTodos() {
           />
       
           <h5>Tasks Completed: {todo.num_completed}/{todo.tasks.length}</h5>
-          
-          <Button className="btnlink" onClick={(e) => {this.toggleNested(); localStorage.setItem('todoId', e.target.value)}} value={todo._id}>{todo.name}</Button>
+          <Button className="btnlink" href={`/groups/${this.props.group._id}/todo/${todo._id}`} value={todo._id}>{todo.name}</Button>
           <Modal
               isOpen={this.state.nestedModal}
               toggle={this.toggleNested}

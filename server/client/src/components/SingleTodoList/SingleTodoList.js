@@ -21,13 +21,14 @@ class SingleTodoList extends React.Component {
           modal: false,
           nestedModal: false,
           closeAll: false,
-          todoId: ''
+          todoId: this.props.match.params.todoId
         };
     
         this.toggle = this.toggle.bind(this);
         this.toggleNested = this.toggleNested.bind(this);
         this.toggleAll = this.toggleAll.bind(this);
         this.clickCheckBox = this.clickCheckBox.bind(this)
+        this.renderSingleTodoList = this.renderSingleTodoList.bind(this)
       }
     
       toggle() {
@@ -57,8 +58,12 @@ class SingleTodoList extends React.Component {
       }
 
 componentDidMount() {
-    let todoId = localStorage.getItem('todoId')
-    this.setState({todoId: todoId})
+    this.props.fetchGroupDetails(this.props.match.params.groupId)
+
+    let newTodo = this.props.group.todos.filter(function(t){
+      return t._id === this.props.match.params.todoId
+    })
+    
   }
 
 renderSingleTodoList() {
@@ -153,8 +158,11 @@ renderSingleTodoList() {
     )
   }
 }
+  
+
 
   render() {
+    console.log('I render')
       return (
         
       <div>
@@ -168,6 +176,7 @@ renderSingleTodoList() {
 
 
 function mapStateToProps(state) {
+  console.log(state)
   return ({
     homePage: state.home,
     user: state.user,
