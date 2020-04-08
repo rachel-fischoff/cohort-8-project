@@ -11,6 +11,7 @@ import { Button, Accordion, Card } from 'react-bootstrap';
 import TaskForm from '../TaskForm'
 import './SingleTodoList.css'
 import NewTask from '../NewTask'
+import Nav from '../Nav'
 // import { Link } from 'react-router-dom'
 // import CommentsContainer from '../comments/comments_container'
 
@@ -112,8 +113,8 @@ renderSingleTodoList() {
             ]}
           />
       
-          <p className="todo-completed">{todo.num_completed}/{todo.tasks.length} completed</p>
-          <h2>{todo.name}</h2>
+          <p className="todo-completed text-center">{todo.num_completed}/{todo.tasks.length} completed</p>
+          <h2 className='text-center'>{todo.name}</h2>
           <br></br>
           {
          todo.tasks.map(task => (
@@ -164,12 +165,16 @@ renderSingleTodoList() {
   render() {
     console.log('I render')
       return (
-        
-      <div>
+      <>
+
+      <Nav />
+      <div className="app_body">
+      <div className="card-groups col-md-10 panel">
+      <br></br>
       {this.renderSingleTodoList()}
-      
       </div>
-      
+      </div>
+      </>
       )
   }
 }
