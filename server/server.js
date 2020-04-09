@@ -97,8 +97,16 @@ passport.use(
               profile_pic_url: profile.photos[0].value,
               date_created: new Date()
             })
-            .save()
-            .then(user => done(null, user))
+            .save((err, user) => {
+              Group.find({}).exec((err,groups) => {
+                groups.forEach(group => {
+                  group.people.push(user)
+                  group.save()
+                })
+              })
+
+              return done(null, user)
+            })
           }
         })
     }
@@ -115,6 +123,331 @@ const ensureAuthenticated = (req, res, next) => {
 
 const googleAuth = passport.authenticate('google',
   { scope: ['profile', 'email']
+})
+
+groups = [
+  {
+    groupName: "Leyland Melvin Day",
+    groupType: "project",
+    groupDescription: " Lynchburg, VA chose to honor its highest reaching citizen, astronaut Leyland Melvin, by honoring his birthday April 7th. We’re here to explore the relationship between a space traveller and his hometown. ",
+    todos: [
+      {
+        todoName: "Trip to Lynchburg, VA",
+        todoDescription: "Cordinate research and recording trip to Lynchburg, VA.",
+        tasks: [
+          {
+            title: "Contact Lynchburg mayor’s office",
+            completed: true
+          },
+          {
+            title: "Meet with reporters to discuss story outline",
+            completed: false
+          },
+          {
+            title: "Finalize trip equipment",
+            completed: false
+          }
+        ]
+      },
+      {
+        todoName: "Leyland Melvin interview",
+        todoDescription: "Conducting audio interview with Mr. Melvin",
+        tasks: [
+          {
+            title: "Settle location and interview method",
+            completed: true
+          },
+          {
+            title: "Sent Mr. Melvin’s office a preparation packet",
+            completed: false
+          }
+        ]
+      },
+      {
+        todoName: "Leyland Melvin bio",
+        todoDescription: "Write and record a short biography for beginning of episode",
+        tasks: [
+          {
+            title: "Check-in with research team",
+            completed: false
+          },
+          {
+            title: "Assign a writer for completing the bio",
+            completed: true
+          },
+          {
+            title: "Set final due date",
+            completed: false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    groupName: "How Helsinki handles homelessness",
+    groupType: "project",
+    groupDescription: "Helenski has developed an innovative and effective solution to homeless. We’ll explore how the program works and what makes it effective.",
+    todos: [
+      {
+        todoName: "Research",
+        todoDescription: "Basic research covering the creation of the program, how the program works and the results of the program",
+        tasks: [
+          {
+            title: "Assign writing lead",
+            completed: false
+          },
+          {
+            title: "Discuss research goals and objectives",
+            completed: true
+          }
+        ]
+      },
+      {
+        todoName: "Outlining",
+        todoDescription: "Draft a basic outline including defining the piece's main point.",
+        tasks: [
+          {
+            title: "Review initial pitch",
+            completed: true
+          },
+          {
+            title: "Meeting with writing team to pitch and outline",
+            completed: true
+          },          {
+            title: "Discuss publication timelines",
+            completed: false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    groupName: "Management",
+    groupType: "team",
+    groupDescription: "We're the ones in charge here - or that's what they let us think.",
+    todos: [
+      {
+        todoName: "Ongoing",
+        todoDescription: "Rotating list of ongoing tasks",
+        tasks: [
+          {
+            title: "Check-in Leyland Melvin team for budget estimate",
+            completed: false
+          },
+          {
+            title: " Check-in with podcast team to review equipment rental policy",
+            completed: false
+          },
+          {
+            title: " Meeting to discuss last minute changes to Sunday edition",
+            completed: true
+          }
+        ]
+      },
+      {
+        todoName: "Weeklies",
+        todoDescription: "Tasks to be review and completed weekly",
+        tasks: [
+          {
+            title: "Budget overview",
+            completed: true
+          },
+          {
+            title: "Overview of the next six weeks publishing schedule",
+            completed: true
+          },
+          {
+            title: "Equipment check-in",
+            completed: true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    groupName: "Research",
+    groupType: "team",
+    groupDescription: "Team responsible for organizing and completing all research tasks",
+    todos: [
+      {
+        todoName: "Ongoing",
+        todoDescription: "A rotating list of misc. tasks",
+        tasks: [
+          {
+            title: "Contact Alexandria public library re: print sources",
+            completed: true
+          },
+          {
+            title: " Research outline for Arizona MLB  affair exposé",
+            completed: false
+          },
+          {
+            title: "Research summary for Kenny Rogers piece",
+            completed: true
+          }
+        ]
+      },
+      {
+        todoName: "Weeklies",
+        todoDescription: "Tasks to be review and completed weekly",
+        tasks: [
+          {
+            title: "Check-in with research team leads",
+            completed: true
+          },
+          {
+            title: "Define and outline research priorities",
+            completed: true
+          },
+          {
+            title: "Brainstorm new research ideas",
+            completed: true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    groupName: "Writing",
+    groupType: "team",
+    groupDescription: "We're the ones who do all of the work",
+    todos: [
+      {
+        todoName: "Reorganizing the archive",
+        todoDescription: "Trying to streamline everything for easier backwards compatability",
+        tasks: [
+          {
+            title: " Meet with writing to discuss future story formatting and guidlines",
+            completed: false
+          },
+          {
+            title: " Individual meetings with writers to discuss individual portfolios",
+            completed: false
+          }
+        ]
+      },
+      {
+        todoName: "Weeklies",
+        todoDescription: "Tasks to be review and completed weekly",
+        tasks: [
+          {
+            title: "Story progress check-in",
+            completed: false
+          },
+          {
+            title: "New story pitch meeting",
+            completed: true
+          },
+          {
+            title: "Areas awaiting editor approval/assistance",
+            completed: false
+          }
+        ]
+      },
+      {
+        todoName: "Ongoing",
+        todoDescription: "Every changing list of new things to do",
+        tasks: [
+          {
+            title: " Discuss progress on Jomboy media think piece",
+            completed: true
+          },
+          {
+            title: " Meet to adjust publication time-schedule for upcoming up-eds",
+            completed: false
+          },
+          {
+            title: " Pitches for summer historic get away pieces",
+            completed: false
+          }
+        ]
+      }
+    ]
+  }
+]
+
+app.get("/generate-real-fake-tasks", async (req,res) => {
+  groups.forEach(g => {
+    g.todos.forEach(async (td) => {
+      let newTasks = await td.tasks.map(async (tsk) => {
+        let task = new Task()
+        task.title = tsk.title
+        task.date_created = new Date()
+        task.due_date = faker.date.future()
+        task.completed = tsk.completed
+
+        let assignedTo = await User.aggregate(
+          [ { $sample: { size: 1 } } ]
+        )
+
+        task.assigned_to = assignedTo[0]
+
+        let newTask = await task.save()
+
+        return newTask
+      })
+    })
+  }) 
+  
+  res.send()
+})
+
+app.get("/generate-real-fake-todos", async (req,res) => {
+  groups.forEach(g => {
+    g.todos.forEach(async (td) => {
+      let todo = new Todo()
+
+      todo.name = td.todoName
+      todo.description = td.todoDescription
+      todo.date_created = new Date()
+
+      const num_tasks = Math.round((Math.random() * 10)/3) + 1
+
+      Task.aggregate(
+        [ { $sample: { size: num_tasks } } ]
+      ).exec((error, tasks) => {
+        for (var j = 0; j < num_tasks; j++) {
+          todo.tasks.push(tasks[j])
+        }
+
+        todo.save()
+      })
+    })
+  })
+  res.send()
+})
+
+app.get("/generate-real-fake-groups", async (req,res) => {
+  groups.forEach(g => {
+    let group = new Group()
+
+    group.group_name = g.groupName
+    group.group_type = g.groupType
+    group.group_description = g.groupDescription
+
+    const num_people = Math.round((Math.random() * 10)/5) + 1
+
+    User.aggregate(
+      [ { $sample: { size: num_people } } ]
+    ).exec((error, people) => {
+      for (var j = 0; j < num_people; j++) {
+        group.people.push(people[j])
+      }
+
+      const num_todos = Math.round((Math.random() * 10)/3) + 1
+
+      Todo.aggregate(
+        [ { $sample: { size: num_todos } } ]
+      ).exec((error, todos) => {
+        for (var j = 0; j < num_todos; j++) {
+          group.todos.push(todos[j])
+        }
+        group.save()
+      })
+    })
+  })
+
+  res.send()
 })
 
 app.get('/generate-fake-users', (req, res) => {
