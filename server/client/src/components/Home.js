@@ -64,7 +64,7 @@ class Home extends Component {
     <div className="card col-md-offset-3 text-center" styles="width: 18rem;">
     <Link to={`/groups/${t._id}`}>
     <div className="card-body">
-    <h5 className="card-title">{t.group_name}</h5>
+    <h5 className="card-title">Project</h5> {/* hardcoded Project for formatting purposes need to re-add t.group_name when better data is added */}
     <h6 className="card-subtitle mb-2 text-muted">{t.group_type}</h6>
     <Container>
     <Row>
@@ -85,26 +85,43 @@ class Home extends Component {
     return (
       <div>
       <Nav />
-        <div className="home-page">
-           <div className="projects-row">
-             <PopoverPage></PopoverPage>
-               <div className="col-md-8-offset-3 text-center">
-                <h1 className="separator">Teams</h1>
-                  <br></br>
-                  {this.props.homePage.map(this.sortTeam)}
+
+           <div className="row text-center">
+              <div className="col-md-4 two">
+              <PopoverPage/>
+              </div>
+
+              <div className="col-md-8-offset-3 team-col">
+                <h1 className="teams2">Teams</h1>
                 </div>
+
+                
+                <div className="row text-center marg1">
+                  <div className="col-md-8-offset-3">
+                    {this.props.homePage.map(this.sortTeam)}
+                    </div>
+                 
               </div>
               
-              <div className="projects-row">
-              <ProjectPop></ProjectPop>
-                <div className="col-md-8-offset-3 text-center">
-                 <h1>Projects</h1>
-                  <br></br>
-                  {this.props.homePage.map(this.sortProject)}
+              <div className="row text-center projects">
+              <div className="col-md-4 one">
+                <ProjectPop/>
+              </div>
+
+              <div className="col-md-8-offset-3">
+                <h1 className="teams">Projects</h1>
                 </div>
+
+                <div className="row text-center marg">
+                    <div className="col-md-8-offset-3">
+                  {this.props.homePage.map(this.sortProject)}
+    
+                  </div>
+                </div>
+
             </div>
           </div>
-        </div>
+          </div>
     );
 // }else{
 //    return <Redirect push to="/" />;

@@ -17,7 +17,12 @@
     width: 325px;
     align-content: center;
     margin-bottom: 30px;
+    align-items: center;
+    margin: 10px;
+}
 
+.team-card-m {
+    margin-left: 2%;
 }
 
 .card__content {
@@ -90,6 +95,7 @@
 .projects-row {
     background-color: #f6f2ef;
     padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .landingLogo {
@@ -108,4 +114,42 @@
 .home-page {
     background-color: #f6f2ef;
     min-height: 700px;
+}
+
+.teams {
+    margin-top: 70px;
+    display: inline-block;
+    margin-bottom: 5px;
+    margin-left: 100%
+}
+
+.teams2 {
+    margin-top: 100px;
+    display: inline-block;
+    margin-bottom: 5px;
+    margin-left: 140%
+}
+
+.col-md-4 {
+    margin-top: 1%;
+}
+
+.one {
+    margin-left: 12px;
+}
+
+.two {
+    margin-top: 4%
+}
+
+.team-col {
+    margin-top:1%;
+}
+
+.marg {
+    margin-left: 5%;
+}
+
+.marg1 {
+    margin-left: 14%;
 }
