@@ -25,12 +25,11 @@ function ToDoModal({groupId}) {
           aria-labelledby="example-custom-modal-styling-title" >
           <Modal.Header closeButton >
             <Modal.Title id="todo-title" className="text-center">
-               <h2>To-Do's</h2>
+               <h1 className="todos-header">To-Do's</h1>
                <span><PieChartTodo /></span>
             </Modal.Title>
           </Modal.Header>
-            <Modal.Body>
-              <Accordion>
+          <Accordion>
                 <Accordion.Toggle as={Button} className="btn-success accordian-btn" variant="link" eventKey="1">
                     + New List
                 </Accordion.Toggle>
@@ -41,7 +40,7 @@ function ToDoModal({groupId}) {
 
                   </Accordion.Collapse>
                 </Accordion>   
-                <br></br>
+            <Modal.Body className="text-center">
               <TodoList />
           </Modal.Body>
         </Modal>

@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './groups.css'
 import { Button } from 'react-bootstrap';
 import Nav from './Nav'
+import './TaskForm.css'
 
 class TaskForm extends React.Component {
   constructor(props){
@@ -122,21 +123,16 @@ class TaskForm extends React.Component {
       <div className="card-groups col-md-10 panel">
       <br></br>
       <div className='tasks' id={`todo-id`}>
-        <div className="row" >
-          <div class="custom-control custom-checkbox">
+        <div className="row edit-task" >
+          <h2 className="edit-task">Edit Task</h2> 
             <div className="row" >
-              <div className="col">
-                <input name="complete" type="checkbox" class="custom-control-input" id="defaultUnchecked" checked={completed} onChange={this.handleCheckBoxChange}></input>
-                <label class="custom-control-label" for="defaultUnchecked"></label><span>{title}</span>
-              </div>
-            </div>
           </div>
         </div>
         <form>
           <div className='input-fields'>
 
             <div className="row" >
-                <label>Assigned to</label>
+                <label className="label">Assigned to</label>
                 <input type='text' placeholder='Type names to assign...'
                 onChange={this.update('assigned_to')} value={this.getAssigneeName(assigned_to.profile_name)}/>
             </div>
@@ -181,14 +177,16 @@ class TaskForm extends React.Component {
                 </li>*/}
               </ul>
               </div>
-              <div className="row" >
-                <label>Notes</label>
+              <br></br>
+              <div className="row notes">
+                <label className="notes-label">Notes</label>
                 <input 
                   type='text' 
                   placeholder='Add extra details...'
                   value=""/>
               </div>
           </div>
+          <br></br>
           <div className='submit-buttons'>
             <input type='submit' value='Save changes'
               className='btn btn-submit' onClick={this.handleSubmit}/>

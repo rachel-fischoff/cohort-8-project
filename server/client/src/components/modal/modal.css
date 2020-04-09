@@ -73,3 +73,7 @@ input[type="radio"] {
 span {
   float: left;
 }
+
+.todos-header{
+  margin-top: 2%;
+}

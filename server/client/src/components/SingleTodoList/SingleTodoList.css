@@ -8,7 +8,7 @@
 }
 
 .todo-title{
- margin-top:20px;
+ margin-top:26px;
 }
 
 .todo-tasks{
@@ -17,5 +17,5 @@
 
 .right{
     float:right;
-    margin-right:400px;
+    margin-right:300px;
 }

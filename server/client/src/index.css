@@ -4,9 +4,6 @@
 
 }
 
-.custom-control-input {
-    margin-left: 50px;
-}
 
 .card {
     display: inline-block;
@@ -153,3 +150,9 @@
 .marg1 {
     margin-left: 14%;
 }
+
+.custom-checkbox {
+    height: 100px;
+    width: 100px;
+}
+

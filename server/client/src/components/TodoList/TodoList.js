@@ -73,6 +73,7 @@ renderTodos() {
     return(
       this.props.group.todos.map(todo => (
         <div>
+          <Button className="btnlink text-center" href={`/groups/${this.props.group._id}/todo/${todo._id}`} value={todo._id}>{todo.name}</Button>
           <ReactMinimalPieChart
               animate={false}
               cx={50}
@@ -105,38 +106,12 @@ renderTodos() {
              20
             ]}
           />
-      
-          <h5>Tasks Completed: {todo.num_completed}/{todo.tasks.length}</h5>
-          <Button className="btnlink" href={`/groups/${this.props.group._id}/todo/${todo._id}`} value={todo._id}>{todo.name}</Button>
-          <Modal
-              isOpen={this.state.nestedModal}
-              toggle={this.toggleNested}
-              onClosed={this.state.closeAll ? this.toggle : undefined}
-            >
-              <ModalBody>
-                <SingleTodoList />
-                <Accordion>
-                <Accordion.Toggle as={Button} className="btn-success accordian-btn" variant="link" eventKey="1">
-                    + New Task
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="1">
-                  <Card.Body>
-                    <NewTask todoId={this.state.todoId}/>
-                  </Card.Body>
-                  </Accordion.Collapse>
-                </Accordion> 
-              </ModalBody>
-              <ModalFooter>
-                <Button color="success" onClick={this.toggleNested}>
-                  Done
-                </Button>{' '}
-              </ModalFooter>
-            </Modal>
+        <p>Tasks Completed: {todo.num_completed}/{todo.tasks.length}</p>
         
           {
          todo.tasks.map(task => (
           <div className="todo-tasks">
-          <div className="row">
+          <div className="row todos-marg">
 
 
           <input class="form-check-input" type="checkbox" checked={task.completed} id="defaultCheck1" onClick={(e) => {this.clickCheckBox(todo, task, e.target.checked)}}></input>
