@@ -406,9 +406,16 @@ app.get("/generate-real-fake-todos", async (req,res) => {
       Task.aggregate(
         [ { $sample: { size: num_tasks } } ]
       ).exec((error, tasks) => {
+        let num_completed = 0
         for (var j = 0; j < num_tasks; j++) {
           todo.tasks.push(tasks[j])
+          if (tasks[j].completed == true) {
+            num_completed += 1
+          } 
         }
+
+        todo.num_tasks = num_tasks
+        todo.num_completed = num_completed
 
         todo.save()
       })
