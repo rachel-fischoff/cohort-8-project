@@ -23,7 +23,9 @@ const SingleReactCalendar = () => {
                 value={date}
                 
             />
-        <p>selected date : </p><a>{date.toString().split('202')[0]}</a>
+            <br></br>
+            <br></br>
+        <p>Selected date : </p><a>{date.toString().split('202')[0]}</a>
         </div>
         
       </div>

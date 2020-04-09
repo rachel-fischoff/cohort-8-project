@@ -106,7 +106,7 @@ renderSingleTodoList() {
             lineWidth={100}
             totalValue = {`${todo.tasks.length}`}
             paddingAngle={0}
-            radius={40}
+            radius={25}
             rounded={false}
             startAngle={100}
             style={{
@@ -135,10 +135,16 @@ renderSingleTodoList() {
            </div>
 
            <br></br>
+          
+          
           </div>
                     
             ))  
           }
+
+<Button color="success" className='right' href={`/groups/${this.props.match.params.groupId}`}>
+                  Done
+      </Button>{' '}
           <br></br>
           
           <Modal
@@ -178,9 +184,7 @@ renderSingleTodoList() {
       <br></br>
       {this.renderSingleTodoList()}
 
-      <Button color="success" className='right' href={`/groups/${this.props.match.params.groupId}`}>
-                  Done
-      </Button>{' '}
+      <br></br>
       </div>
       </div>
       </>

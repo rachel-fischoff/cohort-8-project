@@ -64,7 +64,7 @@ class PieChartTodo extends Component {
              25
             ]}
           />
-
+          
           <h5>{this.state.num_completed}/{this.state.num_tasks}</h5>
           </div>
         )
