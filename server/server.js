@@ -133,7 +133,7 @@ groups = [
     todos: [
       {
         todoName: "Trip to Lynchburg, VA",
-        todoDescription: "Cordinate research and recording trip to Lynchburg, VA.",
+        todoDescription: "Coordinate research and recording trip to Lynchburg, VA.",
         tasks: [
           {
             title: "Contact Lynchburg mayor’s office",
@@ -184,7 +184,7 @@ groups = [
     ]
   },
   {
-    groupName: "How Helsinki handles homelessness",
+    groupName: "The Helsinki Issue",
     groupType: "project",
     groupDescription: "Helenski has developed an innovative and effective solution to homeless. We’ll explore how the program works and what makes it effective.",
     todos: [
