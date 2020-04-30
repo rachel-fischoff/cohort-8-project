@@ -12,7 +12,7 @@
     "axios": "^0.18.0",
     "bootstrap": "^4.4.1",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "mdbreact": "^4.25.4",
     "moment": "^2.24.0",
     "normalizr": "^3.3.0",
